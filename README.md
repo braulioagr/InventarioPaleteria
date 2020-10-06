@@ -14,8 +14,8 @@ Se deberá llevar un correcto registro de la base de datos y así poder extraer 
 - Las fechas en las que se abastecieron los productos.
 
 #### Diagrama y Script
-[Diagrama Entidad Relacion](https://github.com/braulioagr3/InventarioPaleteria/blob/master/Paleteria.pdf)
-[Script Query de SQLServer](https://github.com/braulioagr3/InventarioPaleteria/blob/master/PaleteriaQuery.sql)
+- [Diagrama Entidad Relacion](https://github.com/braulioagr3/InventarioPaleteria/blob/master/Paleteria.pdf)
+- [Script Query de SQLServer](https://github.com/braulioagr3/InventarioPaleteria/blob/master/PaleteriaQuery.sql)
 
 ##### Asesora
 - Claudia Alicia Méndez Hernández
