@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace PaleteriaInventario
 {
     class Nexo
@@ -27,7 +26,7 @@ namespace PaleteriaInventario
         public void conexion()
         {
             //Creamos el enlace con el objeto mediante la cadena de conexion
-            sqlConnection = new SqlConnection("");
+            sqlConnection = new SqlConnection("Data Source=DESKTOP-CM20RJA;Initial Catalog=Paleteria;Integrated Security=True");
             //Abrimos el nexo entre el programa y la base datos
             sqlConnection.Open();
         }

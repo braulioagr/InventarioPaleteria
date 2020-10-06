@@ -15,6 +15,7 @@ namespace PaleteriaInventario
     {
         #region Variables de Instancia
         private SqlCommand comando;
+
         #endregion
 
         #region Constructores
@@ -26,6 +27,13 @@ namespace PaleteriaInventario
         private void AltaCliente_Load(object sender, EventArgs e)
         {
             comando = new SqlCommand();
+            comando.CommandText = "insert into empleado.Cliente (nombreCliente, telefono,tipoCliente,descuento) " +
+           "values (@nombre, @telefono, @tipo, @descuento)";
+
+            comando.Parameters.Add(new SqlParameter("@nombre", SqlDbType.VarChar, 50));
+            comando.Parameters.Add(new SqlParameter("@telefono", SqlDbType.VarChar, 13));
+            comando.Parameters.Add(new SqlParameter("@tipo", SqlDbType.VarChar, 7));
+            comando.Parameters.Add(new SqlParameter("@descuento", SqlDbType.Real));
         }
 
         #endregion
@@ -34,7 +42,10 @@ namespace PaleteriaInventario
 
         public SqlCommand Comando
         {
-            get { return this.comando; }
+            get
+            {
+                return this.comando;
+            }
         }
         #endregion
 
@@ -43,6 +54,10 @@ namespace PaleteriaInventario
             if (!this.vacio())
             {
                 this.DialogResult = DialogResult.OK;
+                this.comando.Parameters[0].Value = this.textBoxNombre.Text;
+                this.comando.Parameters[1].Value = this.textBoxTelefono.Text;
+                this.comando.Parameters[2].Value = this.comboBoxTipo.Text;
+                this.comando.Parameters[3].Value = this.numericDescuento.Value;
                 this.Close();
             }
             else

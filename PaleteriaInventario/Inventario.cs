@@ -14,6 +14,7 @@ namespace PaleteriaInventario
     {
         #region Variables de Instancia
         private Nexo nexo;
+        private int idCliente;
         #endregion
 
         #region Constructores
@@ -24,7 +25,11 @@ namespace PaleteriaInventario
         }
         private void Inventario_Load(object sender, EventArgs e)
         {
+            //Creamos el nexo
+            this.idCliente = -1;
             this.nexo = new Nexo();
+            //Actualizamos el datagrid de Cliente
+            this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
         }
 
         #endregion
@@ -56,9 +61,18 @@ namespace PaleteriaInventario
                     }
                 break;
                 case "Actualizar":
-                    break;
+                    /*ModificaCliente modifica;
+                    modifica = new ModificaCliente();
+                    //Construimos el objeto y lo mandamos llamar como dialogo
+                    if (modifica.ShowDialog().Equals(DialogResult.OK))
+                    {
+                        //Si el usuario dio Ok damos de alta el usuario
+                        this.nexo.ejecutarSQL(modifica.Comando);
+                        this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
+                    }
+                    break;*/
                 case "Eliminar":
-                    break;
+                break;
             }
         }
 
@@ -123,7 +137,7 @@ namespace PaleteriaInventario
             if (dataGrid != null)
             {
                 //Mandamos actualizar el data grid con una consulta que permita realizar busqueda por nombre
-                this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado."+ tabla + "where nombre like '" + nombre + "%';" , tabla);
+                this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado."+ tabla + " where nombreCliente like '" + nombre + "%';" , tabla);
             }
         }
 
@@ -133,5 +147,9 @@ namespace PaleteriaInventario
 
         #endregion
 
+        private void dataGridViewCliente_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.idCliente = int.Parse(dataGridViewCliente.CurrentRow.Cells[0].Value.ToString());
+        }
     }
 }

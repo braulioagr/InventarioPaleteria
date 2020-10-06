@@ -36,11 +36,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxTipo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericDescuento = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDescuento)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAceptar
             // 
-            this.buttonAceptar.Location = new System.Drawing.Point(147, 141);
+            this.buttonAceptar.Location = new System.Drawing.Point(139, 188);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
             this.buttonAceptar.TabIndex = 0;
@@ -51,7 +54,7 @@
             // buttonCancelar
             // 
             this.buttonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancelar.Location = new System.Drawing.Point(12, 141);
+            this.buttonCancelar.Location = new System.Drawing.Point(12, 188);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 1;
@@ -62,14 +65,14 @@
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(12, 27);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(210, 20);
+            this.textBoxNombre.Size = new System.Drawing.Size(202, 20);
             this.textBoxNombre.TabIndex = 2;
             // 
             // textBoxTelefono
             // 
-            this.textBoxTelefono.Location = new System.Drawing.Point(12, 66);
+            this.textBoxTelefono.Location = new System.Drawing.Point(12, 113);
             this.textBoxTelefono.Name = "textBoxTelefono";
-            this.textBoxTelefono.Size = new System.Drawing.Size(210, 20);
+            this.textBoxTelefono.Size = new System.Drawing.Size(202, 20);
             this.textBoxTelefono.TabIndex = 3;
             // 
             // label1
@@ -84,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 50);
+            this.label2.Location = new System.Drawing.Point(9, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 6;
@@ -93,7 +96,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 89);
+            this.label3.Location = new System.Drawing.Point(9, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 7;
@@ -105,10 +108,27 @@
             this.comboBoxTipo.Items.AddRange(new object[] {
             "Mayoreo",
             "Menudeo"});
-            this.comboBoxTipo.Location = new System.Drawing.Point(12, 105);
+            this.comboBoxTipo.Location = new System.Drawing.Point(12, 73);
             this.comboBoxTipo.Name = "comboBoxTipo";
-            this.comboBoxTipo.Size = new System.Drawing.Size(210, 21);
+            this.comboBoxTipo.Size = new System.Drawing.Size(202, 21);
             this.comboBoxTipo.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 136);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Descuento";
+            // 
+            // numericDescuento
+            // 
+            this.numericDescuento.Location = new System.Drawing.Point(12, 152);
+            this.numericDescuento.Name = "numericDescuento";
+            this.numericDescuento.Size = new System.Drawing.Size(75, 20);
+            this.numericDescuento.TabIndex = 10;
+            this.numericDescuento.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // AltaCliente
             // 
@@ -116,8 +136,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancelar;
-            this.ClientSize = new System.Drawing.Size(234, 176);
+            this.ClientSize = new System.Drawing.Size(226, 223);
             this.ControlBox = false;
+            this.Controls.Add(this.numericDescuento);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxTipo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -132,6 +154,7 @@
             this.Name = "AltaCliente";
             this.Text = "AltaCliente";
             this.Load += new System.EventHandler(this.AltaCliente_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numericDescuento)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,5 +170,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxTipo;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericDescuento;
     }
 }
