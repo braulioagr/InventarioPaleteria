@@ -13,7 +13,10 @@ Se deberá llevar un correcto registro de la base de datos y así poder extraer 
 - Las fechas en las que se realizaron ventas.
 - Las fechas en las que se abastecieron los productos.
 
-## Autores
+### Asesora
+- Claudia Alicia Méndez Hernández
+
+### Desarrolladores
 - Braulio Alejandro García Rivera
 - José Hilario Ojeda Guevara
 - Ubaldo Efraín Jaramillo Ortiz
