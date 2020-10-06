@@ -51,7 +51,8 @@ namespace PaleteriaInventario
                     if (alta.ShowDialog().Equals(DialogResult.OK))
                     {
                         //Si el usuario dio Ok damos de alta el usuario
-                        //Aqui mandamos dar de alta el usuario
+                        this.nexo.ejecutarSQL(alta.Comando);
+                        this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
                     }
                 break;
                 case "Actualizar":
@@ -103,13 +104,26 @@ namespace PaleteriaInventario
          */
         private void busqueda_keyUp(object sender, KeyEventArgs e)
         {
-            //Obtenemos el accesible name del textbox para saber cual busqueda realizar
-            switch(((TextBox)sender).AccessibleName)
+            string nombre;
+            string tabla;
+            DataGridView dataGrid;
+            nombre = "";
+            dataGrid = null;
+            //Obtenemos el accesible name del textbox para saber en cual tabla vamos a realizar la busqueda
+            tabla = ((TextBox)sender).AccessibleName;
+            switch (tabla)
             {
                 case "Cliente":
-                    //Mandamos actualizar el data grid con una consulta que permita realizar busqueda por nombre
-                    this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente where nombre like '" + this.textBoxNombreCliente.Text + "%';");
+                    //Asignamos el valor de la busqeda del textbox Cliente al nombre y el datagrid al datagrid del cliente
+                    //Ya que en esta tabla vamos a trabajar
+                    dataGrid = this.dataGridViewCliente;
+                    nombre = this.textBoxNombreCliente.Text;
                 break;
+            }
+            if (dataGrid != null)
+            {
+                //Mandamos actualizar el data grid con una consulta que permita realizar busqueda por nombre
+                this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado."+ tabla + "where nombre like '" + nombre + "%';" , tabla);
             }
         }
 
