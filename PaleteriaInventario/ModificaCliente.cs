@@ -27,9 +27,9 @@ namespace PaleteriaInventario
         private void ModificaCliente_Load(object sender, EventArgs e)
         {
             this.id = int.Parse(valores[0]);
-            this.textBoxNombre.Text = valores[1];
-            this.comboBoxTipo.Text = valores[3];
-            this.textBoxTelefono.Text = valores[2];
+            this.textBoxNombre.Text = valores[1].Trim();
+            this.comboBoxTipo.Text = valores[3].Trim();
+            this.textBoxTelefono.Text = valores[2].Trim();
             this.numericDescuento.Value = decimal.Parse(valores[4]);
             comando = new SqlCommand();
             comando.CommandText = "update empleado.Cliente set nombreCliente = @nombre, telefono = @telefono," +

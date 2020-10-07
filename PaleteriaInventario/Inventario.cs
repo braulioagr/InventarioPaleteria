@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -86,7 +87,25 @@ namespace PaleteriaInventario
                     }
                     break;
                 case "Eliminar":
-                break;
+                    if (this.idCliente != -1)
+                    {
+                        mensaje = dataGridViewCliente.CurrentRow.Cells[0].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[1].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[2].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[3].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[4].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar? (No se podran recuperar los datos)",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            SqlCommand comando;
+                            comando = new SqlCommand("delete from empleado.Cliente where idCliente = @id");
+                            comando.Parameters.Add(new SqlParameter("@id", SqlDbType.BigInt));
+                            comando.Parameters[0].Value = this.idCliente;
+                            this.nexo.ejecutarSQL(comando);
+                            this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
+                        }
+                    }
+                    break;
             }
         }
 
