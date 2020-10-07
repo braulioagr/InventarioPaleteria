@@ -129,6 +129,7 @@
             this.buttonAceptar.TabIndex = 11;
             this.buttonAceptar.Text = "Aceptar";
             this.buttonAceptar.UseVisualStyleBackColor = true;
+            this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
             // ModificaCliente
             // 
@@ -151,6 +152,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ModificaCliente";
             this.Text = "ModificaCliente";
+            this.Load += new System.EventHandler(this.ModificaCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericDescuento)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -46,7 +46,8 @@ namespace PaleteriaInventario
          */
         private void toolStripClientes_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            //Obtenemos el AccesibleName del item pulsado para saber que acciones toar
+            //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
+            string mensaje;
             switch(e.ClickedItem.AccessibleName)
             {
                 case "Agregar":
@@ -61,16 +62,29 @@ namespace PaleteriaInventario
                     }
                 break;
                 case "Actualizar":
-                    /*ModificaCliente modifica;
-                    modifica = new ModificaCliente();
-                    //Construimos el objeto y lo mandamos llamar como dialogo
-                    if (modifica.ShowDialog().Equals(DialogResult.OK))
+                    if (this.idCliente != -1)
                     {
-                        //Si el usuario dio Ok damos de alta el usuario
-                        this.nexo.ejecutarSQL(modifica.Comando);
-                        this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
+                        mensaje = dataGridViewCliente.CurrentRow.Cells[0].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[1].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[2].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[3].Value.ToString() + " , " +
+                            dataGridViewCliente.CurrentRow.Cells[4].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea modificar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo,MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            mensaje = mensaje.Replace(" ", "");
+                            ModificaCliente modifica;
+                            modifica = new ModificaCliente(mensaje.Split(','));
+                            //Construimos el objeto y lo mandamos llamar como dialogo
+                            if (modifica.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                //Si el usuario dio Ok damos de alta el usuario
+                                this.nexo.ejecutarSQL(modifica.Comando);
+                                this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
+                            }
+                        }
                     }
-                    break;*/
+                    break;
                 case "Eliminar":
                 break;
             }

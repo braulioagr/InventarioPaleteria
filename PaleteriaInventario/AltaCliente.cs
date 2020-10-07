@@ -27,8 +27,8 @@ namespace PaleteriaInventario
         private void AltaCliente_Load(object sender, EventArgs e)
         {
             comando = new SqlCommand();
-            comando.CommandText = "insert into empleado.Cliente (nombreCliente, telefono,tipoCliente,descuento) " +
-           "values (@nombre, @telefono, @tipo, @descuento)";
+            comando.CommandText = "insert into empleado.Cliente(nombreCliente, telefono,tipoCliente,descuento) " +
+           "values(@nombre, @telefono, @tipo, @descuento)";
 
             comando.Parameters.Add(new SqlParameter("@nombre", SqlDbType.VarChar, 50));
             comando.Parameters.Add(new SqlParameter("@telefono", SqlDbType.VarChar, 13));

@@ -9,3 +9,4 @@ C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventa
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.exe
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.pdb
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.AltaCliente.resources
+C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.ModificaCliente.resources

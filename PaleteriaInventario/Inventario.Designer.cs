@@ -103,14 +103,14 @@
             // 
             // toolStripButton2
             // 
-            this.toolStripButton2.AccessibleName = "actualizar";
+            this.toolStripButton2.AccessibleName = "Actualizar";
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Text = "Actualizar datos de cliente";
             // 
             // toolStripSeparator2
             // 
@@ -155,6 +155,7 @@
             this.dataGridViewCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCliente.Location = new System.Drawing.Point(6, 88);
             this.dataGridViewCliente.Name = "dataGridViewCliente";
+            this.dataGridViewCliente.ReadOnly = true;
             this.dataGridViewCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCliente.Size = new System.Drawing.Size(756, 306);
             this.dataGridViewCliente.TabIndex = 0;
