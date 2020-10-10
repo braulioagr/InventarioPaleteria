@@ -118,3 +118,65 @@ exec sp_bindrule 'rlMayorCero','empleado.DetalleVenta.unidades';
 create rule rlPosiritvos AS @range>= 0
 exec sp_bindrule 'rlMayorCero','empleado.Stock.existencias';
 exec sp_bindrule 'rlMayorCero','empleado.Venta.montoTotal';
+
+CREATE TRIGGER empleado.Asignasubtotal
+ON empleado.DetalleVenta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @idStock AS BIGINT
+	DECLARE @Subtotal AS REAL
+	DECLARE @Unidades AS INT
+	DECLARE @Precio AS REAL
+
+	SELECT @Unidades = unidades FROM inserted
+	SELECT @idStock = idStock FROM inserted
+	
+	SELECT @Precio = (SELECT Producto.precio FROM Producto INNER JOIN Stock ON Stock.idProducto = Producto.idProducto WHERE Stock.idStock = @idStock)
+	
+	SELECT @Subtotal = @Precio * @Unidades
+	
+	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
+END;
+
+CREATE TRIGGER empleado.descuentoventa
+ON empleado.Venta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @idVenta AS BIGINT
+	DECLARE @idCliente AS BIGINT
+	DECLARE @totalcDescuento AS REAL
+	DECLARE @totalDeVenta AS REAL
+
+	SELECT @idVenta = idVenta FROM inserted
+	SELECT @idCliente = idCliente FROM inserted
+	SELECT @totalDeVenta = montoTotal FROM inserted
+
+	IF ((SELECT descuento FROM empleado.Cliente WHERE idCliente = @idCliente) != 0 )
+	BEGIN
+		
+		SELECT @totalcDescuento =  @totalDeVenta - (@totalDeVenta * ((SELECT descuento FROM empleado.Cliente WHERE idCliente = @idCliente)/100))
+		UPDATE empleado.Venta SET montoTotal = @totalcDescuento
+		WHERE idVenta = @idVenta
+	END
+END;
+
+
+
+CREATE TRIGGER empleado.reduceStock
+ON empleado.DetalleVenta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @idStock AS BIGINT
+	DECLARE @existenciasactualizadas AS INT
+	DECLARE @unidadesvendidas AS INT
+
+	SELECT @idStock = idStock FROM inserted
+	SELECT @unidadesvendidas FROM inserted
+
+	SELECT @existenciasactualizadas = (SELECT existencias FROM empleado.Stock WHERE idStock = @idStock) - @unidadesvendidas
+
+	UPDATE empleado.Stock SET existencias = @existenciasactualizadas WHERE idStock = @idStock
+END;

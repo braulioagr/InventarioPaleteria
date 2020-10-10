@@ -63,8 +63,10 @@ namespace PaleteriaInventario
                     }
                 break;
                 case "Actualizar":
+                    //Verificamos
                     if (this.idCliente != -1)
                     {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
                         mensaje = dataGridViewCliente.CurrentRow.Cells[0].Value.ToString() + " , " +
                             dataGridViewCliente.CurrentRow.Cells[1].Value.ToString() + " , " +
                             dataGridViewCliente.CurrentRow.Cells[2].Value.ToString() + " , " +
@@ -75,8 +77,8 @@ namespace PaleteriaInventario
                         {
                             mensaje = mensaje.Replace(" ", "");
                             ModificaCliente modifica;
+                            //Construimos el objeto y lo mandamos llamar como dialogo y dividimos la cadena con los datos para rellenar el valor del datagrid
                             modifica = new ModificaCliente(mensaje.Split(','));
-                            //Construimos el objeto y lo mandamos llamar como dialogo
                             if (modifica.ShowDialog().Equals(DialogResult.OK))
                             {
                                 //Si el usuario dio Ok damos de alta el usuario
@@ -105,13 +107,14 @@ namespace PaleteriaInventario
                             this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
                         }
                     }
-                    break;
+                break;
             }
         }
 
         #endregion
 
         #region Tamaño
+
         /** 
          * Redimenciona los objetos dentro de la form segun unas constantes que relacionan el tamaño de los controles
          * con el tamaño de la form.
@@ -140,6 +143,7 @@ namespace PaleteriaInventario
             this.label1.Location = point;
             //Aqui poner todos los location de los label de busqueda todos guardan la misma relacion
         }
+        
         #endregion
 
         #region TextBox
@@ -174,15 +178,18 @@ namespace PaleteriaInventario
             }
         }
 
-
-
         #endregion
 
-        #endregion
+        #region DataGRid
 
         private void dataGridViewCliente_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.idCliente = int.Parse(dataGridViewCliente.CurrentRow.Cells[0].Value.ToString());
         }
+
+        #endregion
+
+        #endregion
+
     }
 }
