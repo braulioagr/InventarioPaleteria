@@ -236,18 +236,15 @@ namespace PaleteriaInventario
                     //Ya que en esta tabla vamos a trabajar
                     dataGrid = this.dataGridViewCliente;
                     nombre = this.textBoxNombreCliente.Text;
-                break;
+                    this.nexo.actualizaGrid(dataGrid, "select * from empleado." + tabla + " where nombreCliente like '" + nombre + "%';", tabla);
+                    break;
                 case "Categoria":
                     //Asignamos el valor de la busqeda del textbox Cliente al nombre y el datagrid al datagrid del cliente
                     //Ya que en esta tabla vamos a trabajar
-                    dataGrid = this.dataGridViewCliente;
-                    nombre = this.textBoxNombreCliente.Text;
-                break;
-            }
-            if (dataGrid != null)
-            {
-                //Mandamos actualizar el data grid con una consulta que permita realizar busqueda por nombre
-                this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado."+ tabla + " where nombreCliente like '" + nombre + "%';" , tabla);
+                    dataGrid = this.dataGridViewCategoria;
+                    nombre = this.textBoxCategoria.Text;
+                    this.nexo.actualizaGrid(dataGrid, "select * from empleado." + tabla + " where nombre like '" + nombre + "%';", tabla);
+                    break;
             }
         }
 
