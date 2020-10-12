@@ -157,7 +157,22 @@ namespace PaleteriaInventario
                     }
                     break;
                 case "Eliminar":
-                break;
+                    if (this.idCategoria != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewCategoria.CurrentRow.Cells[0].Value.ToString() + " , " +
+                            this.dataGridViewCategoria.CurrentRow.Cells[1].Value.ToString() + " , " +
+                            this.dataGridViewCategoria.CurrentRow.Cells[2].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar? (No se podran recuperar los datos)",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            SqlCommand comando;
+                            comando = new SqlCommand("delete from empleado.Categoria where idCategoria = " + this.idCategoria.ToString());
+                            this.nexo.ejecutarSQL(comando);
+                            this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
+                        }
+                    }
+                    break;
             }
         }
         #endregion
