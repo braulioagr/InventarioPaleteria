@@ -52,6 +52,12 @@
     <Compile Include="AltaCliente.Designer.cs">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Categoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categoria.Designer.cs">
+      <DependentUpon>Categoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,15 +71,18 @@
       <DependentUpon>ModificaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Nexo.cs" />
-    <Compile Include="PaleteriaDataSet.Designer.cs">
+    <Compile Include="PaleteriaDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PaleteriaDataSet.xsd</DependentUpon>
+      <DependentUpon>PaleteriaDataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categoria.resx">
+      <DependentUpon>Categoria.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario.resx">
       <DependentUpon>Inventario.cs</DependentUpon>
@@ -90,16 +99,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="PaleteriaDataSet.xsc">
-      <DependentUpon>PaleteriaDataSet.xsd</DependentUpon>
+    <None Include="PaleteriaDataSet1.xsc">
+      <DependentUpon>PaleteriaDataSet1.xsd</DependentUpon>
     </None>
-    <None Include="PaleteriaDataSet.xsd">
+    <None Include="PaleteriaDataSet1.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>PaleteriaDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>PaleteriaDataSet1.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="PaleteriaDataSet.xss">
-      <DependentUpon>PaleteriaDataSet.xsd</DependentUpon>
+    <None Include="PaleteriaDataSet1.xss">
+      <DependentUpon>PaleteriaDataSet1.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

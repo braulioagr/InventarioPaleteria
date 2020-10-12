@@ -14,8 +14,10 @@ namespace PaleteriaInventario
     public partial class Inventario : Form
     {
         #region Variables de Instancia
-        private Nexo nexo;
         private int idCliente;
+        private int idCategoria;
+        private Nexo nexo;
+
         #endregion
 
         #region Constructores
@@ -31,6 +33,8 @@ namespace PaleteriaInventario
             this.nexo = new Nexo();
             //Actualizamos el datagrid de Cliente
             this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
+            //Actualizamos el datagrid de Categoria
+            this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
         }
 
         #endregion
@@ -111,6 +115,30 @@ namespace PaleteriaInventario
             }
         }
 
+        private void toolStripCategorias_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+            //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
+            string mensaje;
+            Categoria categoria;
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Agregar":
+                    categoria = new Categoria();
+                    //Construimos el objeto y lo mandamos llamar como dialogo
+                    if (categoria.ShowDialog().Equals(DialogResult.OK))
+                    {
+                        //Si el usuario dio Ok damos de alta el usuario
+                        this.nexo.ejecutarSQL(categoria.Comando);
+                        this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
+                    }
+                break;
+                case "Actualizar":
+                break;
+                case "Eliminar":
+                break;
+            }
+        }
         #endregion
 
         #region Tamaño
@@ -131,16 +159,19 @@ namespace PaleteriaInventario
             //Creamos un nuevo Size restandole la diferencia de tamaño que tiene la form con todos los DataGridView y los asignamos
             size = new Size(this.Size.Width - 60, this.Size.Height - 183);
             this.dataGridViewCliente.Size = size;
+            this.dataGridViewCategoria.Size = size;
             //Aqui poner todos los size de los datagrid todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los DataGridView y los asignamos
             point = new Point(this.Size.Width- 218, this.textBoxNombreCliente.Location.Y);
             this.textBoxNombreCliente.Location = point;
+            this.textBoxCategoria.Location = point;
             //Aqui poner todos los location de los botones de busqueda todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los label de los textBox de busqueda y los asignamos
             point = new Point(this.textBoxNombreCliente.Location.X-3, this.textBoxNombreCliente.Location.Y-16);
             this.label1.Location = point;
+            this.label2.Location = point;
             //Aqui poner todos los location de los label de busqueda todos guardan la misma relacion
         }
         
@@ -170,6 +201,12 @@ namespace PaleteriaInventario
                     dataGrid = this.dataGridViewCliente;
                     nombre = this.textBoxNombreCliente.Text;
                 break;
+                case "Categoria":
+                    //Asignamos el valor de la busqeda del textbox Cliente al nombre y el datagrid al datagrid del cliente
+                    //Ya que en esta tabla vamos a trabajar
+                    dataGrid = this.dataGridViewCliente;
+                    nombre = this.textBoxNombreCliente.Text;
+                break;
             }
             if (dataGrid != null)
             {
@@ -180,16 +217,20 @@ namespace PaleteriaInventario
 
         #endregion
 
-        #region DataGRid
+        #region DataGrid
 
         private void dataGridViewCliente_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.idCliente = int.Parse(dataGridViewCliente.CurrentRow.Cells[0].Value.ToString());
         }
 
-        #endregion
+        private void dataGridViewCategoria_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.idCategoria = int.Parse(dataGridViewCategoria.CurrentRow.Cells[0].Value.ToString());
+        }
 
         #endregion
 
+        #endregion
     }
 }

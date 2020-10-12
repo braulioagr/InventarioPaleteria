@@ -1,7 +1,6 @@
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\bin\Debug\PaleteriaInventario.exe.config
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\bin\Debug\PaleteriaInventario.exe
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\bin\Debug\PaleteriaInventario.pdb
-C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.csprojAssemblyReference.cache
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.Inventario.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.Properties.Resources.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.csproj.GenerateResource.cache
@@ -10,3 +9,4 @@ C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventa
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.pdb
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.AltaCliente.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.ModificaCliente.resources
+C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.Categoria.resources

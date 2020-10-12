@@ -20,9 +20,9 @@ namespace PaleteriaInventario {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("PaleteriaDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("PaleteriaDataSet1")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class PaleteriaDataSet : global::System.Data.DataSet {
+    public partial class PaleteriaDataSet1 : global::System.Data.DataSet {
         
         private CategoriaDataTable tableCategoria;
         
@@ -64,7 +64,7 @@ namespace PaleteriaInventario {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public PaleteriaDataSet() {
+        public PaleteriaDataSet1() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -75,7 +75,7 @@ namespace PaleteriaInventario {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected PaleteriaDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected PaleteriaDataSet1(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -265,7 +265,7 @@ namespace PaleteriaInventario {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            PaleteriaDataSet cln = ((PaleteriaDataSet)(base.Clone()));
+            PaleteriaDataSet1 cln = ((PaleteriaDataSet1)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -418,9 +418,9 @@ namespace PaleteriaInventario {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "PaleteriaDataSet";
+            this.DataSetName = "PaleteriaDataSet1";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/PaleteriaDataSet.xsd";
+            this.Namespace = "http://tempuri.org/PaleteriaDataSet1.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableCategoria = new CategoriaDataTable();
@@ -544,7 +544,7 @@ namespace PaleteriaInventario {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            PaleteriaDataSet ds = new PaleteriaDataSet();
+            PaleteriaDataSet1 ds = new PaleteriaDataSet1();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -782,7 +782,7 @@ namespace PaleteriaInventario {
                 this.columnnombre.AllowDBNull = false;
                 this.columnnombre.MaxLength = 30;
                 this.columntamaño.AllowDBNull = false;
-                this.columntamaño.MaxLength = 7;
+                this.columntamaño.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -850,7 +850,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1174,7 +1174,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1473,7 +1473,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1783,7 +1783,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2067,7 +2067,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2378,7 +2378,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2691,7 +2691,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -3001,7 +3001,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -3311,7 +3311,7 @@ namespace PaleteriaInventario {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                PaleteriaDataSet ds = new PaleteriaDataSet();
+                PaleteriaDataSet1 ds = new PaleteriaDataSet1();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -4412,7 +4412,7 @@ namespace PaleteriaInventario {
         }
     }
 }
-namespace PaleteriaInventario.PaleteriaDataSetTableAdapters {
+namespace PaleteriaInventario.PaleteriaDataSet1TableAdapters {
     
     
     /// <summary>
@@ -4590,7 +4590,7 @@ SELECT idCategoria, nombre, tamaño FROM empleado.Categoria WHERE (idCategoria =
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.CategoriaDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.CategoriaDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4603,9 +4603,9 @@ SELECT idCategoria, nombre, tamaño FROM empleado.Categoria WHERE (idCategoria =
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.CategoriaDataTable GetData() {
+        public virtual PaleteriaDataSet1.CategoriaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.CategoriaDataTable dataTable = new PaleteriaDataSet.CategoriaDataTable();
+            PaleteriaDataSet1.CategoriaDataTable dataTable = new PaleteriaDataSet1.CategoriaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4613,14 +4613,14 @@ SELECT idCategoria, nombre, tamaño FROM empleado.Categoria WHERE (idCategoria =
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.CategoriaDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.CategoriaDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "Categoria");
         }
         
@@ -4948,7 +4948,7 @@ SELECT idCliente, nombreCliente, telefono, tipoCliente, descuento FROM empleado.
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.ClienteDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.ClienteDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4961,9 +4961,9 @@ SELECT idCliente, nombreCliente, telefono, tipoCliente, descuento FROM empleado.
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.ClienteDataTable GetData() {
+        public virtual PaleteriaDataSet1.ClienteDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.ClienteDataTable dataTable = new PaleteriaDataSet.ClienteDataTable();
+            PaleteriaDataSet1.ClienteDataTable dataTable = new PaleteriaDataSet1.ClienteDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4971,14 +4971,14 @@ SELECT idCliente, nombreCliente, telefono, tipoCliente, descuento FROM empleado.
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.ClienteDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.ClienteDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "Cliente");
         }
         
@@ -5310,7 +5310,7 @@ SELECT idCliente, nombreCliente, telefono, tipoCliente, descuento FROM empleado.
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.DetalleVentaDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.DetalleVentaDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -5323,9 +5323,9 @@ SELECT idCliente, nombreCliente, telefono, tipoCliente, descuento FROM empleado.
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.DetalleVentaDataTable GetData() {
+        public virtual PaleteriaDataSet1.DetalleVentaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.DetalleVentaDataTable dataTable = new PaleteriaDataSet.DetalleVentaDataTable();
+            PaleteriaDataSet1.DetalleVentaDataTable dataTable = new PaleteriaDataSet1.DetalleVentaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -5333,14 +5333,14 @@ SELECT idCliente, nombreCliente, telefono, tipoCliente, descuento FROM empleado.
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.DetalleVentaDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.DetalleVentaDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "DetalleVenta");
         }
         
@@ -5566,7 +5566,7 @@ SELECT idInventario, idSucursal, fechaRecepcion, totalRecepcion FROM empleado.In
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.InventarioDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.InventarioDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -5579,9 +5579,9 @@ SELECT idInventario, idSucursal, fechaRecepcion, totalRecepcion FROM empleado.In
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.InventarioDataTable GetData() {
+        public virtual PaleteriaDataSet1.InventarioDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.InventarioDataTable dataTable = new PaleteriaDataSet.InventarioDataTable();
+            PaleteriaDataSet1.InventarioDataTable dataTable = new PaleteriaDataSet1.InventarioDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -5589,14 +5589,14 @@ SELECT idInventario, idSucursal, fechaRecepcion, totalRecepcion FROM empleado.In
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.InventarioDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.InventarioDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "Inventario");
         }
         
@@ -5859,7 +5859,7 @@ SELECT idInventario, idSucursal, fechaRecepcion, totalRecepcion FROM empleado.In
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.InventarioProductoDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.InventarioProductoDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -5872,9 +5872,9 @@ SELECT idInventario, idSucursal, fechaRecepcion, totalRecepcion FROM empleado.In
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.InventarioProductoDataTable GetData() {
+        public virtual PaleteriaDataSet1.InventarioProductoDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.InventarioProductoDataTable dataTable = new PaleteriaDataSet.InventarioProductoDataTable();
+            PaleteriaDataSet1.InventarioProductoDataTable dataTable = new PaleteriaDataSet1.InventarioProductoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -5882,14 +5882,14 @@ SELECT idInventario, idSucursal, fechaRecepcion, totalRecepcion FROM empleado.In
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.InventarioProductoDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.InventarioProductoDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "InventarioProducto");
         }
         
@@ -6114,7 +6114,7 @@ SELECT idProducto, idCategoria, precio, sabor FROM empleado.Producto WHERE (idPr
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.ProductoDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.ProductoDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -6127,9 +6127,9 @@ SELECT idProducto, idCategoria, precio, sabor FROM empleado.Producto WHERE (idPr
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.ProductoDataTable GetData() {
+        public virtual PaleteriaDataSet1.ProductoDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.ProductoDataTable dataTable = new PaleteriaDataSet.ProductoDataTable();
+            PaleteriaDataSet1.ProductoDataTable dataTable = new PaleteriaDataSet1.ProductoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -6137,14 +6137,14 @@ SELECT idProducto, idCategoria, precio, sabor FROM empleado.Producto WHERE (idPr
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.ProductoDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.ProductoDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "Producto");
         }
         
@@ -6451,7 +6451,7 @@ SELECT idStock, idProducto, idSucursal, existencias FROM empleado.Stock WHERE (i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.StockDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.StockDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -6464,9 +6464,9 @@ SELECT idStock, idProducto, idSucursal, existencias FROM empleado.Stock WHERE (i
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.StockDataTable GetData() {
+        public virtual PaleteriaDataSet1.StockDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.StockDataTable dataTable = new PaleteriaDataSet.StockDataTable();
+            PaleteriaDataSet1.StockDataTable dataTable = new PaleteriaDataSet1.StockDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -6474,14 +6474,14 @@ SELECT idStock, idProducto, idSucursal, existencias FROM empleado.Stock WHERE (i
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.StockDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.StockDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "Stock");
         }
         
@@ -6768,7 +6768,7 @@ SELECT idSucursal, direccion, telefono, horario FROM empleado.Sucursal WHERE (id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.SucursalDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.SucursalDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -6781,9 +6781,9 @@ SELECT idSucursal, direccion, telefono, horario FROM empleado.Sucursal WHERE (id
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.SucursalDataTable GetData() {
+        public virtual PaleteriaDataSet1.SucursalDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.SucursalDataTable dataTable = new PaleteriaDataSet.SucursalDataTable();
+            PaleteriaDataSet1.SucursalDataTable dataTable = new PaleteriaDataSet1.SucursalDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -6791,14 +6791,14 @@ SELECT idSucursal, direccion, telefono, horario FROM empleado.Sucursal WHERE (id
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.SucursalDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.SucursalDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "Sucursal");
         }
         
@@ -7145,7 +7145,7 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(PaleteriaDataSet.VentaDataTable dataTable) {
+        public virtual int Fill(PaleteriaDataSet1.VentaDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -7158,9 +7158,9 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual PaleteriaDataSet.VentaDataTable GetData() {
+        public virtual PaleteriaDataSet1.VentaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            PaleteriaDataSet.VentaDataTable dataTable = new PaleteriaDataSet.VentaDataTable();
+            PaleteriaDataSet1.VentaDataTable dataTable = new PaleteriaDataSet1.VentaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -7168,14 +7168,14 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet.VentaDataTable dataTable) {
+        public virtual int Update(PaleteriaDataSet1.VentaDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(PaleteriaDataSet dataSet) {
+        public virtual int Update(PaleteriaDataSet1 dataSet) {
             return this.Adapter.Update(dataSet, "Venta");
         }
         
@@ -7556,7 +7556,7 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateUpdatedRows(PaleteriaDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(PaleteriaDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._categoriaTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Categoria.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -7647,7 +7647,7 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateInsertedRows(PaleteriaDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(PaleteriaDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._categoriaTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Categoria.Select(null, null, global::System.Data.DataViewRowState.Added);
@@ -7729,7 +7729,7 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private int UpdateDeletedRows(PaleteriaDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(PaleteriaDataSet1 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             if ((this._inventarioProductoTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.InventarioProducto.Select(null, null, global::System.Data.DataViewRowState.Deleted);
@@ -7835,7 +7835,7 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public virtual int UpdateAll(PaleteriaDataSet dataSet) {
+        public virtual int UpdateAll(PaleteriaDataSet1 dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

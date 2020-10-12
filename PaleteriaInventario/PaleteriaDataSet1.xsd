@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="PaleteriaDataSet" targetNamespace="http://tempuri.org/PaleteriaDataSet.xsd" xmlns:mstns="http://tempuri.org/PaleteriaDataSet.xsd" xmlns="http://tempuri.org/PaleteriaDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="PaleteriaDataSet1" targetNamespace="http://tempuri.org/PaleteriaDataSet1.xsd" xmlns:mstns="http://tempuri.org/PaleteriaDataSet1.xsd" xmlns="http://tempuri.org/PaleteriaDataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -471,7 +471,7 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="PaleteriaDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="PaleteriaDataSet" msprop:Generator_UserDSName="PaleteriaDataSet">
+  <xs:element name="PaleteriaDataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="PaleteriaDataSet1" msprop:Generator_UserDSName="PaleteriaDataSet1">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="Categoria" msprop:Generator_TableClassName="CategoriaDataTable" msprop:Generator_TableVarName="tableCategoria" msprop:Generator_TablePropName="Categoria" msprop:Generator_RowDeletingName="CategoriaRowDeleting" msprop:Generator_RowChangingName="CategoriaRowChanging" msprop:Generator_RowEvHandlerName="CategoriaRowChangeEventHandler" msprop:Generator_RowDeletedName="CategoriaRowDeleted" msprop:Generator_UserTableName="Categoria" msprop:Generator_RowChangedName="CategoriaRowChanged" msprop:Generator_RowEvArgName="CategoriaRowChangeEvent" msprop:Generator_RowClassName="CategoriaRow">
@@ -488,7 +488,7 @@ SELECT idVenta, idCliente, montoTotal, fechaVenta FROM empleado.Venta WHERE (idV
               <xs:element name="tamaño" msprop:Generator_ColumnVarNameInTable="columntamaño" msprop:Generator_ColumnPropNameInRow="tamaño" msprop:Generator_ColumnPropNameInTable="tamañoColumn" msprop:Generator_UserColumnName="tamaño">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="7" />
+                    <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
