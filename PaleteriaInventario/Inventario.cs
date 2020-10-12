@@ -134,7 +134,28 @@ namespace PaleteriaInventario
                     }
                 break;
                 case "Actualizar":
-                break;
+                    //Verificamos
+                    if (this.idCategoria != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewCategoria.CurrentRow.Cells[0].Value.ToString() + " , " +
+                            this.dataGridViewCategoria.CurrentRow.Cells[1].Value.ToString() + " , " +
+                            this.dataGridViewCategoria.CurrentRow.Cells[2].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea modificar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            mensaje = mensaje.Replace(" ", "");
+                            //Construimos el objeto y lo mandamos llamar como dialogo y dividimos la cadena con los datos para rellenar el valor del datagrid
+                            categoria = new Categoria(mensaje.Split(','));
+                            if (categoria.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                //Si el usuario dio Ok damos de alta el usuario
+                                this.nexo.ejecutarSQL(categoria.Comando);
+                                this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
+                            }
+                        }
+                    }
+                    break;
                 case "Eliminar":
                 break;
             }

@@ -50,7 +50,7 @@ namespace PaleteriaInventario
                 this.id = int.Parse(valores[0]);
                 this.textBoxNombre.Text = valores[1].Trim();
                 this.comboBoxTamaño.Text = valores[2].Trim();
-                comando = new SqlCommand("update empleado.Categoria set nombre = @nombre, tamaño = @tamaño where idCliente = @id;");
+                comando = new SqlCommand("update empleado.Categoria set nombre = @nombre, tamaño = @tamaño where idCategoria = @id;");
                 comando.Parameters.Add(new SqlParameter("@nombre", SqlDbType.VarChar, 50));
                 comando.Parameters.Add(new SqlParameter("@tamaño", SqlDbType.VarChar, 13));
                 comando.Parameters.Add(new SqlParameter("@id", SqlDbType.BigInt));
