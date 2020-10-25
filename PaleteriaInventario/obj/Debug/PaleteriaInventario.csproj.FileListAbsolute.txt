@@ -11,3 +11,4 @@ C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventa
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.ModificaCliente.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.Categoria.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.csprojAssemblyReference.cache
+C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.ConsultaDetalleVenta.resources

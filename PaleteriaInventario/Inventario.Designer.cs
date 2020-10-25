@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inventario));
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageClientes = new System.Windows.Forms.TabPage();
             this.toolStripClientes = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -50,24 +50,38 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxCategoria = new System.Windows.Forms.TextBox();
             this.dataGridViewCategoria = new System.Windows.Forms.DataGridView();
-            this.tabControl1.SuspendLayout();
+            this.tabPageStock = new System.Windows.Forms.TabPage();
+            this.textBoxProductosStock = new System.Windows.Forms.TextBox();
+            this.textBoxSucursalesStock = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dataGridViewStockProductos = new System.Windows.Forms.DataGridView();
+            this.dataGridViewStock = new System.Windows.Forms.DataGridView();
+            this.dataGridViewStockSucursales = new System.Windows.Forms.DataGridView();
+            this.tabControl.SuspendLayout();
             this.tabPageClientes.SuspendLayout();
             this.toolStripClientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCliente)).BeginInit();
             this.tabPageCategoria.SuspendLayout();
             this.toolStripCategorias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoria)).BeginInit();
+            this.tabPageStock.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockProductos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockSucursales)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPageClientes);
-            this.tabControl1.Controls.Add(this.tabPageCategoria);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(776, 426);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl.Controls.Add(this.tabPageClientes);
+            this.tabControl.Controls.Add(this.tabPageCategoria);
+            this.tabControl.Controls.Add(this.tabPageStock);
+            this.tabControl.Location = new System.Drawing.Point(12, 12);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(776, 426);
+            this.tabControl.TabIndex = 0;
             // 
             // tabPageClientes
             // 
@@ -281,17 +295,126 @@
             this.dataGridViewCategoria.TabIndex = 4;
             this.dataGridViewCategoria.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCategoria_CellClick);
             // 
+            // tabPageStock
+            // 
+            this.tabPageStock.Controls.Add(this.textBoxProductosStock);
+            this.tabPageStock.Controls.Add(this.textBoxSucursalesStock);
+            this.tabPageStock.Controls.Add(this.label5);
+            this.tabPageStock.Controls.Add(this.label4);
+            this.tabPageStock.Controls.Add(this.label3);
+            this.tabPageStock.Controls.Add(this.dataGridViewStockProductos);
+            this.tabPageStock.Controls.Add(this.dataGridViewStock);
+            this.tabPageStock.Controls.Add(this.dataGridViewStockSucursales);
+            this.tabPageStock.Location = new System.Drawing.Point(4, 22);
+            this.tabPageStock.Name = "tabPageStock";
+            this.tabPageStock.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStock.Size = new System.Drawing.Size(768, 400);
+            this.tabPageStock.TabIndex = 2;
+            this.tabPageStock.Text = "Stock";
+            this.tabPageStock.UseVisualStyleBackColor = true;
+            // 
+            // textBoxProductosStock
+            // 
+            this.textBoxProductosStock.Location = new System.Drawing.Point(614, 58);
+            this.textBoxProductosStock.Name = "textBoxProductosStock";
+            this.textBoxProductosStock.Size = new System.Drawing.Size(148, 20);
+            this.textBoxProductosStock.TabIndex = 7;
+            this.textBoxProductosStock.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxProductosStock_KeyUp);
+            // 
+            // textBoxSucursalesStock
+            // 
+            this.textBoxSucursalesStock.Location = new System.Drawing.Point(71, 58);
+            this.textBoxSucursalesStock.Name = "textBoxSucursalesStock";
+            this.textBoxSucursalesStock.Size = new System.Drawing.Size(144, 20);
+            this.textBoxSucursalesStock.TabIndex = 6;
+            this.textBoxSucursalesStock.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxSucursalesStock_KeyUp);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(270, 133);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Stock";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(553, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Productos";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Sucursales";
+            // 
+            // dataGridViewStockProductos
+            // 
+            this.dataGridViewStockProductos.AllowUserToAddRows = false;
+            this.dataGridViewStockProductos.AllowUserToDeleteRows = false;
+            this.dataGridViewStockProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewStockProductos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewStockProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStockProductos.Location = new System.Drawing.Point(556, 84);
+            this.dataGridViewStockProductos.Name = "dataGridViewStockProductos";
+            this.dataGridViewStockProductos.ReadOnly = true;
+            this.dataGridViewStockProductos.RowHeadersVisible = false;
+            this.dataGridViewStockProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewStockProductos.Size = new System.Drawing.Size(206, 310);
+            this.dataGridViewStockProductos.TabIndex = 2;
+            this.dataGridViewStockProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStockProductos_CellClick);
+            // 
+            // dataGridViewStock
+            // 
+            this.dataGridViewStock.AllowUserToAddRows = false;
+            this.dataGridViewStock.AllowUserToDeleteRows = false;
+            this.dataGridViewStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewStock.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStock.Location = new System.Drawing.Point(273, 149);
+            this.dataGridViewStock.Name = "dataGridViewStock";
+            this.dataGridViewStock.ReadOnly = true;
+            this.dataGridViewStock.RowHeadersVisible = false;
+            this.dataGridViewStock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewStock.Size = new System.Drawing.Size(244, 245);
+            this.dataGridViewStock.TabIndex = 1;
+            // 
+            // dataGridViewStockSucursales
+            // 
+            this.dataGridViewStockSucursales.AllowUserToAddRows = false;
+            this.dataGridViewStockSucursales.AllowUserToDeleteRows = false;
+            this.dataGridViewStockSucursales.AllowUserToOrderColumns = true;
+            this.dataGridViewStockSucursales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewStockSucursales.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewStockSucursales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStockSucursales.Location = new System.Drawing.Point(9, 84);
+            this.dataGridViewStockSucursales.Name = "dataGridViewStockSucursales";
+            this.dataGridViewStockSucursales.ReadOnly = true;
+            this.dataGridViewStockSucursales.RowHeadersVisible = false;
+            this.dataGridViewStockSucursales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewStockSucursales.Size = new System.Drawing.Size(206, 310);
+            this.dataGridViewStockSucursales.TabIndex = 0;
+            this.dataGridViewStockSucursales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStockSucursales_CellClick);
+            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl);
             this.Name = "Inventario";
             this.Text = "Paleteria";
             this.Load += new System.EventHandler(this.Inventario_Load);
             this.Resize += new System.EventHandler(this.Inventario_Resize);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
             this.tabPageClientes.ResumeLayout(false);
             this.tabPageClientes.PerformLayout();
             this.toolStripClientes.ResumeLayout(false);
@@ -302,13 +425,18 @@
             this.toolStripCategorias.ResumeLayout(false);
             this.toolStripCategorias.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoria)).EndInit();
+            this.tabPageStock.ResumeLayout(false);
+            this.tabPageStock.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockProductos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockSucursales)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageClientes;
         private System.Windows.Forms.DataGridView dataGridViewCliente;
         private System.Windows.Forms.Label label1;
@@ -329,6 +457,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxCategoria;
         private System.Windows.Forms.DataGridView dataGridViewCategoria;
+        private System.Windows.Forms.TabPage tabPageStock;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridView dataGridViewStockProductos;
+        private System.Windows.Forms.DataGridView dataGridViewStock;
+        private System.Windows.Forms.DataGridView dataGridViewStockSucursales;
+        private System.Windows.Forms.TextBox textBoxProductosStock;
+        private System.Windows.Forms.TextBox textBoxSucursalesStock;
     }
 }
 

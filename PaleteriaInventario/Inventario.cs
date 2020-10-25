@@ -14,9 +14,17 @@ namespace PaleteriaInventario
     public partial class Inventario : Form
     {
         #region Variables de Instancia
+
         private int idCliente;
         private int idCategoria;
+        private int idVenta;
+        private string mensaje;
         private Nexo nexo;
+        private ConsultaDetalleVenta consulta;
+        private AltaCliente alta;
+        private ModificaCliente modifica;
+        private SqlCommand comando;
+        private Categoria categoria;
 
         #endregion
 
@@ -26,15 +34,34 @@ namespace PaleteriaInventario
         {
             InitializeComponent();
         }
+
         private void Inventario_Load(object sender, EventArgs e)
         {
             //Creamos el nexo
             this.idCliente = -1;
+            this.idCategoria = -1;
+            this.idVenta = -1;
             this.nexo = new Nexo();
             //Actualizamos el datagrid de Cliente
             this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
             //Actualizamos el datagrid de Categoria
             this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
+            this.seteaDataGridsStock();
+        }
+
+        private void seteaDataGridsStock()
+        {
+            //Actualizamos los datagrids de Stock
+            this.nexo.actualizaGrid(this.dataGridViewStockProductos, "select idProducto, sabor, nombreCategoria," +
+                                                                     " tamaño from empleado.Producto p inner join " +
+                                                                     "empleado.Categoria c on p.idCategoria = c.idCategoria", "Producto");
+            this.nexo.actualizaGrid(this.dataGridViewStockSucursales, "select idSucursal, direccion from empleado.Sucursal", "Sucursal");
+            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, direccion as sucursal, sabor, precio, nombreCategoria as categoria, tamaño, existencias"+
+                                                            " from empleado.Stock s"+
+                                                            " inner join empleado.Sucursal su on su.idSucursal = s.idProducto"+
+                                                            " inner join empleado.Producto p on p.idProducto = s.idProducto"+
+                                                            " inner join empleado.Categoria c on p.idCategoria = c.idCategoria",
+                                                            "Stock");
         }
 
         #endregion
@@ -52,11 +79,9 @@ namespace PaleteriaInventario
         private void toolStripClientes_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
-            string mensaje;
             switch(e.ClickedItem.AccessibleName)
             {
                 case "Agregar":
-                    AltaCliente alta;
                     alta = new AltaCliente();
                     //Construimos el objeto y lo mandamos llamar como dialogo
                     if (alta.ShowDialog().Equals(DialogResult.OK))
@@ -80,7 +105,6 @@ namespace PaleteriaInventario
                                             "Confirmacion", MessageBoxButtons.YesNo,MessageBoxIcon.Question).Equals(DialogResult.Yes))
                         {
                             mensaje = mensaje.Replace(" ", "");
-                            ModificaCliente modifica;
                             //Construimos el objeto y lo mandamos llamar como dialogo y dividimos la cadena con los datos para rellenar el valor del datagrid
                             modifica = new ModificaCliente(mensaje.Split(','));
                             if (modifica.ShowDialog().Equals(DialogResult.OK))
@@ -103,7 +127,6 @@ namespace PaleteriaInventario
                         if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar? (No se podran recuperar los datos)",
                                             "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
                         {
-                            SqlCommand comando;
                             comando = new SqlCommand("delete from empleado.Cliente where idCliente = @id");
                             comando.Parameters.Add(new SqlParameter("@id", SqlDbType.BigInt));
                             comando.Parameters[0].Value = this.idCliente;
@@ -119,8 +142,6 @@ namespace PaleteriaInventario
         {
 
             //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
-            string mensaje;
-            Categoria categoria;
             switch (e.ClickedItem.AccessibleName)
             {
                 case "Agregar":
@@ -166,7 +187,6 @@ namespace PaleteriaInventario
                         if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar? (No se podran recuperar los datos)",
                                             "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
                         {
-                            SqlCommand comando;
                             comando = new SqlCommand("delete from empleado.Categoria where idCategoria = " + this.idCategoria.ToString());
                             this.nexo.ejecutarSQL(comando);
                             this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
@@ -175,6 +195,7 @@ namespace PaleteriaInventario
                     break;
             }
         }
+
         #endregion
 
         #region Tamaño
@@ -191,7 +212,7 @@ namespace PaleteriaInventario
             Point point;
             //Creamos un nuevo Size restandole la diferencia de tamaño que tiene la form con el tab control y los asignamos
             size = new Size(this.Size.Width - 40, this.Size.Height - 63);
-            this.tabControl1.Size = size;
+            this.tabControl.Size = size;
             //Creamos un nuevo Size restandole la diferencia de tamaño que tiene la form con todos los DataGridView y los asignamos
             size = new Size(this.Size.Width - 60, this.Size.Height - 183);
             this.dataGridViewCliente.Size = size;
@@ -243,11 +264,25 @@ namespace PaleteriaInventario
                     //Ya que en esta tabla vamos a trabajar
                     dataGrid = this.dataGridViewCategoria;
                     nombre = this.textBoxCategoria.Text;
-                    this.nexo.actualizaGrid(dataGrid, "select * from empleado." + tabla + " where nombre like '" + nombre + "%';", tabla);
-                    break;
+                    this.nexo.actualizaGrid(dataGrid, "select * from empleado." + tabla + " where nombreCategoria like '" + nombre + "%';", tabla);
+                break;
             }
         }
 
+
+        private void textBoxSucursalesStock_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            this.nexo.actualizaGrid(this.dataGridViewStockSucursales, "select * from empleado.Sucursal where direccion like '"+((TextBox)sender).Text+"%';", "Sucursal");
+        }
+
+        private void textBoxProductosStock_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.nexo.actualizaGrid(this.dataGridViewStockProductos, "select idProducto, sabor, nombreCategoria," +
+                                                                     " tamaño from empleado.Producto p inner join" +
+                                                                     " empleado.Categoria c on p.idCategoria = c.idCategoria"+
+                                                                     " where sabor like '" + ((TextBox)sender).Text + "%';", "Sucursal");
+        }
         #endregion
 
         #region DataGrid
@@ -260,6 +295,29 @@ namespace PaleteriaInventario
         private void dataGridViewCategoria_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.idCategoria = int.Parse(dataGridViewCategoria.CurrentRow.Cells[0].Value.ToString());
+        }
+        private void dataGridViewStockSucursales_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string id;
+            id = ((DataGridView)sender).CurrentRow.Cells[0].Value.ToString();
+            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, sabor, precio, existencias, nombreCategoria as categoria, tamaño" +
+                                           " from empleado.Stock s" +
+                                           " inner join empleado.Sucursal su on su.idSucursal = s.idProducto" +
+                                           " inner join empleado.Producto p on p.idProducto = s.idProducto" +
+                                           " inner join empleado.Categoria c on p.idCategoria = c.idCategoria" +
+                                           " where su.idSucursal = "+ id, "Stock");
+        }
+
+        private void dataGridViewStockProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string id;
+            id = ((DataGridView)sender).CurrentRow.Cells[0].Value.ToString();
+            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, sabor, precio, existencias, nombreCategoria as categoria, tamaño" +
+                                           " from empleado.Stock s" +
+                                           " inner join empleado.Sucursal su on su.idSucursal = s.idProducto" +
+                                           " inner join empleado.Producto p on p.idProducto = s.idProducto" +
+                                           " inner join empleado.Categoria c on p.idCategoria = c.idCategoria" +
+                                           " where p.idProducto = " + id, "Stock");
         }
 
         #endregion

@@ -101,6 +101,7 @@ namespace PaleteriaInventario
             this.desConexion();
 
         }
+
         #endregion
 
     }
