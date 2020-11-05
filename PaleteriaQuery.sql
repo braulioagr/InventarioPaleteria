@@ -152,6 +152,8 @@ insert into empleado.Stock values(3,2,10);
 --------------------Inserciones de Prueba Triggers de Stock-------------------------------
 insert into empleado.Sucursal values('Acerina 122, Valle Dorado','8184422','10:00-20:00');
 insert into empleado.Producto values (1,20.0,'Menta');
+SELECT * FROM empleado.Producto
+SELECT * FROM empleado.Stock
 --------------------Inserciones de Prueba Triggers de Stock-------------------------------
 
 
@@ -183,7 +185,7 @@ ON empleado.Sucursal AFTER INSERT AS
 	VALUES((SELECT idProducto FROM empleado.Producto), @idSucursal, 0)
 END;
 --Triggers Venta--
-CREATE TRIGGER empleado.Asignasubtotal
+CREATE TRIGGER empleado.Asignasubtotal---funciona
 ON empleado.DetalleVenta AFTER INSERT AS
 	BEGIN
 	SET NOCOUNT ON
@@ -202,6 +204,8 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	
 	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
 END;
+
+select * from empleado.DetalleVenta
 
 CREATE TRIGGER empleado.descuentoventa
 ON empleado.Venta AFTER INSERT AS
@@ -227,7 +231,7 @@ ON empleado.Venta AFTER INSERT AS
 END;
 
 
-CREATE TRIGGER empleado.reduceStock
+ALTER TRIGGER empleado.reduceStock ---ARREGLADO
 ON empleado.DetalleVenta AFTER INSERT AS
 	BEGIN
 	SET NOCOUNT ON
@@ -237,7 +241,7 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	DECLARE @unidadesvendidas AS INT
 
 	SELECT @idStock = idStock FROM inserted
-	SELECT @unidadesvendidas FROM inserted
+	SELECT @unidadesvendidas = unidades FROM inserted
 
 	SELECT @existenciasactualizadas = (SELECT existencias FROM empleado.Stock WHERE idStock = @idStock) - @unidadesvendidas
 
@@ -248,8 +252,9 @@ select * from empleado.Cliente
 insert into empleado.Venta(idCliente, montoTotal, fechaVenta) values(2,0.0,getdate());
 select * from empleado.Venta
 insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,1,5,92.5);
-insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,92.5);
+insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,9.5);
 select * from empleado.Venta
+select * from empleado.Stock
 select * from empleado.DetalleVenta
 insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,92.5);
 --Trigers Stock--
