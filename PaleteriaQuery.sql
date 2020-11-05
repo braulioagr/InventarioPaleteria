@@ -69,7 +69,7 @@ create table empleado.DetalleVenta(
 	idVenta bigint not null,
 	idStock bigint not null,
 	unidades int not null,
-	subTotal real not null,
+	subTotal real,
 	
 	constraint fkVenta foreign key (idVenta)
 	references empleado.Venta(idVenta),
@@ -101,17 +101,13 @@ create table empleado.InventarioProducto(
 );
 
 
-create rule rlTipoCliente as @tipoCliente in(
-	'Mayoreo','Menudeo'
-);
+create rule rlTipoCliente as @tipoCliente in ('Mayoreo','Menudeo');
 
 create rule rlMayorCero AS @range> 0;
 
 create rule rlPositvos AS @range>= 0;
 
-create rule rlTamaños as @tamaño in(
-	'Pequeño','Mediano','Grande'
-);
+create rule rlTamaños as @tamaño in ('Pequeño','Mediano','Grande');
 
 exec sp_bindrule 'rlTipoCliente','empleado.Cliente.TipoCliente';
 
@@ -135,6 +131,7 @@ insert into empleado.Cliente values ('Ricardo Moreno','4443099965','Mayoreo',10)
 insert into empleado.Cliente values ('Roberto Franco','4445555990','Menudeo',0);
 insert into empleado.Cliente values ('Andrey Alonso','4444292590','Mayoreo',30);
 insert into empleado.Cliente values ('Mauricio Aleman','4441357636','Menudeo',0);
+insert into empleado.Cliente values ('Cliente no registrado','4445555990','Menudeo',0);
 
 insert into empleado.Producto values (1,18.5,'Fresa');
 insert into empleado.Producto values (2,20.5,'Limon');
@@ -205,6 +202,7 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
 END;
 
+
 select * from empleado.DetalleVenta
 
 CREATE TRIGGER empleado.descuentoventa
@@ -231,7 +229,7 @@ ON empleado.Venta AFTER INSERT AS
 END;
 
 
-ALTER TRIGGER empleado.reduceStock ---ARREGLADO
+CREATE TRIGGER empleado.reduceStock ---Listo
 ON empleado.DetalleVenta AFTER INSERT AS
 	BEGIN
 	SET NOCOUNT ON
@@ -251,8 +249,8 @@ END;
 select * from empleado.Cliente
 insert into empleado.Venta(idCliente, montoTotal, fechaVenta) values(2,0.0,getdate());
 select * from empleado.Venta
-insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,1,5,92.5);
-insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,9.5);
+insert into  empleado.DetalleVenta(idVenta,idStock,unidades) values (1,1,5);
+insert into  empleado.DetalleVenta(idVenta,idStock,unidades) values (1,2,5);
 select * from empleado.Venta
 select * from empleado.Stock
 select * from empleado.DetalleVenta
