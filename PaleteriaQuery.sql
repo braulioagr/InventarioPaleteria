@@ -243,7 +243,16 @@ ON empleado.DetalleVenta AFTER INSERT AS
 
 	UPDATE empleado.Stock SET existencias = @existenciasactualizadas WHERE idStock = @idStock
 END;
-
+--Inserciones de prueba--
+select * from empleado.Cliente
+insert into empleado.Venta(idCliente, montoTotal, fechaVenta) values(2,0.0,getdate());
+select * from empleado.Venta
+insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,1,5,92.5);
+insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,92.5);
+select * from empleado.Venta
+select * from empleado.DetalleVenta
+insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,92.5);
+--Trigers Stock--
 CREATE TRIGGER empleado.Reabastecimiento
 ON empleado.InventarioProducto AFTER INSERT AS
 	BEGIN 
