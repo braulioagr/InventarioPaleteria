@@ -152,8 +152,43 @@ insert into empleado.Producto values (1,20.0,'Menta');
 SELECT * FROM empleado.Producto
 SELECT * FROM empleado.Stock
 --------------------Inserciones de Prueba Triggers de Stock-------------------------------
+--Triggers Funcionando--
+CREATE TRIGGER empleado.reduceStock ---Listo
+ON empleado.DetalleVenta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
 
+	DECLARE @idStock AS BIGINT
+	DECLARE @existenciasactualizadas AS INT
+	DECLARE @unidadesvendidas AS INT
 
+	SELECT @idStock = idStock FROM inserted
+	SELECT @unidadesvendidas = unidades FROM inserted
+
+	SELECT @existenciasactualizadas = (SELECT existencias FROM empleado.Stock WHERE idStock = @idStock) - @unidadesvendidas
+
+	UPDATE empleado.Stock SET existencias = @existenciasactualizadas WHERE idStock = @idStock
+END;
+
+CREATE TRIGGER empleado.Reabastecimiento--Listo
+ON empleado.InventarioProducto AFTER INSERT AS
+	BEGIN 
+	SET NOCOUNT ON
+
+	DECLARE @idStock AS BIGINT
+	DECLARE @idProducto AS BIGINT
+	DECLARE @nuevostock AS INT
+	declare @idSucursal as bigint
+	declare @idInventario as bigint
+	
+	select @idInventario = idInventario from inserted
+	select @idSucursal = idSucursal from empleado.Inventario where @idInventario = idInventario
+	SELECT @idProducto = idProducto FROM inserted
+	SELECT @idStock = idStock FROM empleado.Stock WHERE @idProducto = idProducto and  @idSucursal = idSucursal
+	SELECT @nuevostock = (SELECT cantidadRecibida FROM inserted) + (SELECT existencias FROM empleado.Stock WHERE @idStock = idStock)
+
+	UPDATE empleado.Stock SET existencias = @nuevostock WHERE idStock = @idStock
+END;
 ---- Triggers Stock---
 CREATE TRIGGER empleado.nuevoProducto
 ON empleado.Producto AFTER INSERT AS
@@ -229,22 +264,6 @@ ON empleado.Venta AFTER INSERT AS
 END;
 
 
-CREATE TRIGGER empleado.reduceStock ---Listo
-ON empleado.DetalleVenta AFTER INSERT AS
-	BEGIN
-	SET NOCOUNT ON
-
-	DECLARE @idStock AS BIGINT
-	DECLARE @existenciasactualizadas AS INT
-	DECLARE @unidadesvendidas AS INT
-
-	SELECT @idStock = idStock FROM inserted
-	SELECT @unidadesvendidas = unidades FROM inserted
-
-	SELECT @existenciasactualizadas = (SELECT existencias FROM empleado.Stock WHERE idStock = @idStock) - @unidadesvendidas
-
-	UPDATE empleado.Stock SET existencias = @existenciasactualizadas WHERE idStock = @idStock
-END;
 --Inserciones de prueba--
 select * from empleado.Cliente
 insert into empleado.Venta(idCliente, montoTotal, fechaVenta) values(2,0.0,getdate());
@@ -256,18 +275,9 @@ select * from empleado.Stock
 select * from empleado.DetalleVenta
 insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,92.5);
 --Trigers Stock--
-CREATE TRIGGER empleado.Reabastecimiento
-ON empleado.InventarioProducto AFTER INSERT AS
-	BEGIN 
-	SET NOCOUNT ON
-
-	DECLARE @idStock AS BIGINT
-	DECLARE @idProducto AS BIGINT
-	DECLARE @nuevostock AS INT
-
-	SELECT @idProducto = idProducto FROM inserted
-	SELECT @idStock = idStock FROM empleado.Stock WHERE @idProducto = idProducto
-	SELECT @nuevostock = (SELECT cantidadRecibida FROM inserted) + (SELECT existencias FROM empleado.Stock WHERE @idStock = idStock)
-
-	UPDATE empleado.Stock SET existencias = @nuevostock WHERE idStock = @idStock
-END;
+--Inserciones de prueba--
+select * from empleado.Inventario
+insert into empleado.Inventario values(1,getdate(),10);
+select * from empleado.InventarioProducto
+insert into empleado.InventarioProducto values(1,1,10);
+select * from empleado.Stock s inner join empleado.Sucursal su on su.idSucursal = s.idSucursal  where su.idSucursal = 1
