@@ -1,6 +1,5 @@
 create database Paleteria;
 use Paleteria;
-
 create schema empleado;
 
 create table empleado.Sucursal(
@@ -24,8 +23,8 @@ create table empleado.Cliente(
 
 create table empleado.Categoria(
 	idCategoria bigint identity(1,1) not null,
-	nombreCategoria varchar(30) not null,
-	tamaño varchar(10) not null,
+	nombre varchar(30) not null,
+	tamaño varchar(7) not null,
 	
 	constraint pkCategoria primary key(idCategoria),
 );
@@ -69,7 +68,7 @@ create table empleado.DetalleVenta(
 	idVenta bigint not null,
 	idStock bigint not null,
 	unidades int not null,
-	subTotal real,
+	subTotal real not null,
 	
 	constraint fkVenta foreign key (idVenta)
 	references empleado.Venta(idVenta),
@@ -101,144 +100,25 @@ create table empleado.InventarioProducto(
 );
 
 
-create rule rlTipoCliente as @tipoCliente in ('Mayoreo','Menudeo');
-
-create rule rlMayorCero AS @range> 0;
-
-create rule rlPositvos AS @range>= 0;
-
-create rule rlTamaños as @tamaño in ('Pequeño','Mediano','Grande');
+create rule rlTipoCliente as @tipoCliente in(
+	'Mayoreo','Menudeo'
+);
 
 exec sp_bindrule 'rlTipoCliente','empleado.Cliente.TipoCliente';
 
+create rule rlMayorCero AS @range> 0
 exec sp_bindrule 'rlMayorCero','empleado.DetalleVenta.subTotal';
 exec sp_bindrule 'rlMayorCero','empleado.Producto.precio';
 exec sp_bindrule 'rlMayorCero','empleado.Categoria.tamaño';
 exec sp_bindrule 'rlMayorCero','empleado.InventarioProducto.cantidadRecibida';
 exec sp_bindrule 'rlMayorCero','empleado.DetalleVenta.unidades';
 
-exec sp_bindrule 'rlPositvos','empleado.Stock.existencias';
-exec sp_bindrule 'rlPositvos','empleado.Venta.montoTotal';
-exec sp_bindrule 'rlTamaños','empleado.Categoria.tamaño';
 
 
+create rule rlPosiritvos AS @range>= 0
+exec sp_bindrule 'rlMayorCero','empleado.Stock.existencias';
+exec sp_bindrule 'rlMayorCero','empleado.Venta.montoTotal';
 
---------------------Inserciones de Prueba-------------------------------
-insert into empleado.Categoria values ('Crema','Pequeño');
-insert into empleado.Categoria values ('Agua','Pequeño');
-
-insert into empleado.Cliente values ('Ricardo Moreno','4443099965','Mayoreo',10);
-insert into empleado.Cliente values ('Roberto Franco','4445555990','Menudeo',0);
-insert into empleado.Cliente values ('Andrey Alonso','4444292590','Mayoreo',30);
-insert into empleado.Cliente values ('Mauricio Aleman','4441357636','Menudeo',0);
-insert into empleado.Cliente values ('Cliente no registrado','4445555990','Menudeo',0);
-
-insert into empleado.Producto values (1,18.5,'Fresa');
-insert into empleado.Producto values (2,20.5,'Limon');
-insert into empleado.Producto values (1,15.0,'Chocolate');
-
-insert into empleado.Sucursal values('Picis 118, Capricornio','8189547','12:00-17:00');
-insert into empleado.Sucursal values('Italia 52, Providencia','8189852','10:00-19:00');
-
-insert into empleado.Stock values(1,1,10);
-insert into empleado.Stock values(2,1,10);
-insert into empleado.Stock values(3,1,10);
-insert into empleado.Stock values(1,2,10);
-insert into empleado.Stock values(2,2,10);
-insert into empleado.Stock values(3,2,10);
---------------------Inserciones de Prueba Triggers de Stock-------------------------------
-insert into empleado.Sucursal values('Acerina 122, Valle Dorado','8184422','10:00-20:00');
-insert into empleado.Producto values (1,20.0,'Menta');
-SELECT * FROM empleado.Producto
-SELECT * FROM empleado.Stock
---------------------Inserciones de Prueba Triggers de Stock-------------------------------
---Triggers Funcionando--
-CREATE TRIGGER empleado.reduceStock ---Listo
-ON empleado.DetalleVenta AFTER INSERT AS
-	BEGIN
-	SET NOCOUNT ON
-
-	DECLARE @idStock AS BIGINT
-	DECLARE @existenciasactualizadas AS INT
-	DECLARE @unidadesvendidas AS INT
-
-	SELECT @idStock = idStock FROM inserted
-	SELECT @unidadesvendidas = unidades FROM inserted
-
-	SELECT @existenciasactualizadas = (SELECT existencias FROM empleado.Stock WHERE idStock = @idStock) - @unidadesvendidas
-
-	UPDATE empleado.Stock SET existencias = @existenciasactualizadas WHERE idStock = @idStock
-END;
-
-CREATE TRIGGER empleado.Reabastecimiento--Listo
-ON empleado.InventarioProducto AFTER INSERT AS
-	BEGIN 
-	SET NOCOUNT ON
-
-	DECLARE @idStock AS BIGINT
-	DECLARE @idProducto AS BIGINT
-	DECLARE @nuevostock AS INT
-	declare @idSucursal as bigint
-	declare @idInventario as bigint
-	
-	select @idInventario = idInventario from inserted
-	select @idSucursal = idSucursal from empleado.Inventario where @idInventario = idInventario
-	SELECT @idProducto = idProducto FROM inserted
-	SELECT @idStock = idStock FROM empleado.Stock WHERE @idProducto = idProducto and  @idSucursal = idSucursal
-	SELECT @nuevostock = (SELECT cantidadRecibida FROM inserted) + (SELECT existencias FROM empleado.Stock WHERE @idStock = idStock)
-
-	UPDATE empleado.Stock SET existencias = @nuevostock WHERE idStock = @idStock
-END;
----- Triggers Stock---
-CREATE TRIGGER empleado.nuevoProducto
-ON empleado.Producto AFTER INSERT AS
-	BEGIN
-	SET NOCOUNT ON
-
-	DECLARE @idProducto AS BIGINT
-	DECLARE @idSucursal AS BIGINT
-
-	SELECT @idProducto = idProducto FROM inserted
-	SELECT @idSucursal = idSucursal FROM empleado.Sucursal
-
-	INSERT INTO empleado.Stock VALUES (@idProducto, @idSucursal, 0)
-END;
-
-CREATE TRIGGER empleado.relacion
-ON empleado.Sucursal AFTER INSERT AS
-	BEGIN
-	SET NOCOUNT ON
-
-	DECLARE @idSucursal AS BIGINT
-
-	SELECT @idSucursal = idSucursal FROM inserted
-
-	INSERT INTO empleado.Stock (idProducto, idSucursal, existencias)
-	VALUES((SELECT idProducto FROM empleado.Producto), @idSucursal, 0)
-END;
---Triggers Venta--
-CREATE TRIGGER empleado.Asignasubtotal---funciona
-ON empleado.DetalleVenta AFTER INSERT AS
-	BEGIN
-	SET NOCOUNT ON
-
-	DECLARE @idStock AS BIGINT
-	DECLARE @Subtotal AS REAL
-	DECLARE @Unidades AS INT
-	DECLARE @Precio AS REAL
-
-	SELECT @Unidades = unidades FROM inserted
-	SELECT @idStock = idStock FROM inserted
-	
-	SELECT @Precio = (SELECT Producto.precio FROM Producto INNER JOIN Stock ON Stock.idProducto = Producto.idProducto WHERE Stock.idStock = @idStock)
-	
-	SELECT @Subtotal = @Precio * @Unidades
-	
-	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
-END;
-
-
-select * from empleado.DetalleVenta
 
 CREATE TRIGGER empleado.descuentoventa
 ON empleado.Venta AFTER INSERT AS
@@ -264,20 +144,41 @@ ON empleado.Venta AFTER INSERT AS
 END;
 
 
---Inserciones de prueba--
-select * from empleado.Cliente
-insert into empleado.Venta(idCliente, montoTotal, fechaVenta) values(2,0.0,getdate());
-select * from empleado.Venta
-insert into  empleado.DetalleVenta(idVenta,idStock,unidades) values (1,1,5);
-insert into  empleado.DetalleVenta(idVenta,idStock,unidades) values (1,2,5);
-select * from empleado.Venta
-select * from empleado.Stock
-select * from empleado.DetalleVenta
-insert into  empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values (1,2,5,92.5);
---Trigers Stock--
---Inserciones de prueba--
-select * from empleado.Inventario
-insert into empleado.Inventario values(1,getdate(),10);
-select * from empleado.InventarioProducto
-insert into empleado.InventarioProducto values(1,1,10);
-select * from empleado.Stock s inner join empleado.Sucursal su on su.idSucursal = s.idSucursal  where su.idSucursal = 1
+
+CREATE TRIGGER empleado.reduceStock
+ON empleado.DetalleVenta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @idStock AS BIGINT
+	DECLARE @existenciasactualizadas AS INT
+	DECLARE @unidadesvendidas AS INT
+
+	SELECT @idStock = idStock FROM inserted
+	SELECT @unidadesvendidas FROM inserted
+
+	SELECT @existenciasactualizadas = (SELECT existencias FROM empleado.Stock WHERE idStock = @idStock) - @unidadesvendidas
+
+	UPDATE empleado.Stock SET existencias = @existenciasactualizadas WHERE idStock = @idStock
+END;
+
+
+CREATE TRIGGER empleado.Asignasubtotal
+ON empleado.DetalleVenta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @idStock AS BIGINT
+	DECLARE @Subtotal AS REAL
+	DECLARE @Unidades AS INT
+	DECLARE @Precio AS REAL
+
+	SELECT @Unidades = unidades FROM inserted
+	SELECT @idStock = idStock FROM inserted
+	
+	SELECT @Precio = (SELECT Producto.precio FROM Producto INNER JOIN Stock ON Stock.idProducto = Producto.idProducto WHERE Stock.idStock = @idStock)
+	
+	SELECT @Subtotal = @Precio * @Unidades
+	
+	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
+END;
