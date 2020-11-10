@@ -100,24 +100,24 @@ create table empleado.InventarioProducto(
 );
 
 
-create rule rlTipoCliente as @tipoCliente in(
-	'Mayoreo','Menudeo'
-);
+create rule rlTipoCliente as @tipoCliente in ('Mayoreo','Menudeo');
+
+create rule rlMayorCero AS @range> 0;
+create rule rlPosiritvos AS @range>= 0;
+
+create rule rlTamaños as @tamaño in ('Pequeño','Mediano','Grande');
+
+
 
 exec sp_bindrule 'rlTipoCliente','empleado.Cliente.TipoCliente';
-
-create rule rlMayorCero AS @range> 0
 exec sp_bindrule 'rlMayorCero','empleado.DetalleVenta.subTotal';
 exec sp_bindrule 'rlMayorCero','empleado.Producto.precio';
 exec sp_bindrule 'rlMayorCero','empleado.Categoria.tamaño';
 exec sp_bindrule 'rlMayorCero','empleado.InventarioProducto.cantidadRecibida';
 exec sp_bindrule 'rlMayorCero','empleado.DetalleVenta.unidades';
-
-
-
-create rule rlPosiritvos AS @range>= 0
-exec sp_bindrule 'rlMayorCero','empleado.Stock.existencias';
-exec sp_bindrule 'rlMayorCero','empleado.Venta.montoTotal';
+exec sp_bindrule 'rlPositvos','empleado.Stock.existencias';
+exec sp_bindrule 'rlPositvos','empleado.Venta.montoTotal';
+exec sp_bindrule 'rlTamaños','empleado.Categoria.tamaño';
 
 
 CREATE TRIGGER empleado.descuentoventa
@@ -182,3 +182,25 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	
 	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
 END;
+
+
+--------------------Inserciones de Prueba-------------------------------
+insert into empleado.Categoria values ('Crema','Pequeño');
+insert into empleado.Categoria values ('Agua','Pequeño');
+insert into empleado.Cliente values ('Ricardo Moreno','4443099965','Mayoreo',10);
+insert into empleado.Cliente values ('Roberto Franco','4445555990','Menudeo',0);
+insert into empleado.Cliente values ('Andrey Alonso','4444292590','Mayoreo',30);
+insert into empleado.Cliente values ('Mauricio Aleman','4441357636','Menudeo',0);
+insert into empleado.Cliente values ('Cliente no registrado','4445555990','Menudeo',0);
+insert into empleado.Producto values (1,18.5,'Fresa');
+insert into empleado.Producto values (2,20.5,'Limon');
+insert into empleado.Producto values (1,15.0,'Chocolate');
+insert into empleado.Sucursal values('Picis 118, Capricornio','8189547','12:00-17:00');
+insert into empleado.Sucursal values('Italia 52, Providencia','8189852','10:00-19:00');
+insert into empleado.Stock values(1,1,10);
+insert into empleado.Stock values(2,1,10);
+insert into empleado.Stock values(3,1,10);
+insert into empleado.Stock values(1,2,10);
+insert into empleado.Stock values(2,2,10);
+insert into empleado.Stock values(3,2,10);
+--------------------Inserciones de Prueba Triggers de Stock-------------------------------
