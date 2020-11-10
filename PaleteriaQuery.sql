@@ -183,6 +183,25 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
 END;
 
+CREATE TRIGGER empleado.Reabastecimiento--Listo
+ON empleado.InventarioProducto AFTER INSERT AS
+	BEGIN 
+	SET NOCOUNT ON
+
+	DECLARE @idStock AS BIGINT
+	DECLARE @idProducto AS BIGINT
+	DECLARE @nuevostock AS INT
+	declare @idSucursal as bigint
+	declare @idInventario as bigint
+	
+	select @idInventario = idInventario from inserted
+	select @idSucursal = idSucursal from empleado.Inventario where @idInventario = idInventario
+	SELECT @idProducto = idProducto FROM inserted
+	SELECT @idStock = idStock FROM empleado.Stock WHERE @idProducto = idProducto and  @idSucursal = idSucursal
+	SELECT @nuevostock = (SELECT cantidadRecibida FROM inserted) + (SELECT existencias FROM empleado.Stock WHERE @idStock = idStock)
+
+	UPDATE empleado.Stock SET existencias = @nuevostock WHERE idStock = @idStock
+END;
 
 --------------------Inserciones de Prueba-------------------------------
 insert into empleado.Categoria values ('Crema','Pequeño');
@@ -203,4 +222,12 @@ insert into empleado.Stock values(3,1,10);
 insert into empleado.Stock values(1,2,10);
 insert into empleado.Stock values(2,2,10);
 insert into empleado.Stock values(3,2,10);
+
+
 --------------------Inserciones de Prueba Triggers de Stock-------------------------------
+
+select * from empleado.Inventario
+insert into empleado.Inventario values(1,getdate(),10);
+select * from empleado.InventarioProducto
+insert into empleado.InventarioProducto values(1,1,10);
+select * from empleado.Stock s inner join empleado.Sucursal su on su.idSucursal = s.idSucursal  where su.idSucursal = 1
