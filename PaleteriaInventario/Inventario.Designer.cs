@@ -59,6 +59,14 @@
             this.dataGridViewStockProductos = new System.Windows.Forms.DataGridView();
             this.dataGridViewStock = new System.Windows.Forms.DataGridView();
             this.dataGridViewStockSucursales = new System.Windows.Forms.DataGridView();
+            this.Inventarios = new System.Windows.Forms.TabPage();
+            this.toolStripInventario = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxInventario = new System.Windows.Forms.TextBox();
+            this.dataGridViewInventario = new System.Windows.Forms.DataGridView();
+            this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.tabControl.SuspendLayout();
             this.tabPageClientes.SuspendLayout();
             this.toolStripClientes.SuspendLayout();
@@ -70,6 +78,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockSucursales)).BeginInit();
+            this.Inventarios.SuspendLayout();
+            this.toolStripInventario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInventario)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -77,6 +88,7 @@
             this.tabControl.Controls.Add(this.tabPageClientes);
             this.tabControl.Controls.Add(this.tabPageCategoria);
             this.tabControl.Controls.Add(this.tabPageStock);
+            this.tabControl.Controls.Add(this.Inventarios);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -404,6 +416,94 @@
             this.dataGridViewStockSucursales.TabIndex = 0;
             this.dataGridViewStockSucursales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStockSucursales_CellClick);
             // 
+            // Inventarios
+            // 
+            this.Inventarios.Controls.Add(this.toolStripInventario);
+            this.Inventarios.Controls.Add(this.label6);
+            this.Inventarios.Controls.Add(this.textBoxInventario);
+            this.Inventarios.Controls.Add(this.dataGridViewInventario);
+            this.Inventarios.Location = new System.Drawing.Point(4, 22);
+            this.Inventarios.Name = "Inventarios";
+            this.Inventarios.Padding = new System.Windows.Forms.Padding(3);
+            this.Inventarios.Size = new System.Drawing.Size(768, 400);
+            this.Inventarios.TabIndex = 3;
+            this.Inventarios.Text = "Inventarios";
+            this.Inventarios.UseVisualStyleBackColor = true;
+            // 
+            // toolStripInventario
+            // 
+            this.toolStripInventario.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton7,
+            this.toolStripSeparator5,
+            this.toolStripButton8});
+            this.toolStripInventario.Location = new System.Drawing.Point(3, 3);
+            this.toolStripInventario.Name = "toolStripInventario";
+            this.toolStripInventario.Size = new System.Drawing.Size(762, 37);
+            this.toolStripInventario.TabIndex = 11;
+            this.toolStripInventario.Text = "toolStrip1";
+            this.toolStripInventario.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripInventario_ItemClicked);
+            // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.AccessibleName = "Agregar";
+            this.toolStripButton7.AutoToolTip = false;
+            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
+            this.toolStripButton7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton7.Text = "Agregar un cliente";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 37);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(595, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "busqueda";
+            // 
+            // textBoxInventario
+            // 
+            this.textBoxInventario.AccessibleName = "Inventario";
+            this.textBoxInventario.Location = new System.Drawing.Point(598, 65);
+            this.textBoxInventario.Name = "textBoxInventario";
+            this.textBoxInventario.Size = new System.Drawing.Size(164, 20);
+            this.textBoxInventario.TabIndex = 9;
+            this.textBoxInventario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.busqueda_keyUp);
+            // 
+            // dataGridViewInventario
+            // 
+            this.dataGridViewInventario.AllowUserToAddRows = false;
+            this.dataGridViewInventario.AllowUserToDeleteRows = false;
+            this.dataGridViewInventario.AllowUserToOrderColumns = true;
+            this.dataGridViewInventario.AllowUserToResizeRows = false;
+            this.dataGridViewInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewInventario.Location = new System.Drawing.Point(6, 91);
+            this.dataGridViewInventario.Name = "dataGridViewInventario";
+            this.dataGridViewInventario.ReadOnly = true;
+            this.dataGridViewInventario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewInventario.Size = new System.Drawing.Size(756, 306);
+            this.dataGridViewInventario.TabIndex = 8;
+            this.dataGridViewInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInventario_CellClick);
+            // 
+            // toolStripButton8
+            // 
+            this.toolStripButton8.AccessibleName = "Inspeccion";
+            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
+            this.toolStripButton8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton8.Name = "toolStripButton8";
+            this.toolStripButton8.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton8.Text = "Inspeccion";
+            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -430,6 +530,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockProductos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockSucursales)).EndInit();
+            this.Inventarios.ResumeLayout(false);
+            this.Inventarios.PerformLayout();
+            this.toolStripInventario.ResumeLayout(false);
+            this.toolStripInventario.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInventario)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -466,6 +571,14 @@
         private System.Windows.Forms.DataGridView dataGridViewStockSucursales;
         private System.Windows.Forms.TextBox textBoxProductosStock;
         private System.Windows.Forms.TextBox textBoxSucursalesStock;
+        private System.Windows.Forms.TabPage Inventarios;
+        private System.Windows.Forms.ToolStrip toolStripInventario;
+        private System.Windows.Forms.ToolStripButton toolStripButton7;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxInventario;
+        private System.Windows.Forms.DataGridView dataGridViewInventario;
+        private System.Windows.Forms.ToolStripButton toolStripButton8;
     }
 }
 

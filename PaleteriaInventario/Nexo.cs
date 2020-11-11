@@ -31,6 +31,22 @@ namespace PaleteriaInventario
             sqlConnection.Open();
         }
 
+        public int obtenUltimoId(string tabla)
+        {
+            int id;
+            SqlCommand command;
+            SqlDataReader dataReader;
+            id = -1;
+            this.conexion();
+            //Asignamos la conexion al sqlComand
+            command = new SqlCommand("select top 1 idInventario from " + tabla + " order by idInventario desc;",this.sqlConnection);
+            dataReader = command.ExecuteReader();
+            dataReader.Read();
+            id = int.Parse(dataReader[0].ToString());
+            this.desConexion();
+            return id;
+        }
+
 
         /**
          * Ete metodo es el encargado de cerrar el nexo entre la base de datos y el 
@@ -45,7 +61,7 @@ namespace PaleteriaInventario
          * Este metodo es el encargado de ejecutar los comando SQL que deseamos para las operaciónes en nuestra base de datos
          * @Param SqlCommand sqlCommand sentencia preparada que ya contiene los datos a ejecutar
          */
-        public void ejecutarSQL(SqlCommand sqlCommand)
+        public void ejecutarSQL(SqlCommand sqlCommand, bool mensaje)
         {
             int cambios;
 
@@ -58,13 +74,16 @@ namespace PaleteriaInventario
             cambios = sqlCommand.ExecuteNonQuery();
 
             //Verificamos los cambios en la base de
-            if (cambios != 0)
+            if (mensaje)
             {
-                MessageBox.Show("Operacion realizada correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("No se pudo realizar la operación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (cambios != 0)
+                {
+                    MessageBox.Show("Operacion realizada correctamente", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo realizar la operación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             this.desConexion();
         }

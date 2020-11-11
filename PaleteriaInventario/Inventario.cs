@@ -18,6 +18,7 @@ namespace PaleteriaInventario
         private int idCliente;
         private int idCategoria;
         private int idVenta;
+        private int idInventario;
         private string mensaje;
         private Nexo nexo;
         private ConsultaDetalleVenta consulta;
@@ -25,6 +26,9 @@ namespace PaleteriaInventario
         private ModificaCliente modifica;
         private SqlCommand comando;
         private Categoria categoria;
+        private ConsultaDetalleInventario consultaDetalleInventario;
+        private SeleccionaSucursal seleccionaSucursal;
+        private Restock restock;
 
         #endregion
 
@@ -40,12 +44,18 @@ namespace PaleteriaInventario
             //Creamos el nexo
             this.idCliente = -1;
             this.idCategoria = -1;
-            this.idVenta = -1;
+            this.idInventario = -1;
             this.nexo = new Nexo();
             //Actualizamos el datagrid de Cliente
             this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
             //Actualizamos el datagrid de Categoria
             this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
+            this.nexo.actualizaGrid(this.dataGridViewInventario,
+                "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
+                "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
+                "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
+                "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
+                
             this.seteaDataGridsStock();
         }
 
@@ -87,7 +97,7 @@ namespace PaleteriaInventario
                     if (alta.ShowDialog().Equals(DialogResult.OK))
                     {
                         //Si el usuario dio Ok damos de alta el usuario
-                        this.nexo.ejecutarSQL(alta.Comando);
+                        this.nexo.ejecutarSQL(alta.Comando,true);
                         this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
                     }
                 break;
@@ -110,7 +120,7 @@ namespace PaleteriaInventario
                             if (modifica.ShowDialog().Equals(DialogResult.OK))
                             {
                                 //Si el usuario dio Ok damos de alta el usuario
-                                this.nexo.ejecutarSQL(modifica.Comando);
+                                this.nexo.ejecutarSQL(modifica.Comando,true);
                                 this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
                             }
                         }
@@ -130,7 +140,7 @@ namespace PaleteriaInventario
                             comando = new SqlCommand("delete from empleado.Cliente where idCliente = @id");
                             comando.Parameters.Add(new SqlParameter("@id", SqlDbType.BigInt));
                             comando.Parameters[0].Value = this.idCliente;
-                            this.nexo.ejecutarSQL(comando);
+                            this.nexo.ejecutarSQL(comando,true);
                             this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
                         }
                     }
@@ -150,7 +160,7 @@ namespace PaleteriaInventario
                     if (categoria.ShowDialog().Equals(DialogResult.OK))
                     {
                         //Si el usuario dio Ok damos de alta el usuario
-                        this.nexo.ejecutarSQL(categoria.Comando);
+                        this.nexo.ejecutarSQL(categoria.Comando,true);
                         this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
                     }
                 break;
@@ -171,7 +181,7 @@ namespace PaleteriaInventario
                             if (categoria.ShowDialog().Equals(DialogResult.OK))
                             {
                                 //Si el usuario dio Ok damos de alta el usuario
-                                this.nexo.ejecutarSQL(categoria.Comando);
+                                this.nexo.ejecutarSQL(categoria.Comando,true);
                                 this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
                             }
                         }
@@ -188,11 +198,36 @@ namespace PaleteriaInventario
                                             "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
                         {
                             comando = new SqlCommand("delete from empleado.Categoria where idCategoria = " + this.idCategoria.ToString());
-                            this.nexo.ejecutarSQL(comando);
+                            this.nexo.ejecutarSQL(comando,true);
                             this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
                         }
                     }
                     break;
+            }
+        }
+
+
+        private void toolStripInventario_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch(e.ClickedItem.AccessibleName)
+            {
+                case "Agregar":
+                    this.seleccionaSucursal = new SeleccionaSucursal(this.nexo);
+                    if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
+                    {
+                        this.restock = new Restock(this.nexo, seleccionaSucursal.ID);
+                        this.restock.ShowDialog();
+                    }
+                    this.seleccionaSucursal.Dispose();
+                break;
+                case "Inspeccion":
+                    if(this.idInventario != -1)
+                    {
+                        consultaDetalleInventario = new ConsultaDetalleInventario(this.idInventario, this.nexo);
+                        consultaDetalleInventario.ShowDialog();
+                        consultaDetalleInventario.Dispose();
+                    }
+                break;
             }
         }
 
@@ -217,18 +252,21 @@ namespace PaleteriaInventario
             size = new Size(this.Size.Width - 60, this.Size.Height - 183);
             this.dataGridViewCliente.Size = size;
             this.dataGridViewCategoria.Size = size;
+            this.dataGridViewInventario.Size = size;
             //Aqui poner todos los size de los datagrid todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los DataGridView y los asignamos
             point = new Point(this.Size.Width- 218, this.textBoxNombreCliente.Location.Y);
             this.textBoxNombreCliente.Location = point;
             this.textBoxCategoria.Location = point;
+            this.textBoxInventario.Location = point;
             //Aqui poner todos los location de los botones de busqueda todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los label de los textBox de busqueda y los asignamos
             point = new Point(this.textBoxNombreCliente.Location.X-3, this.textBoxNombreCliente.Location.Y-16);
             this.label1.Location = point;
             this.label2.Location = point;
+            this.label6.Location = point;
             //Aqui poner todos los location de los label de busqueda todos guardan la misma relacion
         }
         
@@ -266,6 +304,17 @@ namespace PaleteriaInventario
                     nombre = this.textBoxCategoria.Text;
                     this.nexo.actualizaGrid(dataGrid, "select * from empleado." + tabla + " where nombreCategoria like '" + nombre + "%';", tabla);
                 break;
+                case "Inventario":
+                    //Asignamos el valor de la busqeda del textbox Cliente al nombre y el datagrid al datagrid del cliente
+                    //Ya que en esta tabla vamos a trabajar
+                    dataGrid = this.dataGridViewInventario;
+                    nombre = this.textBoxInventario.Text;
+                    this.nexo.actualizaGrid(dataGrid, "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
+                                                    "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
+                                                    "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
+                                                    " where s.direccion like '" + nombre + "%' " +
+                                                    "group by i.idInventario, s.direccion,i.fechaRecepcion;", tabla);
+                    break;
             }
         }
 
@@ -296,6 +345,11 @@ namespace PaleteriaInventario
         {
             this.idCategoria = int.Parse(dataGridViewCategoria.CurrentRow.Cells[0].Value.ToString());
         }
+        private void dataGridViewInventario_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.idInventario = int.Parse(dataGridViewInventario.CurrentRow.Cells[0].Value.ToString());
+        }
+
         private void dataGridViewStockSucursales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string id;
@@ -323,5 +377,6 @@ namespace PaleteriaInventario
         #endregion
 
         #endregion
+
     }
 }

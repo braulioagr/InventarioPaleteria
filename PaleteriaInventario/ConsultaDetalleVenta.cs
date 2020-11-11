@@ -31,12 +31,12 @@ namespace PaleteriaInventario
         private void ConsultaDetalleVenta_Load(object sender, EventArgs e)
         {
             this.command = new SqlCommand("select * from empleado.Venta where idVenta = " + this.idVenta.ToString());
-            this.nexo.ejecutarSQL(this.command);
+            this.nexo.ejecutarSQL(this.command,true);
             this.idCliente = int.Parse(this.dataGridViewVenta.Rows[0].Cells[1].Value.ToString());
             this.command.CommandText = "select * from empleado.DetalleVenta where idVenta = " + this.idVenta.ToString();
-            this.nexo.ejecutarSQL(this.command);
+            this.nexo.ejecutarSQL(this.command,true);
             this.command.CommandText = "select * from empleado.Cliente where idCliente = " + this.idCliente.ToString();
-            this.nexo.ejecutarSQL(this.command);
+            this.nexo.ejecutarSQL(this.command,true);
         }
         #endregion
     }

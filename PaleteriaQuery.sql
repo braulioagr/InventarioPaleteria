@@ -2,6 +2,7 @@ create database Paleteria;
 use Paleteria;
 create schema empleado;
 
+--Tablas--
 create table empleado.Sucursal(
 	idSucursal bigint identity (1,1) not null,
 	direccion varchar(50) not null,
@@ -10,7 +11,6 @@ create table empleado.Sucursal(
 
 	constraint pkSucursal primary key(idSucursal)
 );
-
 create table empleado.Cliente(
 	idCliente bigint identity(1,1) not null,
 	nombreCliente varchar(50) not null,
@@ -20,15 +20,13 @@ create table empleado.Cliente(
 
 	constraint pkCliente primary key(idCliente)
 );
-
 create table empleado.Categoria(
 	idCategoria bigint identity(1,1) not null,
-	nombre varchar(30) not null,
+	nombreCategoria varchar(30) not null,
 	tamaño varchar(7) not null,
 	
 	constraint pkCategoria primary key(idCategoria),
 );
-
 create table empleado.Producto(
 	idProducto bigint identity(1,1) not null,
 	idCategoria bigint not null,
@@ -39,7 +37,6 @@ create table empleado.Producto(
 	constraint fkCategoria foreign key (idCategoria)
 	references empleado.Categoria(idCategoria)
 );
-
 create table empleado.Venta(
 	idVenta bigInt identity(1,1) not null,
 	idCliente bigint not null,
@@ -50,7 +47,6 @@ create table empleado.Venta(
 	constraint fkCliente foreign key (idCliente)
 	references empleado.Cliente(idCliente)
 );
-
 create table empleado.Stock(
 	idStock bigint identity(1,1) not null,
 	idProducto bigint not null,
@@ -63,7 +59,6 @@ create table empleado.Stock(
 	constraint fkSucursal foreign key (idSucursal)
 	references empleado.Sucursal(idSucursal)
 );
-
 create table empleado.DetalleVenta(
 	idVenta bigint not null,
 	idStock bigint not null,
@@ -76,17 +71,14 @@ create table empleado.DetalleVenta(
 	references empleado.Stock(idStock)
 
 );
-
 create table empleado.Inventario(
 	idInventario bigint identity(1,1) not null,
 	idSucursal bigint not null,
 	fechaRecepcion date not null,
-	totalRecepcion int not null,
 	constraint pkIventario primary key (idInventario),
 	constraint fkSucursalI foreign key (idSucursal)
 	references empleado.Sucursal(idSucursal)
 );
-
 create table empleado.InventarioProducto(
 	idInventario bigint not null,
 	idProducto bigint not null,
@@ -99,52 +91,23 @@ create table empleado.InventarioProducto(
 
 );
 
-
+--Reglas--
 create rule rlTipoCliente as @tipoCliente in ('Mayoreo','Menudeo');
-
 create rule rlMayorCero AS @range> 0;
-create rule rlPosiritvos AS @range>= 0;
-
+create rule rlPosititvos AS @range>= 0;
 create rule rlTamaños as @tamaño in ('Pequeño','Mediano','Grande');
 
-
-
+--Asginación de reglas--
 exec sp_bindrule 'rlTipoCliente','empleado.Cliente.TipoCliente';
 exec sp_bindrule 'rlMayorCero','empleado.DetalleVenta.subTotal';
 exec sp_bindrule 'rlMayorCero','empleado.Producto.precio';
-exec sp_bindrule 'rlMayorCero','empleado.Categoria.tamaño';
-exec sp_bindrule 'rlMayorCero','empleado.InventarioProducto.cantidadRecibida';
 exec sp_bindrule 'rlMayorCero','empleado.DetalleVenta.unidades';
-exec sp_bindrule 'rlPositvos','empleado.Stock.existencias';
-exec sp_bindrule 'rlPositvos','empleado.Venta.montoTotal';
+exec sp_bindrule 'rlMayorCero','empleado.InventarioProducto.cantidadRecibida';
+exec sp_bindrule 'rlPosititvos','empleado.Stock.existencias';
+exec sp_bindrule 'rlPosititvos','empleado.Venta.montoTotal';
 exec sp_bindrule 'rlTamaños','empleado.Categoria.tamaño';
 
-
-CREATE TRIGGER empleado.descuentoventa
-ON empleado.Venta AFTER INSERT AS
-	BEGIN
-	SET NOCOUNT ON
-
-	DECLARE @idVenta AS BIGINT
-	DECLARE @idCliente AS BIGINT
-	DECLARE @totalcDescuento AS REAL
-	DECLARE @totalDeVenta AS REAL
-
-	SELECT @idVenta = idVenta FROM inserted
-	SELECT @idCliente = idCliente FROM inserted
-	SELECT @totalDeVenta = montoTotal FROM inserted
-
-	IF ((SELECT descuento FROM empleado.Cliente WHERE idCliente = @idCliente) != 0 )
-	BEGIN
-		
-		SELECT @totalcDescuento =  @totalDeVenta - (@totalDeVenta * ((SELECT descuento FROM empleado.Cliente WHERE idCliente = @idCliente)/100))
-		UPDATE empleado.Venta SET montoTotal = @totalcDescuento
-		WHERE idVenta = @idVenta
-	END
-END;
-
-
-
+---Triggers Terminados---
 CREATE TRIGGER empleado.reduceStock
 ON empleado.DetalleVenta AFTER INSERT AS
 	BEGIN
@@ -203,6 +166,43 @@ ON empleado.InventarioProducto AFTER INSERT AS
 	UPDATE empleado.Stock SET existencias = @nuevostock WHERE idStock = @idStock
 END;
 
+CREATE TRIGGER empleado.SumaTotalVenta
+ON empleado.DetalleVenta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @Suma AS REAL
+	DECLARE @idventa AS BIGINT
+
+    SELECT @idventa = idVenta FROM inserted
+	SELECT @Suma = (SELECT SUM(empleado.DetalleVenta.subTotal) FROM empleado.DetalleVenta INNER JOIN empleado.Venta ON empleado.DetalleVenta.idVenta = empleado.Venta.idVenta WHERE empleado.Venta.idVenta = @idventa)
+	
+	UPDATE empleado.Venta SET montoTotal = @Suma WHERE idVenta = @idventa
+END;
+---Triggers Pendientes---
+CREATE TRIGGER empleado.descuentoventa
+ON empleado.Venta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @idVenta AS BIGINT
+	DECLARE @idCliente AS BIGINT
+	DECLARE @totalcDescuento AS REAL
+	DECLARE @totalDeVenta AS REAL
+
+	SELECT @idVenta = idVenta FROM inserted
+	SELECT @idCliente = idCliente FROM inserted
+	SELECT @totalDeVenta = montoTotal FROM inserted
+
+	IF ((SELECT descuento FROM empleado.Cliente WHERE idCliente = @idCliente) != 0 )
+	BEGIN
+		
+		SELECT @totalcDescuento =  @totalDeVenta - (@totalDeVenta * ((SELECT descuento FROM empleado.Cliente WHERE idCliente = @idCliente)/100))
+		UPDATE empleado.Venta SET montoTotal = @totalcDescuento
+		WHERE idVenta = @idVenta
+	END
+END;
+
 --------------------Inserciones de Prueba-------------------------------
 insert into empleado.Categoria values ('Crema','Pequeño');
 insert into empleado.Categoria values ('Agua','Pequeño');
@@ -222,12 +222,27 @@ insert into empleado.Stock values(3,1,10);
 insert into empleado.Stock values(1,2,10);
 insert into empleado.Stock values(2,2,10);
 insert into empleado.Stock values(3,2,10);
-
-
---------------------Inserciones de Prueba Triggers de Stock-------------------------------
-
-select * from empleado.Inventario
-insert into empleado.Inventario values(1,getdate(),10);
-select * from empleado.InventarioProducto
+insert into empleado.Inventario values(1,getdate());
 insert into empleado.InventarioProducto values(1,1,10);
-select * from empleado.Stock s inner join empleado.Sucursal su on su.idSucursal = s.idSucursal  where su.idSucursal = 1
+insert into empleado.InventarioProducto values(1,2,10);
+insert into empleado.InventarioProducto values(1,3,10);
+insert into empleado.Inventario values(2,getdate());
+insert into empleado.InventarioProducto values(2,1,10);
+insert into empleado.InventarioProducto values(2,2,15);
+--------------------Inserciones de Prueba Triggers de Stock-------------------------------
+select * from empleado.Stock
+select * from empleado.Inventario
+select * from empleado.InventarioProducto
+
+select p.sabor, c.nombreCategoria as categoria, c.tamaño, i.cantidadRecibida as cantidad from empleado.InventarioProducto i
+inner join empleado.Producto p on i.idProducto = p.idProducto
+inner join empleado.Categoria c on p.idCategoria = c.idCategoria
+where i.idInventario = 1
+
+select distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i
+inner join empleado.InventarioProducto p on i.idInventario = p.idInventario
+inner join empleado.Sucursal s on s.idSucursal = i.idSucursal
+group by i.idInventario, s.direccion,i.fechaRecepcion 
+
+select * from empleado.InventarioProducto
+
