@@ -15,3 +15,4 @@ C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventa
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.SeleccionaSucursal.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.csprojAssemblyReference.cache
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.Restock.resources
+C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.AltaRestock.resources

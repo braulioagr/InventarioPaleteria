@@ -30,8 +30,8 @@ namespace PaleteriaInventario
             this.sqlcommand.Parameters.AddWithValue("@idSucursal", this.idSucursal);
             this.nexo.ejecutarSQL(this.sqlcommand,false);
             this.idInventario = this.nexo.obtenUltimoId("empleado.Inventario");
-            this.nexo.actualizaGrid(this.dataGridView1,
-                "select  distinct(i.idInventario), s.direccion as total, i.fechaRecepcion from empleado.Inventario i " +
+            this.nexo.actualizaGrid(this.dataGridViewInventario,
+                "select  distinct(i.idInventario), s.direccion as Sucursal, i.fechaRecepcion from empleado.Inventario i " +
                 "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
                 "where i.idInventario = " +this.idInventario.ToString()+
                 "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
@@ -39,13 +39,13 @@ namespace PaleteriaInventario
 
         private void actualizaDataGridInventario()
         {
-            this.nexo.actualizaGrid(this.dataGridView1,
+            this.nexo.actualizaGrid(this.dataGridViewInventario,
                 "select  distinct(i.idInventario), s.direccion, sum(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
                 "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
                 "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
                 "where i.idInventario = " + this.idInventario.ToString() +
                 "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
-            this.nexo.actualizaGrid(this.dataGridView2,
+            this.nexo.actualizaGrid(this.dataGridViewStocks,
                  "select p.sabor, c.nombreCategoria as categoria, c.tamaño, i.cantidadRecibida as cantidad from empleado.InventarioProducto i " +
                  "inner join empleado.Producto p on i.idProducto = p.idProducto " +
                  "inner join empleado.Categoria c on p.idCategoria = c.idCategoria " +
@@ -56,8 +56,6 @@ namespace PaleteriaInventario
         {
             switch (((Button)sender).AccessibleName)
             {
-                case "Agregar":
-                break;
                 case "Aceptar":
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -73,6 +71,12 @@ namespace PaleteriaInventario
                 break;
             }
         }
+        private void cargaProductos(DataGridView dataGrid)
+        {
+            this.nexo.actualizaGrid(dataGrid,
+                "select p.idProducto, p.sabor, c.nombreCategoria as categoria, c.tamaño from empleado.Producto p "+
+                "inner join empleado.Categoria c on p.idCategoria = c.idCategoria","Producto");
+        }
 
         private void abortaReabastecimiento()
         {
@@ -82,6 +86,22 @@ namespace PaleteriaInventario
             this.sqlcommand = new SqlCommand("delete from empleado.Inventario where idInventario = @idInventario;");
             this.sqlcommand.Parameters.AddWithValue("@idInventario", this.idInventario);
             this.nexo.ejecutarSQL(this.sqlcommand, false);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            AltaRestock alta;
+            alta = new AltaRestock();
+            alta.actualizaDatagrid += this.cargaProductos;
+            if (alta.ShowDialog().Equals(DialogResult.OK))
+            {
+                this.sqlcommand = new SqlCommand("insert into empleado.InventarioProducto values(@idInventario,@idProducto,@Cantidad);");
+                this.sqlcommand.Parameters.AddWithValue("@idInventario", this.idInventario);
+                this.sqlcommand.Parameters.AddWithValue("@idProducto", alta.IdProducto);
+                this.sqlcommand.Parameters.AddWithValue("@Cantidad", alta.cantidad);
+                this.nexo.ejecutarSQL(this.sqlcommand, true);
+                this.actualizaDataGridInventario();
+            }
         }
     }
 }

@@ -216,7 +216,14 @@ namespace PaleteriaInventario
                     if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
                     {
                         this.restock = new Restock(this.nexo, seleccionaSucursal.ID);
-                        this.restock.ShowDialog();
+                        if (this.restock.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            this.nexo.actualizaGrid(this.dataGridViewInventario,
+                                "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
+                                "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
+                                "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
+                                "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
+                        }
                     }
                     this.seleccionaSucursal.Dispose();
                 break;

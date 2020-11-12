@@ -52,6 +52,12 @@
     <Compile Include="AltaCliente.Designer.cs">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="AltaRestock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AltaRestock.Designer.cs">
+      <DependentUpon>AltaRestock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Categoria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </Compile>
     <EmbeddedResource Include="AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AltaRestock.resx">
+      <DependentUpon>AltaRestock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Categoria.resx">
       <DependentUpon>Categoria.cs</DependentUpon>

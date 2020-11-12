@@ -230,19 +230,3 @@ insert into empleado.Inventario values(2,getdate());
 insert into empleado.InventarioProducto values(2,1,10);
 insert into empleado.InventarioProducto values(2,2,15);
 --------------------Inserciones de Prueba Triggers de Stock-------------------------------
-select * from empleado.Stock
-select * from empleado.Inventario
-select * from empleado.InventarioProducto
-
-select p.sabor, c.nombreCategoria as categoria, c.tamaño, i.cantidadRecibida as cantidad from empleado.InventarioProducto i
-inner join empleado.Producto p on i.idProducto = p.idProducto
-inner join empleado.Categoria c on p.idCategoria = c.idCategoria
-where i.idInventario = 1
-
-select distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i
-inner join empleado.InventarioProducto p on i.idInventario = p.idInventario
-inner join empleado.Sucursal s on s.idSucursal = i.idSucursal
-group by i.idInventario, s.direccion,i.fechaRecepcion 
-
-select * from empleado.InventarioProducto
-
