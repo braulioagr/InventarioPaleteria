@@ -118,7 +118,7 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	DECLARE @unidadesvendidas AS INT
 
 	SELECT @idStock = idStock FROM inserted
-	SELECT @unidadesvendidas FROM inserted
+	SELECT @unidadesvendidas = unidades FROM inserted
 
 	SELECT @existenciasactualizadas = (SELECT existencias FROM empleado.Stock WHERE idStock = @idStock) - @unidadesvendidas
 
@@ -146,6 +146,20 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
 END;
 
+CREATE TRIGGER empleado.SumaTotalVenta
+ON empleado.DetalleVenta AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @Suma AS REAL
+	DECLARE @idventa AS BIGINT
+
+    SELECT @idventa = idVenta FROM inserted
+	SELECT @Suma = (SELECT SUM(empleado.DetalleVenta.subTotal) FROM empleado.DetalleVenta INNER JOIN empleado.Venta ON empleado.DetalleVenta.idVenta = empleado.Venta.idVenta WHERE empleado.Venta.idVenta = @idventa)
+	
+	UPDATE empleado.Venta SET montoTotal = @Suma WHERE idVenta = @idventa
+END;
+
 CREATE TRIGGER empleado.Reabastecimiento--Listo
 ON empleado.InventarioProducto AFTER INSERT AS
 	BEGIN 
@@ -166,22 +180,8 @@ ON empleado.InventarioProducto AFTER INSERT AS
 	UPDATE empleado.Stock SET existencias = @nuevostock WHERE idStock = @idStock
 END;
 
-CREATE TRIGGER empleado.SumaTotalVenta
-ON empleado.DetalleVenta AFTER INSERT AS
-	BEGIN
-	SET NOCOUNT ON
-
-	DECLARE @Suma AS REAL
-	DECLARE @idventa AS BIGINT
-
-    SELECT @idventa = idVenta FROM inserted
-	SELECT @Suma = (SELECT SUM(empleado.DetalleVenta.subTotal) FROM empleado.DetalleVenta INNER JOIN empleado.Venta ON empleado.DetalleVenta.idVenta = empleado.Venta.idVenta WHERE empleado.Venta.idVenta = @idventa)
-	
-	UPDATE empleado.Venta SET montoTotal = @Suma WHERE idVenta = @idventa
-END;
----Triggers Pendientes---
 CREATE TRIGGER empleado.descuentoventa
-ON empleado.Venta AFTER INSERT AS
+ON empleado.Venta FOR UPDATE AS
 	BEGIN
 	SET NOCOUNT ON
 
@@ -201,6 +201,23 @@ ON empleado.Venta AFTER INSERT AS
 		UPDATE empleado.Venta SET montoTotal = @totalcDescuento
 		WHERE idVenta = @idVenta
 	END
+END;
+---Triggers Pendientes---
+
+
+
+CREATE TRIGGER empleado.nuevoProducto
+ON empleado.Producto AFTER INSERT AS
+	BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @idProducto AS BIGINT
+	DECLARE @idSucursal AS BIGINT
+
+	SELECT @idProducto = idProducto FROM inserted
+	SELECT @idSucursal = idSucursal FROM empleado.Sucursal
+
+	INSERT INTO empleado.Stock VALUES (@idProducto, @idSucursal, 0)
 END;
 
 --------------------Inserciones de Prueba-------------------------------
@@ -230,3 +247,10 @@ insert into empleado.Inventario values(2,getdate());
 insert into empleado.InventarioProducto values(2,1,10);
 insert into empleado.InventarioProducto values(2,2,15);
 --------------------Inserciones de Prueba Triggers de Stock-------------------------------
+insert into empleado.Venta(idCliente,montoTotal,fechaVenta) values(1,0.0,getdate())
+insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(1,1,2,1)
+insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(1,3,2,1)
+
+select * from empleado.Stock
+select * from empleado.Venta
+select * from empleado.DetalleVenta
