@@ -69,7 +69,6 @@ namespace PaleteriaInventario
         }
         #endregion
 
-
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
             if (!this.vacio())

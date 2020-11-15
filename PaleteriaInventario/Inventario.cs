@@ -17,7 +17,7 @@ namespace PaleteriaInventario
 
         private int idCliente;
         private int idCategoria;
-        private int idVenta;
+        private int idSucursal;
         private int idInventario;
         private string mensaje;
         private Nexo nexo;
@@ -29,7 +29,7 @@ namespace PaleteriaInventario
         private ConsultaDetalleInventario consultaDetalleInventario;
         private SeleccionaSucursal seleccionaSucursal;
         private Restock restock;
-
+        private Sucursal sucursal;
         #endregion
 
         #region Constructores
@@ -91,7 +91,6 @@ namespace PaleteriaInventario
         #region Eventos
 
         #region menus
-
 
         /** 
          * Detecta el item pulsado dentro de la toolBar de clientes para saber cual operacion debe ejecutar.
@@ -162,7 +161,6 @@ namespace PaleteriaInventario
 
         private void toolStripCategorias_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-
             //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
             switch (e.ClickedItem.AccessibleName)
             {
@@ -218,7 +216,6 @@ namespace PaleteriaInventario
             }
         }
 
-
         private void toolStripInventario_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             switch(e.ClickedItem.AccessibleName)
@@ -250,6 +247,46 @@ namespace PaleteriaInventario
             }
         }
 
+        private void toolStripSucursal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Agregar":
+                    sucursal = new Sucursal();
+                    if (sucursal.ShowDialog().Equals(DialogResult.OK))
+                    {
+                        this.nexo.ejecutarSQL(sucursal.Comando, true);
+                        this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
+                    }
+                break;
+                case "Actualizar":
+                    //Verificamos
+                    if (this.idSucursal != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewSucursal.CurrentRow.Cells[0].Value.ToString() + " | " +
+                            this.dataGridViewSucursal.CurrentRow.Cells[1].Value.ToString() + " | " +
+                            this.dataGridViewSucursal.CurrentRow.Cells[2].Value.ToString() + " | " +
+                            this.dataGridViewSucursal.CurrentRow.Cells[3].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea modificar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            mensaje = mensaje.Replace(" ", "");
+                            //Construimos el objeto y lo mandamos llamar como dialogo y dividimos la cadena con los datos para rellenar el valor del datagrid
+                            sucursal = new Sucursal(mensaje.Split('|'));
+                            if (sucursal.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                this.nexo.ejecutarSQL(sucursal.Comando, true);
+                                this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
+                            }
+                        }
+                    }
+                    break;
+                case "Eliminar":
+                break;
+            }
+        }
 
         private void ToolStripProducto_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -260,7 +297,6 @@ namespace PaleteriaInventario
                     this.seleccionaSucursal = new SeleccionaSucursal(this.nexo);
                     if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
                     {
-
                     }
                 break;
                 case "Actualizar":
@@ -275,20 +311,6 @@ namespace PaleteriaInventario
                 "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
         }
 
-
-        private void toolStripSucursal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
-            switch (e.ClickedItem.AccessibleName)
-            {
-                case "Agregar":
-                break;
-                case "Actualizar":
-                break;
-                case "Eliminar":
-                break;
-            }
-        }
 
         #endregion
 
@@ -413,6 +435,10 @@ namespace PaleteriaInventario
         private void dataGridViewInventario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.idInventario = int.Parse(dataGridViewInventario.CurrentRow.Cells[0].Value.ToString());
+        }
+        private void dataGridViewSucursal_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.idSucursal = int.Parse(dataGridViewSucursal.CurrentRow.Cells[0].Value.ToString());
         }
 
         private void dataGridViewStockSucursales_CellClick(object sender, DataGridViewCellEventArgs e)

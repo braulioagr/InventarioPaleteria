@@ -557,6 +557,7 @@
             this.dataGridViewSucursal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewSucursal.Size = new System.Drawing.Size(756, 306);
             this.dataGridViewSucursal.TabIndex = 4;
+            this.dataGridViewSucursal.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSucursal_CellClick);
             // 
             // tabPageCategoria
             // 

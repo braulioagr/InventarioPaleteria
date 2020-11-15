@@ -226,7 +226,6 @@ ON empleado.Producto AFTER INSERT AS
 	END;
 END;
 
-
 CREATE TRIGGER empleado.relacion
 ON empleado.Sucursal AFTER INSERT AS
 	BEGIN
@@ -248,22 +247,27 @@ ON empleado.Sucursal AFTER INSERT AS
 		
 		SET @cnt = @cnt + 1;
 	END;
-END
+END;
 
 
 --------------------Inserciones de Prueba-------------------------------
+--Categorias--
 insert into empleado.Categoria values ('Crema','Pequeño');
 insert into empleado.Categoria values ('Agua','Pequeño');
+--Clientes--
 insert into empleado.Cliente values ('Ricardo Moreno','4443099965','Mayoreo',10);
 insert into empleado.Cliente values ('Roberto Franco','4445555990','Menudeo',0);
 insert into empleado.Cliente values ('Andrey Alonso','4444292590','Mayoreo',30);
 insert into empleado.Cliente values ('Mauricio Aleman','4441357636','Menudeo',0);
 insert into empleado.Cliente values ('Cliente no registrado','4445555990','Menudeo',0);
+--Sucursales--
 insert into empleado.Sucursal values('Picis 118, Capricornio','8189547','12:00-17:00');
 insert into empleado.Sucursal values('Italia 52, Providencia','8189852','10:00-19:00');
+--Productos--
 insert into empleado.Producto values (1,18.5,'Fresa');
 insert into empleado.Producto values (2,20.5,'Limon');
 insert into empleado.Producto values (1,15.0,'Chocolate');
+--Inventarios--
 insert into empleado.Inventario values(1,getdate());
 insert into empleado.InventarioProducto values(1,1,10);
 insert into empleado.InventarioProducto values(1,2,10);
@@ -272,6 +276,7 @@ insert into empleado.Inventario values(2,getdate());
 insert into empleado.InventarioProducto values(2,1,10);
 insert into empleado.InventarioProducto values(2,2,10);
 insert into empleado.InventarioProducto values(2,3,10);
+--Ventas--
 insert into empleado.Venta(idCliente,montoTotal,fechaVenta) values(1,0.0,getdate())
 insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(1,1,2,1)
 insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(1,3,2,1)
@@ -283,6 +288,6 @@ select * from empleado.DetalleVenta
 select * from empleado.Inventario
 select * from empleado.InventarioProducto
 select * from empleado.Producto
-select * from empleado.Stock
+select * from empleado.Stock 
 select * from empleado.Sucursal
 select * from empleado.Venta
