@@ -38,7 +38,6 @@ namespace PaleteriaInventario
         {
             if (alta)
             {
-
                 this.id = -1;
                 this.comando = new SqlCommand("insert into empleado.Sucursal values(@direccion,@telefono,@horario);");
                 comando.Parameters.Add(new SqlParameter("@direccion", SqlDbType.VarChar, 50));
@@ -47,7 +46,6 @@ namespace PaleteriaInventario
             }
             else
             {
-
                 this.id = int.Parse(valores[0]);
                 this.textBoxDireccion.Text = valores[1].Trim();
                 this.textBoxTelefono.Text = valores[2].Trim();

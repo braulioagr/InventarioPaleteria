@@ -19,8 +19,10 @@ namespace PaleteriaInventario
         private int idCategoria;
         private int idSucursal;
         private int idInventario;
+        private int idProducto;
         private string mensaje;
         private Nexo nexo;
+        private Producto producto;
         private ConsultaDetalleVenta consulta;
         private AltaCliente alta;
         private ModificaCliente modifica;
@@ -45,6 +47,8 @@ namespace PaleteriaInventario
             this.idCliente = -1;
             this.idCategoria = -1;
             this.idInventario = -1;
+            this.idSucursal = -1;
+            this.idProducto = -1;
             this.nexo = new Nexo();
             this.actualizaDataGrids();
         }
@@ -63,7 +67,7 @@ namespace PaleteriaInventario
                 "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
             //Actualizadmos el datagrid de Producto
             this.nexo.actualizaGrid(this.dataGridViewProducto,
-                "select p.idProducto,p.sabor, c.nombreCategoria as categoria, c.tamaño, p.precio from empleado.Producto p " +
+                "select p.idProducto,p.sabor, c.idCategoria, c.nombreCategoria as categoria, c.tamaño, p.precio from empleado.Producto p " +
 "               inner join empleado.Categoria c on c.idCategoria = p.idCategoria", "Producto");
             //Actualizadmos el datagrid de Stock
             this.seteaDataGridsStock();
@@ -310,16 +314,41 @@ namespace PaleteriaInventario
             switch (e.ClickedItem.AccessibleName)
             {
                 case "Agregar":
-                    this.seleccionaSucursal = new SeleccionaSucursal(this.nexo);
-                    if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
+                    this.producto = new Producto(this.nexo);
+                    if (this.producto.ShowDialog().Equals(DialogResult.OK))
                     {
+                        this.nexo.ejecutarSQL(this.producto.Comando,true);
                     }
                 break;
                 case "Actualizar":
-                break;
+                    if (this.idProducto != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewProducto.CurrentRow.Cells[0].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[1].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[2].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[3].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[4].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[5].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea modificar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            mensaje = mensaje.Replace(" ", "");
+                            //Construimos el objeto y lo mandamos llamar como dialogo y dividimos la cadena con los datos para rellenar el valor del datagrid
+                            this.producto = new Producto(this.nexo,mensaje.Split('|'));
+                            if (producto.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                this.nexo.ejecutarSQL(this.producto.Comando, true);
+                            }
+                        }
+                    }
+                    break;
                 case "Eliminar":
                 break;
             }
+            this.nexo.actualizaGrid(this.dataGridViewProducto,
+                "select p.idProducto,p.sabor, c.nombreCategoria as categoria, c.idCategoria,c.tamaño, p.precio from empleado.Producto p " +
+"               inner join empleado.Categoria c on c.idCategoria = p.idCategoria", "Producto");
             this.seteaDataGridsStock();
         }
 
@@ -451,6 +480,10 @@ namespace PaleteriaInventario
         private void dataGridViewSucursal_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.idSucursal = int.Parse(dataGridViewSucursal.CurrentRow.Cells[0].Value.ToString());
+        }
+        private void dataGridViewProducto_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.idProducto = int.Parse(dataGridViewProducto.CurrentRow.Cells[0].Value.ToString());
         }
 
         private void dataGridViewStockSucursales_CellClick(object sender, DataGridViewCellEventArgs e)

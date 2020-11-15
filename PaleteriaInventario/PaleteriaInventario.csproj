@@ -114,6 +114,12 @@
     <Compile Include="SeleccionaSucursal.Designer.cs">
       <DependentUpon>SeleccionaSucursal.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeleccionCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionCategoria.Designer.cs">
+      <DependentUpon>SeleccionCategoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sucursal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionaSucursal.resx">
       <DependentUpon>SeleccionaSucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionCategoria.resx">
+      <DependentUpon>SeleccionCategoria.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sucursal.resx">
       <DependentUpon>Sucursal.cs</DependentUpon>

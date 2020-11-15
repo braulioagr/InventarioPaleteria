@@ -18,3 +18,4 @@ C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventa
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.AltaRestock.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.Producto.resources
 C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.Sucursal.resources
+C:\Users\Braulio García R\Documents\GitHub\InventarioPaleteria\PaleteriaInventario\obj\Debug\PaleteriaInventario.SeleccionCategoria.resources

@@ -344,6 +344,7 @@
             this.dataGridViewProducto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProducto.Size = new System.Drawing.Size(756, 306);
             this.dataGridViewProducto.TabIndex = 8;
+            this.dataGridViewProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducto_CellClick);
             // 
             // tabPageStock
             // 
