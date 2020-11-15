@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inventario));
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageVenta = new System.Windows.Forms.TabPage();
             this.tabPageClientes = new System.Windows.Forms.TabPage();
             this.toolStripClientes = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -40,6 +41,35 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNombreCliente = new System.Windows.Forms.TextBox();
             this.dataGridViewCliente = new System.Windows.Forms.DataGridView();
+            this.tabPageProducto = new System.Windows.Forms.TabPage();
+            this.toolStripProducto = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxProducto = new System.Windows.Forms.TextBox();
+            this.dataGridViewProducto = new System.Windows.Forms.DataGridView();
+            this.tabPageStock = new System.Windows.Forms.TabPage();
+            this.textBoxProductosStock = new System.Windows.Forms.TextBox();
+            this.textBoxSucursalesStock = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dataGridViewStockProductos = new System.Windows.Forms.DataGridView();
+            this.dataGridViewStock = new System.Windows.Forms.DataGridView();
+            this.dataGridViewStockSucursales = new System.Windows.Forms.DataGridView();
+            this.tabPageSucursal = new System.Windows.Forms.TabPage();
+            this.toolStripSucursal = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxSucursal = new System.Windows.Forms.TextBox();
+            this.dataGridViewSucursal = new System.Windows.Forms.DataGridView();
             this.tabPageCategoria = new System.Windows.Forms.TabPage();
             this.toolStripCategorias = new System.Windows.Forms.ToolStrip();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
@@ -50,34 +80,31 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxCategoria = new System.Windows.Forms.TextBox();
             this.dataGridViewCategoria = new System.Windows.Forms.DataGridView();
-            this.tabPageStock = new System.Windows.Forms.TabPage();
-            this.textBoxProductosStock = new System.Windows.Forms.TextBox();
-            this.textBoxSucursalesStock = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dataGridViewStockProductos = new System.Windows.Forms.DataGridView();
-            this.dataGridViewStock = new System.Windows.Forms.DataGridView();
-            this.dataGridViewStockSucursales = new System.Windows.Forms.DataGridView();
             this.Inventarios = new System.Windows.Forms.TabPage();
             this.toolStripInventario = new System.Windows.Forms.ToolStrip();
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxInventario = new System.Windows.Forms.TextBox();
             this.dataGridViewInventario = new System.Windows.Forms.DataGridView();
-            this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.tabControl.SuspendLayout();
             this.tabPageClientes.SuspendLayout();
             this.toolStripClientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCliente)).BeginInit();
-            this.tabPageCategoria.SuspendLayout();
-            this.toolStripCategorias.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoria)).BeginInit();
+            this.tabPageProducto.SuspendLayout();
+            this.toolStripProducto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducto)).BeginInit();
             this.tabPageStock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockSucursales)).BeginInit();
+            this.tabPageSucursal.SuspendLayout();
+            this.toolStripSucursal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSucursal)).BeginInit();
+            this.tabPageCategoria.SuspendLayout();
+            this.toolStripCategorias.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoria)).BeginInit();
             this.Inventarios.SuspendLayout();
             this.toolStripInventario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInventario)).BeginInit();
@@ -85,15 +112,28 @@
             // 
             // tabControl
             // 
+            this.tabControl.Controls.Add(this.tabPageVenta);
             this.tabControl.Controls.Add(this.tabPageClientes);
-            this.tabControl.Controls.Add(this.tabPageCategoria);
+            this.tabControl.Controls.Add(this.tabPageProducto);
             this.tabControl.Controls.Add(this.tabPageStock);
+            this.tabControl.Controls.Add(this.tabPageSucursal);
+            this.tabControl.Controls.Add(this.tabPageCategoria);
             this.tabControl.Controls.Add(this.Inventarios);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(776, 426);
             this.tabControl.TabIndex = 0;
+            // 
+            // tabPageVenta
+            // 
+            this.tabPageVenta.Location = new System.Drawing.Point(4, 22);
+            this.tabPageVenta.Name = "tabPageVenta";
+            this.tabPageVenta.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageVenta.Size = new System.Drawing.Size(768, 400);
+            this.tabPageVenta.TabIndex = 6;
+            this.tabPageVenta.Text = "Ventas";
+            this.tabPageVenta.UseVisualStyleBackColor = true;
             // 
             // tabPageClientes
             // 
@@ -201,111 +241,109 @@
             this.dataGridViewCliente.TabIndex = 0;
             this.dataGridViewCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCliente_CellClick);
             // 
-            // tabPageCategoria
+            // tabPageProducto
             // 
-            this.tabPageCategoria.Controls.Add(this.toolStripCategorias);
-            this.tabPageCategoria.Controls.Add(this.label2);
-            this.tabPageCategoria.Controls.Add(this.textBoxCategoria);
-            this.tabPageCategoria.Controls.Add(this.dataGridViewCategoria);
-            this.tabPageCategoria.Location = new System.Drawing.Point(4, 22);
-            this.tabPageCategoria.Name = "tabPageCategoria";
-            this.tabPageCategoria.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCategoria.Size = new System.Drawing.Size(768, 400);
-            this.tabPageCategoria.TabIndex = 1;
-            this.tabPageCategoria.Text = "Categoria";
-            this.tabPageCategoria.UseVisualStyleBackColor = true;
+            this.tabPageProducto.Controls.Add(this.toolStripProducto);
+            this.tabPageProducto.Controls.Add(this.label7);
+            this.tabPageProducto.Controls.Add(this.textBoxProducto);
+            this.tabPageProducto.Controls.Add(this.dataGridViewProducto);
+            this.tabPageProducto.Location = new System.Drawing.Point(4, 22);
+            this.tabPageProducto.Name = "tabPageProducto";
+            this.tabPageProducto.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProducto.Size = new System.Drawing.Size(768, 400);
+            this.tabPageProducto.TabIndex = 4;
+            this.tabPageProducto.Text = "Producto";
+            this.tabPageProducto.UseVisualStyleBackColor = true;
             // 
-            // toolStripCategorias
+            // toolStripProducto
             // 
-            this.toolStripCategorias.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton4,
-            this.toolStripSeparator3,
-            this.toolStripButton5,
-            this.toolStripSeparator4,
-            this.toolStripButton6});
-            this.toolStripCategorias.Location = new System.Drawing.Point(3, 3);
-            this.toolStripCategorias.Name = "toolStripCategorias";
-            this.toolStripCategorias.Size = new System.Drawing.Size(762, 37);
-            this.toolStripCategorias.TabIndex = 7;
-            this.toolStripCategorias.Text = "toolStrip1";
-            this.toolStripCategorias.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripCategorias_ItemClicked);
+            this.toolStripProducto.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton9,
+            this.toolStripSeparator6,
+            this.toolStripButton10,
+            this.toolStripSeparator7,
+            this.toolStripButton11});
+            this.toolStripProducto.Location = new System.Drawing.Point(3, 3);
+            this.toolStripProducto.Name = "toolStripProducto";
+            this.toolStripProducto.Size = new System.Drawing.Size(762, 37);
+            this.toolStripProducto.TabIndex = 11;
+            this.toolStripProducto.Text = "toolStrip1";
+            this.toolStripProducto.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStripProducto_ItemClicked);
             // 
-            // toolStripButton4
+            // toolStripButton9
             // 
-            this.toolStripButton4.AccessibleName = "Agregar";
-            this.toolStripButton4.AutoToolTip = false;
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton4.Text = "Agregar un cliente";
+            this.toolStripButton9.AccessibleName = "Agregar";
+            this.toolStripButton9.AutoToolTip = false;
+            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
+            this.toolStripButton9.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton9.Name = "toolStripButton9";
+            this.toolStripButton9.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton9.Text = "Agregar un cliente";
             // 
-            // toolStripSeparator3
+            // toolStripSeparator6
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 37);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 37);
             // 
-            // toolStripButton5
+            // toolStripButton10
             // 
-            this.toolStripButton5.AccessibleName = "Actualizar";
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
-            this.toolStripButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton5.Text = "Actualizar datos de cliente";
+            this.toolStripButton10.AccessibleName = "Actualizar";
+            this.toolStripButton10.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton10.Image")));
+            this.toolStripButton10.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton10.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton10.Name = "toolStripButton10";
+            this.toolStripButton10.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton10.Text = "Actualizar datos de cliente";
             // 
-            // toolStripSeparator4
+            // toolStripSeparator7
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 37);
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 37);
             // 
-            // toolStripButton6
+            // toolStripButton11
             // 
-            this.toolStripButton6.AccessibleName = "Eliminar";
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
-            this.toolStripButton6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton6.Text = "toolStripButton3";
+            this.toolStripButton11.AccessibleName = "Eliminar";
+            this.toolStripButton11.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton11.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton11.Image")));
+            this.toolStripButton11.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton11.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton11.Name = "toolStripButton11";
+            this.toolStripButton11.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton11.Text = "toolStripButton3";
             // 
-            // label2
+            // label7
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(595, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "busqueda";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(595, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(54, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "busqueda";
             // 
-            // textBoxCategoria
+            // textBoxProducto
             // 
-            this.textBoxCategoria.AccessibleName = "Categoria";
-            this.textBoxCategoria.Location = new System.Drawing.Point(598, 64);
-            this.textBoxCategoria.Name = "textBoxCategoria";
-            this.textBoxCategoria.Size = new System.Drawing.Size(164, 20);
-            this.textBoxCategoria.TabIndex = 5;
-            this.textBoxCategoria.KeyUp += new System.Windows.Forms.KeyEventHandler(this.busqueda_keyUp);
+            this.textBoxProducto.AccessibleName = "Categoria";
+            this.textBoxProducto.Location = new System.Drawing.Point(598, 65);
+            this.textBoxProducto.Name = "textBoxProducto";
+            this.textBoxProducto.Size = new System.Drawing.Size(164, 20);
+            this.textBoxProducto.TabIndex = 9;
             // 
-            // dataGridViewCategoria
+            // dataGridViewProducto
             // 
-            this.dataGridViewCategoria.AllowUserToAddRows = false;
-            this.dataGridViewCategoria.AllowUserToDeleteRows = false;
-            this.dataGridViewCategoria.AllowUserToOrderColumns = true;
-            this.dataGridViewCategoria.AllowUserToResizeRows = false;
-            this.dataGridViewCategoria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCategoria.Location = new System.Drawing.Point(6, 90);
-            this.dataGridViewCategoria.Name = "dataGridViewCategoria";
-            this.dataGridViewCategoria.ReadOnly = true;
-            this.dataGridViewCategoria.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCategoria.Size = new System.Drawing.Size(756, 306);
-            this.dataGridViewCategoria.TabIndex = 4;
-            this.dataGridViewCategoria.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCategoria_CellClick);
+            this.dataGridViewProducto.AllowUserToAddRows = false;
+            this.dataGridViewProducto.AllowUserToDeleteRows = false;
+            this.dataGridViewProducto.AllowUserToOrderColumns = true;
+            this.dataGridViewProducto.AllowUserToResizeRows = false;
+            this.dataGridViewProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProducto.Location = new System.Drawing.Point(6, 91);
+            this.dataGridViewProducto.Name = "dataGridViewProducto";
+            this.dataGridViewProducto.ReadOnly = true;
+            this.dataGridViewProducto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewProducto.Size = new System.Drawing.Size(756, 306);
+            this.dataGridViewProducto.TabIndex = 8;
             // 
             // tabPageStock
             // 
@@ -416,6 +454,216 @@
             this.dataGridViewStockSucursales.TabIndex = 0;
             this.dataGridViewStockSucursales.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStockSucursales_CellClick);
             // 
+            // tabPageSucursal
+            // 
+            this.tabPageSucursal.Controls.Add(this.toolStripSucursal);
+            this.tabPageSucursal.Controls.Add(this.label8);
+            this.tabPageSucursal.Controls.Add(this.textBoxSucursal);
+            this.tabPageSucursal.Controls.Add(this.dataGridViewSucursal);
+            this.tabPageSucursal.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSucursal.Name = "tabPageSucursal";
+            this.tabPageSucursal.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSucursal.Size = new System.Drawing.Size(768, 400);
+            this.tabPageSucursal.TabIndex = 5;
+            this.tabPageSucursal.Text = "Sucursal";
+            this.tabPageSucursal.UseVisualStyleBackColor = true;
+            // 
+            // toolStripSucursal
+            // 
+            this.toolStripSucursal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton12,
+            this.toolStripSeparator8,
+            this.toolStripButton13,
+            this.toolStripSeparator9,
+            this.toolStripButton14});
+            this.toolStripSucursal.Location = new System.Drawing.Point(3, 3);
+            this.toolStripSucursal.Name = "toolStripSucursal";
+            this.toolStripSucursal.Size = new System.Drawing.Size(762, 37);
+            this.toolStripSucursal.TabIndex = 7;
+            this.toolStripSucursal.Text = "toolStrip1";
+            this.toolStripSucursal.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripSucursal_ItemClicked);
+            // 
+            // toolStripButton12
+            // 
+            this.toolStripButton12.AccessibleName = "Agregar";
+            this.toolStripButton12.AutoToolTip = false;
+            this.toolStripButton12.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton12.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton12.Image")));
+            this.toolStripButton12.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton12.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton12.Name = "toolStripButton12";
+            this.toolStripButton12.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton12.Text = "Agregar un cliente";
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton13
+            // 
+            this.toolStripButton13.AccessibleName = "Actualizar";
+            this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton13.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton13.Image")));
+            this.toolStripButton13.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton13.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton13.Name = "toolStripButton13";
+            this.toolStripButton13.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton13.Text = "Actualizar datos de cliente";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton14
+            // 
+            this.toolStripButton14.AccessibleName = "Eliminar";
+            this.toolStripButton14.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton14.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton14.Image")));
+            this.toolStripButton14.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton14.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton14.Name = "toolStripButton14";
+            this.toolStripButton14.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton14.Text = "toolStripButton3";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(595, 48);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.TabIndex = 6;
+            this.label8.Text = "busqueda";
+            // 
+            // textBoxSucursal
+            // 
+            this.textBoxSucursal.AccessibleName = "Cliente";
+            this.textBoxSucursal.Location = new System.Drawing.Point(598, 64);
+            this.textBoxSucursal.Name = "textBoxSucursal";
+            this.textBoxSucursal.Size = new System.Drawing.Size(164, 20);
+            this.textBoxSucursal.TabIndex = 5;
+            // 
+            // dataGridViewSucursal
+            // 
+            this.dataGridViewSucursal.AllowUserToAddRows = false;
+            this.dataGridViewSucursal.AllowUserToDeleteRows = false;
+            this.dataGridViewSucursal.AllowUserToOrderColumns = true;
+            this.dataGridViewSucursal.AllowUserToResizeRows = false;
+            this.dataGridViewSucursal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSucursal.Location = new System.Drawing.Point(6, 90);
+            this.dataGridViewSucursal.Name = "dataGridViewSucursal";
+            this.dataGridViewSucursal.ReadOnly = true;
+            this.dataGridViewSucursal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewSucursal.Size = new System.Drawing.Size(756, 306);
+            this.dataGridViewSucursal.TabIndex = 4;
+            // 
+            // tabPageCategoria
+            // 
+            this.tabPageCategoria.Controls.Add(this.toolStripCategorias);
+            this.tabPageCategoria.Controls.Add(this.label2);
+            this.tabPageCategoria.Controls.Add(this.textBoxCategoria);
+            this.tabPageCategoria.Controls.Add(this.dataGridViewCategoria);
+            this.tabPageCategoria.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCategoria.Name = "tabPageCategoria";
+            this.tabPageCategoria.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCategoria.Size = new System.Drawing.Size(768, 400);
+            this.tabPageCategoria.TabIndex = 1;
+            this.tabPageCategoria.Text = "Categoria";
+            this.tabPageCategoria.UseVisualStyleBackColor = true;
+            // 
+            // toolStripCategorias
+            // 
+            this.toolStripCategorias.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton4,
+            this.toolStripSeparator3,
+            this.toolStripButton5,
+            this.toolStripSeparator4,
+            this.toolStripButton6});
+            this.toolStripCategorias.Location = new System.Drawing.Point(3, 3);
+            this.toolStripCategorias.Name = "toolStripCategorias";
+            this.toolStripCategorias.Size = new System.Drawing.Size(762, 37);
+            this.toolStripCategorias.TabIndex = 7;
+            this.toolStripCategorias.Text = "toolStrip1";
+            this.toolStripCategorias.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripCategorias_ItemClicked);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.AccessibleName = "Agregar";
+            this.toolStripButton4.AutoToolTip = false;
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton4.Text = "Agregar un cliente";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.AccessibleName = "Actualizar";
+            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton5.Text = "Actualizar datos de cliente";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.AccessibleName = "Eliminar";
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton6.Text = "toolStripButton3";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(595, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "busqueda";
+            // 
+            // textBoxCategoria
+            // 
+            this.textBoxCategoria.AccessibleName = "Categoria";
+            this.textBoxCategoria.Location = new System.Drawing.Point(598, 64);
+            this.textBoxCategoria.Name = "textBoxCategoria";
+            this.textBoxCategoria.Size = new System.Drawing.Size(164, 20);
+            this.textBoxCategoria.TabIndex = 5;
+            this.textBoxCategoria.KeyUp += new System.Windows.Forms.KeyEventHandler(this.busqueda_keyUp);
+            // 
+            // dataGridViewCategoria
+            // 
+            this.dataGridViewCategoria.AllowUserToAddRows = false;
+            this.dataGridViewCategoria.AllowUserToDeleteRows = false;
+            this.dataGridViewCategoria.AllowUserToOrderColumns = true;
+            this.dataGridViewCategoria.AllowUserToResizeRows = false;
+            this.dataGridViewCategoria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCategoria.Location = new System.Drawing.Point(6, 90);
+            this.dataGridViewCategoria.Name = "dataGridViewCategoria";
+            this.dataGridViewCategoria.ReadOnly = true;
+            this.dataGridViewCategoria.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCategoria.Size = new System.Drawing.Size(756, 306);
+            this.dataGridViewCategoria.TabIndex = 4;
+            this.dataGridViewCategoria.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCategoria_CellClick);
+            // 
             // Inventarios
             // 
             this.Inventarios.Controls.Add(this.toolStripInventario);
@@ -460,6 +708,17 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 37);
             // 
+            // toolStripButton8
+            // 
+            this.toolStripButton8.AccessibleName = "Inspeccion";
+            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
+            this.toolStripButton8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton8.Name = "toolStripButton8";
+            this.toolStripButton8.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton8.Text = "Inspeccion";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -493,17 +752,6 @@
             this.dataGridViewInventario.TabIndex = 8;
             this.dataGridViewInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInventario_CellClick);
             // 
-            // toolStripButton8
-            // 
-            this.toolStripButton8.AccessibleName = "Inspeccion";
-            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
-            this.toolStripButton8.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton8.Text = "Inspeccion";
-            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -520,16 +768,26 @@
             this.toolStripClientes.ResumeLayout(false);
             this.toolStripClientes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCliente)).EndInit();
-            this.tabPageCategoria.ResumeLayout(false);
-            this.tabPageCategoria.PerformLayout();
-            this.toolStripCategorias.ResumeLayout(false);
-            this.toolStripCategorias.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoria)).EndInit();
+            this.tabPageProducto.ResumeLayout(false);
+            this.tabPageProducto.PerformLayout();
+            this.toolStripProducto.ResumeLayout(false);
+            this.toolStripProducto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducto)).EndInit();
             this.tabPageStock.ResumeLayout(false);
             this.tabPageStock.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockProductos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStockSucursales)).EndInit();
+            this.tabPageSucursal.ResumeLayout(false);
+            this.tabPageSucursal.PerformLayout();
+            this.toolStripSucursal.ResumeLayout(false);
+            this.toolStripSucursal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSucursal)).EndInit();
+            this.tabPageCategoria.ResumeLayout(false);
+            this.tabPageCategoria.PerformLayout();
+            this.toolStripCategorias.ResumeLayout(false);
+            this.toolStripCategorias.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategoria)).EndInit();
             this.Inventarios.ResumeLayout(false);
             this.Inventarios.PerformLayout();
             this.toolStripInventario.ResumeLayout(false);
@@ -579,6 +837,27 @@
         private System.Windows.Forms.TextBox textBoxInventario;
         private System.Windows.Forms.DataGridView dataGridViewInventario;
         private System.Windows.Forms.ToolStripButton toolStripButton8;
+        private System.Windows.Forms.TabPage tabPageProducto;
+        private System.Windows.Forms.ToolStrip toolStripProducto;
+        private System.Windows.Forms.ToolStripButton toolStripButton9;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton toolStripButton10;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripButton toolStripButton11;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxProducto;
+        private System.Windows.Forms.DataGridView dataGridViewProducto;
+        private System.Windows.Forms.TabPage tabPageSucursal;
+        private System.Windows.Forms.TabPage tabPageVenta;
+        private System.Windows.Forms.ToolStrip toolStripSucursal;
+        private System.Windows.Forms.ToolStripButton toolStripButton12;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripButton toolStripButton13;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripButton toolStripButton14;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxSucursal;
+        private System.Windows.Forms.DataGridView dataGridViewSucursal;
     }
 }
 

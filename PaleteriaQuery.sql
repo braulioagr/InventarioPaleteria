@@ -55,9 +55,9 @@ create table empleado.Stock(
 
 	constraint pkStock primary key (idStock),
 	constraint fkProducto foreign key (idProducto)
-	references empleado.Producto(idProducto),
+	references empleado.Producto(idProducto) on delete cascade on update cascade,
 	constraint fkSucursal foreign key (idSucursal)
-	references empleado.Sucursal(idSucursal)
+	references empleado.Sucursal(idSucursal) on delete cascade on update cascade
 );
 create table empleado.DetalleVenta(
 	idVenta bigint not null,
@@ -66,7 +66,7 @@ create table empleado.DetalleVenta(
 	subTotal real not null,
 	
 	constraint fkVenta foreign key (idVenta)
-	references empleado.Venta(idVenta),
+	references empleado.Venta(idVenta) ,
 	constraint fkStock foreign key (idStock)
 	references empleado.Stock(idStock)
 
@@ -124,7 +124,6 @@ ON empleado.DetalleVenta AFTER INSERT AS
 
 	UPDATE empleado.Stock SET existencias = @existenciasactualizadas WHERE idStock = @idStock
 END;
-
 
 CREATE TRIGGER empleado.Asignasubtotal
 ON empleado.DetalleVenta AFTER INSERT AS

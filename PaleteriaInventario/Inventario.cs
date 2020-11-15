@@ -46,17 +46,29 @@ namespace PaleteriaInventario
             this.idCategoria = -1;
             this.idInventario = -1;
             this.nexo = new Nexo();
+            this.actualizaDataGrids();
+        }
+
+        private void actualizaDataGrids()
+        {
             //Actualizamos el datagrid de Cliente
             this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
             //Actualizamos el datagrid de Categoria
             this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
+            //Actualizadmos el datagrid de Inventario
             this.nexo.actualizaGrid(this.dataGridViewInventario,
                 "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
                 "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
                 "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
                 "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
-                
+            //Actualizadmos el datagrid de Producto
+            this.nexo.actualizaGrid(this.dataGridViewProducto,
+                "select p.idProducto,p.sabor, c.nombreCategoria as categoria, c.tamaño, p.precio from empleado.Producto p " +
+"               inner join empleado.Categoria c on c.idCategoria = p.idCategoria", "Producto");
+            //Actualizadmos el datagrid de Stock
             this.seteaDataGridsStock();
+            //Actualizamos el datagrid de Cliente
+            this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
         }
 
         private void seteaDataGridsStock()
@@ -238,6 +250,46 @@ namespace PaleteriaInventario
             }
         }
 
+
+        private void ToolStripProducto_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Agregar":
+                    this.seleccionaSucursal = new SeleccionaSucursal(this.nexo);
+                    if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
+                    {
+
+                    }
+                break;
+                case "Actualizar":
+                break;
+                case "Eliminar":
+                break;
+            }
+            this.nexo.actualizaGrid(this.dataGridViewInventario,
+                "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
+                "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
+                "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
+                "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
+        }
+
+
+        private void toolStripSucursal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            //Obtenemos el AccesibleName del item pulsado para saber que acciones tolbar
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Agregar":
+                break;
+                case "Actualizar":
+                break;
+                case "Eliminar":
+                break;
+            }
+        }
+
         #endregion
 
         #region Tamaño
@@ -260,6 +312,8 @@ namespace PaleteriaInventario
             this.dataGridViewCliente.Size = size;
             this.dataGridViewCategoria.Size = size;
             this.dataGridViewInventario.Size = size;
+            this.dataGridViewSucursal.Size = size;
+            this.dataGridViewProducto.Size = size;
             //Aqui poner todos los size de los datagrid todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los DataGridView y los asignamos
@@ -267,6 +321,8 @@ namespace PaleteriaInventario
             this.textBoxNombreCliente.Location = point;
             this.textBoxCategoria.Location = point;
             this.textBoxInventario.Location = point;
+            this.textBoxProducto.Location = point;
+            this.textBoxSucursal.Location = point;
             //Aqui poner todos los location de los botones de busqueda todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los label de los textBox de busqueda y los asignamos
@@ -274,6 +330,8 @@ namespace PaleteriaInventario
             this.label1.Location = point;
             this.label2.Location = point;
             this.label6.Location = point;
+            this.label7.Location = point;
+            this.label8.Location = point;
             //Aqui poner todos los location de los label de busqueda todos guardan la misma relacion
         }
         
@@ -363,7 +421,7 @@ namespace PaleteriaInventario
             id = ((DataGridView)sender).CurrentRow.Cells[0].Value.ToString();
             this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, sabor, precio, existencias, nombreCategoria as categoria, tamaño" +
                                            " from empleado.Stock s" +
-                                           " inner join empleado.Sucursal su on su.idSucursal = s.idProducto" +
+                                           " inner join empleado.Sucursal su on su.idSucursal = s.idSucursal" +
                                            " inner join empleado.Producto p on p.idProducto = s.idProducto" +
                                            " inner join empleado.Categoria c on p.idCategoria = c.idCategoria" +
                                            " where su.idSucursal = "+ id, "Stock");
@@ -373,9 +431,9 @@ namespace PaleteriaInventario
         {
             string id;
             id = ((DataGridView)sender).CurrentRow.Cells[0].Value.ToString();
-            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, sabor, precio, existencias, nombreCategoria as categoria, tamaño" +
+            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, sabor, precio, existencias, nombreCategoria as categoria, tamaño, su.direccion" +
                                            " from empleado.Stock s" +
-                                           " inner join empleado.Sucursal su on su.idSucursal = s.idProducto" +
+                                           " inner join empleado.Sucursal su on su.idSucursal = s.idSucursal" +
                                            " inner join empleado.Producto p on p.idProducto = s.idProducto" +
                                            " inner join empleado.Categoria c on p.idCategoria = c.idCategoria" +
                                            " where p.idProducto = " + id, "Stock");
