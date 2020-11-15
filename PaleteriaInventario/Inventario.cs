@@ -254,7 +254,7 @@ namespace PaleteriaInventario
             {
                 case "Agregar":
                     sucursal = new Sucursal();
-                    if (sucursal.ShowDialog().Equals(DialogResult.OK))
+                if (sucursal.ShowDialog().Equals(DialogResult.OK))
                     {
                         this.nexo.ejecutarSQL(sucursal.Comando, true);
                         this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
@@ -282,10 +282,26 @@ namespace PaleteriaInventario
                             }
                         }
                     }
-                    break;
+                break;
                 case "Eliminar":
+                    if (this.idSucursal != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewSucursal.CurrentRow.Cells[0].Value.ToString() + " | " +
+                            this.dataGridViewSucursal.CurrentRow.Cells[1].Value.ToString() + " | " +
+                            this.dataGridViewSucursal.CurrentRow.Cells[2].Value.ToString() + " | " +
+                            this.dataGridViewSucursal.CurrentRow.Cells[3].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar? (No se podran recuperar los datos)",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            comando = new SqlCommand("delete from empleado.Sucursal where idSucursal = " + this.idSucursal.ToString());
+                            this.nexo.ejecutarSQL(comando, true);
+                            this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
+                        }
+                    }
                 break;
             }
+            this.seteaDataGridsStock();
         }
 
         private void ToolStripProducto_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -304,11 +320,7 @@ namespace PaleteriaInventario
                 case "Eliminar":
                 break;
             }
-            this.nexo.actualizaGrid(this.dataGridViewInventario,
-                "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
-                "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
-                "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
-                "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
+            this.seteaDataGridsStock();
         }
 
 
