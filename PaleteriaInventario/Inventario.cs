@@ -13,6 +13,7 @@ namespace PaleteriaInventario
 {
     public partial class Inventario : Form
     {
+
         #region Variables de Instancia
 
         private int idCliente;
@@ -32,6 +33,7 @@ namespace PaleteriaInventario
         private SeleccionaSucursal seleccionaSucursal;
         private Restock restock;
         private Sucursal sucursal;
+
         #endregion
 
         #region Constructores
@@ -69,10 +71,14 @@ namespace PaleteriaInventario
             this.nexo.actualizaGrid(this.dataGridViewProducto,
                 "select p.idProducto,p.sabor, c.idCategoria, c.nombreCategoria as categoria, c.tamaño, p.precio from empleado.Producto p " +
 "               inner join empleado.Categoria c on c.idCategoria = p.idCategoria", "Producto");
-            //Actualizadmos el datagrid de Stock
-            this.seteaDataGridsStock();
             //Actualizamos el datagrid de Cliente
             this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
+            //Actualizamos el datagrid de Cliente
+            this.nexo.actualizaGrid(this.dataGridViewVenta,
+                                    "select v.idVenta, c.nombreCliente as cliente, v.montoTotal, c.descuento, v.fechaVenta  from empleado.Venta v " +
+                                    "inner join empleado.Cliente c on v.idCliente = c.idCliente", "Venta");
+            //Actualizadmos el datagrid de Stock
+            this.seteaDataGridsStock();
         }
 
         private void seteaDataGridsStock()
@@ -344,7 +350,23 @@ namespace PaleteriaInventario
                     }
                     break;
                 case "Eliminar":
-                break;
+                    if (this.idProducto != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewProducto.CurrentRow.Cells[0].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[1].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[2].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[3].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[4].Value.ToString() + " | " +
+                            this.dataGridViewProducto.CurrentRow.Cells[5].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            this.comando = new SqlCommand("delete from empleado.Producto where idProducto = " + this.idProducto);
+                            this.nexo.ejecutarSQL(this.comando, true);
+                        }
+                    }
+                    break;
             }
             this.nexo.actualizaGrid(this.dataGridViewProducto,
                 "select p.idProducto,p.sabor, c.nombreCategoria as categoria, c.idCategoria,c.tamaño, p.precio from empleado.Producto p " +
@@ -352,6 +374,12 @@ namespace PaleteriaInventario
             this.seteaDataGridsStock();
         }
 
+
+
+        private void toolStripVenta_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
 
         #endregion
 
@@ -377,6 +405,7 @@ namespace PaleteriaInventario
             this.dataGridViewInventario.Size = size;
             this.dataGridViewSucursal.Size = size;
             this.dataGridViewProducto.Size = size;
+            this.dataGridViewVenta.Size = size;
             //Aqui poner todos los size de los datagrid todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los DataGridView y los asignamos
@@ -386,6 +415,7 @@ namespace PaleteriaInventario
             this.textBoxInventario.Location = point;
             this.textBoxProducto.Location = point;
             this.textBoxSucursal.Location = point;
+            this.textBoxVenta.Location = point;
             //Aqui poner todos los location de los botones de busqueda todos guardan la misma relacion
 
             //Creamos un nuevo point restandole la diferencia de tamaño que tiene la form con todos los label de los textBox de busqueda y los asignamos
@@ -395,6 +425,7 @@ namespace PaleteriaInventario
             this.label6.Location = point;
             this.label7.Location = point;
             this.label8.Location = point;
+            this.label9.Location = point;
             //Aqui poner todos los location de los label de busqueda todos guardan la misma relacion
         }
         
@@ -442,7 +473,30 @@ namespace PaleteriaInventario
                                                     "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
                                                     " where s.direccion like '" + nombre + "%' " +
                                                     "group by i.idInventario, s.direccion,i.fechaRecepcion;", tabla);
-                    break;
+                break;
+                case "Producto":
+                    //Asignamos el valor de la busqeda del textbox Cliente al nombre y el datagrid al datagrid del cliente
+                    //Ya que en esta tabla vamos a trabajar
+                    dataGrid = this.dataGridViewInventario;
+                    nombre = this.textBoxProducto.Text;
+                    this.nexo.actualizaGrid(this.dataGridViewProducto,
+                        "select p.idProducto,p.sabor, c.idCategoria, c.nombreCategoria as categoria, c.tamaño, p.precio from empleado.Producto p " +
+                        "inner join empleado.Categoria c on c.idCategoria = p.idCategoria "+
+                        "where p.sabor like '" + nombre + "%' " , "Producto");
+                break;
+                case "Sucursal":
+                    dataGrid = this.dataGridViewSucursal;
+                    nombre = this.textBoxSucursal.Text;
+                    this.nexo.actualizaGrid(dataGrid, "select * from empleado." + tabla + " where direccion like '" + nombre + "%';", tabla);
+                break;
+                case "Venta":
+                    dataGrid = this.dataGridViewVenta;
+                    nombre = this.textBoxVenta.Text;
+                    this.nexo.actualizaGrid(dataGrid,
+                        "select v.idVenta, c.nombreCliente as cliente, v.montoTotal, c.descuento, v.fechaVenta  from empleado.Venta v " +
+                        "inner join empleado.Cliente c on v.idCliente = c.idCliente " +
+                        "where c.nombreCliente like '" + nombre + "%' ", "Venta");
+                break;
             }
         }
 
@@ -513,6 +567,5 @@ namespace PaleteriaInventario
         #endregion
 
         #endregion
-
     }
 }

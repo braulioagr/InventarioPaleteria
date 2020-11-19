@@ -88,7 +88,17 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxInventario = new System.Windows.Forms.TextBox();
             this.dataGridViewInventario = new System.Windows.Forms.DataGridView();
+            this.toolStripVenta = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton16 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton17 = new System.Windows.Forms.ToolStripButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxVenta = new System.Windows.Forms.TextBox();
+            this.dataGridViewVenta = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
+            this.tabPageVenta.SuspendLayout();
             this.tabPageClientes.SuspendLayout();
             this.toolStripClientes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCliente)).BeginInit();
@@ -108,10 +118,13 @@
             this.Inventarios.SuspendLayout();
             this.toolStripInventario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInventario)).BeginInit();
+            this.toolStripVenta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVenta)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
             // 
+            this.tabControl.AccessibleName = "Producto";
             this.tabControl.Controls.Add(this.tabPageVenta);
             this.tabControl.Controls.Add(this.tabPageClientes);
             this.tabControl.Controls.Add(this.tabPageProducto);
@@ -127,6 +140,10 @@
             // 
             // tabPageVenta
             // 
+            this.tabPageVenta.Controls.Add(this.toolStripVenta);
+            this.tabPageVenta.Controls.Add(this.label9);
+            this.tabPageVenta.Controls.Add(this.textBoxVenta);
+            this.tabPageVenta.Controls.Add(this.dataGridViewVenta);
             this.tabPageVenta.Location = new System.Drawing.Point(4, 22);
             this.tabPageVenta.Name = "tabPageVenta";
             this.tabPageVenta.Padding = new System.Windows.Forms.Padding(3);
@@ -325,11 +342,13 @@
             // 
             // textBoxProducto
             // 
-            this.textBoxProducto.AccessibleName = "Categoria";
+            this.textBoxProducto.AccessibleDescription = "Producto";
+            this.textBoxProducto.AccessibleName = "Producto";
             this.textBoxProducto.Location = new System.Drawing.Point(598, 65);
             this.textBoxProducto.Name = "textBoxProducto";
             this.textBoxProducto.Size = new System.Drawing.Size(164, 20);
             this.textBoxProducto.TabIndex = 9;
+            this.textBoxProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.busqueda_keyUp);
             // 
             // dataGridViewProducto
             // 
@@ -539,11 +558,12 @@
             // 
             // textBoxSucursal
             // 
-            this.textBoxSucursal.AccessibleName = "Cliente";
+            this.textBoxSucursal.AccessibleName = "Sucursal";
             this.textBoxSucursal.Location = new System.Drawing.Point(598, 64);
             this.textBoxSucursal.Name = "textBoxSucursal";
             this.textBoxSucursal.Size = new System.Drawing.Size(164, 20);
             this.textBoxSucursal.TabIndex = 5;
+            this.textBoxSucursal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.busqueda_keyUp);
             // 
             // dataGridViewSucursal
             // 
@@ -754,6 +774,99 @@
             this.dataGridViewInventario.TabIndex = 8;
             this.dataGridViewInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInventario_CellClick);
             // 
+            // toolStripVenta
+            // 
+            this.toolStripVenta.AccessibleName = "Venta";
+            this.toolStripVenta.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton15,
+            this.toolStripSeparator10,
+            this.toolStripButton16,
+            this.toolStripSeparator11,
+            this.toolStripButton17});
+            this.toolStripVenta.Location = new System.Drawing.Point(3, 3);
+            this.toolStripVenta.Name = "toolStripVenta";
+            this.toolStripVenta.Size = new System.Drawing.Size(762, 37);
+            this.toolStripVenta.TabIndex = 15;
+            this.toolStripVenta.Text = "toolStrip1";
+            this.toolStripVenta.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripVenta_ItemClicked);
+            // 
+            // toolStripButton15
+            // 
+            this.toolStripButton15.AccessibleName = "Agregar";
+            this.toolStripButton15.AutoToolTip = false;
+            this.toolStripButton15.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton15.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton15.Image")));
+            this.toolStripButton15.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton15.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton15.Name = "toolStripButton15";
+            this.toolStripButton15.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton15.Text = "Agregar un cliente";
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton16
+            // 
+            this.toolStripButton16.AccessibleName = "Actualizar";
+            this.toolStripButton16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
+            this.toolStripButton16.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton16.Name = "toolStripButton16";
+            this.toolStripButton16.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton16.Text = "Actualizar datos de cliente";
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton17
+            // 
+            this.toolStripButton17.AccessibleName = "Eliminar";
+            this.toolStripButton17.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton17.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton17.Image")));
+            this.toolStripButton17.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton17.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton17.Name = "toolStripButton17";
+            this.toolStripButton17.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton17.Text = "toolStripButton3";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(595, 49);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(54, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "busqueda";
+            // 
+            // textBoxVenta
+            // 
+            this.textBoxVenta.AccessibleDescription = "";
+            this.textBoxVenta.AccessibleName = "Venta";
+            this.textBoxVenta.Location = new System.Drawing.Point(598, 65);
+            this.textBoxVenta.Name = "textBoxVenta";
+            this.textBoxVenta.Size = new System.Drawing.Size(164, 20);
+            this.textBoxVenta.TabIndex = 13;
+            this.textBoxVenta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.busqueda_keyUp);
+            // 
+            // dataGridViewVenta
+            // 
+            this.dataGridViewVenta.AllowUserToAddRows = false;
+            this.dataGridViewVenta.AllowUserToDeleteRows = false;
+            this.dataGridViewVenta.AllowUserToOrderColumns = true;
+            this.dataGridViewVenta.AllowUserToResizeRows = false;
+            this.dataGridViewVenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewVenta.Location = new System.Drawing.Point(6, 91);
+            this.dataGridViewVenta.Name = "dataGridViewVenta";
+            this.dataGridViewVenta.ReadOnly = true;
+            this.dataGridViewVenta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewVenta.Size = new System.Drawing.Size(756, 306);
+            this.dataGridViewVenta.TabIndex = 12;
+            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -765,6 +878,8 @@
             this.Load += new System.EventHandler(this.Inventario_Load);
             this.Resize += new System.EventHandler(this.Inventario_Resize);
             this.tabControl.ResumeLayout(false);
+            this.tabPageVenta.ResumeLayout(false);
+            this.tabPageVenta.PerformLayout();
             this.tabPageClientes.ResumeLayout(false);
             this.tabPageClientes.PerformLayout();
             this.toolStripClientes.ResumeLayout(false);
@@ -795,6 +910,9 @@
             this.toolStripInventario.ResumeLayout(false);
             this.toolStripInventario.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInventario)).EndInit();
+            this.toolStripVenta.ResumeLayout(false);
+            this.toolStripVenta.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVenta)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -860,6 +978,15 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxSucursal;
         private System.Windows.Forms.DataGridView dataGridViewSucursal;
+        private System.Windows.Forms.ToolStrip toolStripVenta;
+        private System.Windows.Forms.ToolStripButton toolStripButton15;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripButton toolStripButton16;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripButton toolStripButton17;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxVenta;
+        private System.Windows.Forms.DataGridView dataGridViewVenta;
     }
 }
 

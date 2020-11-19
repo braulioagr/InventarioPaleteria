@@ -1,3 +1,6 @@
+use master;
+drop database Paleteria
+
 create database Paleteria;
 use Paleteria;
 create schema empleado;
@@ -55,20 +58,20 @@ create table empleado.Stock(
 
 	constraint pkStock primary key (idStock),
 	constraint fkProducto foreign key (idProducto)
-	references empleado.Producto(idProducto) on delete cascade on update cascade,
+	references empleado.Producto(idProducto) on delete cascade,
 	constraint fkSucursal foreign key (idSucursal)
-	references empleado.Sucursal(idSucursal) on delete cascade on update cascade
+	references empleado.Sucursal(idSucursal) on delete cascade
 );
 create table empleado.DetalleVenta(
 	idVenta bigint not null,
-	idStock bigint not null,
+	idStock bigint,
 	unidades int not null,
 	subTotal real not null,
 	
 	constraint fkVenta foreign key (idVenta)
-	references empleado.Venta(idVenta) ,
+	references empleado.Venta(idVenta) on delete cascade ,
 	constraint fkStock foreign key (idStock)
-	references empleado.Stock(idStock)
+	references empleado.Stock(idStock) on delete set null
 
 );
 create table empleado.Inventario(
@@ -81,13 +84,13 @@ create table empleado.Inventario(
 );
 create table empleado.InventarioProducto(
 	idInventario bigint not null,
-	idProducto bigint not null,
+	idProducto bigint,
 	cantidadRecibida int not null,
 	
 	constraint fkInventario foreign key (idInventario)
-	references empleado.Inventario(idInventario),
+	references empleado.Inventario(idInventario) on delete cascade,
 	constraint fkProduto foreign key (idProducto)
-	references empleado.Producto(idProducto)
+	references empleado.Producto(idProducto) on delete set null
 
 );
 
@@ -290,4 +293,6 @@ select * from empleado.InventarioProducto
 select * from empleado.Producto
 select * from empleado.Stock 
 select * from empleado.Sucursal
-select * from empleado.Venta
+select v.idVenta, c.nombreCliente as cliente, v.montoTotal, c.descuento, v.fechaVenta  from empleado.Venta v 
+inner join empleado.Cliente c on v.idCliente = c.idCliente
+select * from empleado.DetalleVenta
