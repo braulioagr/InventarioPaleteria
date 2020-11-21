@@ -16,24 +16,26 @@ namespace PaleteriaInventario
 
         #region Variables de Instancia
 
+        private int idVenta;
         private int idCliente;
-        private int idCategoria;
         private int idSucursal;
-        private int idInventario;
         private int idProducto;
+        private int idCategoria;
+        private int idInventario;
         private string mensaje;
         private Nexo nexo;
-        private Producto producto;
-        private ConsultaDetalleVenta consulta;
+        private Venta venta;
+        private Restock restock;
         private AltaCliente alta;
-        private ModificaCliente modifica;
+        private Sucursal sucursal;
+        private Producto producto;
         private SqlCommand comando;
         private Categoria categoria;
-        private ConsultaDetalleInventario consultaDetalleInventario;
+        private ModificaCliente modifica;
+        private SeleccionaCliente seleccionaCliente;
         private SeleccionaSucursal seleccionaSucursal;
-        private Restock restock;
-        private Sucursal sucursal;
-
+        private ConsultaDetalleVenta consultaDetalleVenta;
+        private ConsultaDetalleInventario consultaDetalleInventario;
         #endregion
 
         #region Constructores
@@ -51,6 +53,7 @@ namespace PaleteriaInventario
             this.idInventario = -1;
             this.idSucursal = -1;
             this.idProducto = -1;
+            this.idVenta = -1;
             this.nexo = new Nexo();
             this.actualizaDataGrids();
         }
@@ -163,6 +166,7 @@ namespace PaleteriaInventario
                             comando.Parameters[0].Value = this.idCliente;
                             this.nexo.ejecutarSQL(comando,true);
                             this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente", "Cliente");
+                            this.idCliente = -1;
                         }
                     }
                 break;
@@ -220,6 +224,7 @@ namespace PaleteriaInventario
                             comando = new SqlCommand("delete from empleado.Categoria where idCategoria = " + this.idCategoria.ToString());
                             this.nexo.ejecutarSQL(comando,true);
                             this.nexo.actualizaGrid(this.dataGridViewCategoria, "select * from empleado.Categoria", "Categoria");
+                            this.idCategoria = -1;
                         }
                     }
                     break;
@@ -254,6 +259,24 @@ namespace PaleteriaInventario
                         consultaDetalleInventario.Dispose();
                     }
                 break;
+                case "Eliminar":
+                    if (this.idInventario != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewInventario.CurrentRow.Cells[0].Value.ToString() + " , " +
+                            this.dataGridViewInventario.CurrentRow.Cells[1].Value.ToString() + " , " +
+                            this.dataGridViewInventario.CurrentRow.Cells[2].Value.ToString() + " , " +
+                            this.dataGridViewInventario.CurrentRow.Cells[3].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            comando = new SqlCommand("delete from empleado.Inventario where idInventario = " + this.idInventario.ToString());
+                            this.nexo.ejecutarSQL(comando, true);
+                            this.nexo.actualizaGrid(this.dataGridViewInventario, "select * from empleado.Inventario", "Categoria");
+                            this.idInventario = -1;
+                        }
+                    }
+            break;
             }
         }
 
@@ -289,6 +312,7 @@ namespace PaleteriaInventario
                             {
                                 this.nexo.ejecutarSQL(sucursal.Comando, true);
                                 this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
+                                this.idSucursal = -1;
                             }
                         }
                     }
@@ -307,6 +331,7 @@ namespace PaleteriaInventario
                             comando = new SqlCommand("delete from empleado.Sucursal where idSucursal = " + this.idSucursal.ToString());
                             this.nexo.ejecutarSQL(comando, true);
                             this.nexo.actualizaGrid(this.dataGridViewSucursal, "select * from empleado.Sucursal", "Sucursal");
+                            this.idSucursal = -1;
                         }
                     }
                 break;
@@ -359,11 +384,12 @@ namespace PaleteriaInventario
                             this.dataGridViewProducto.CurrentRow.Cells[3].Value.ToString() + " | " +
                             this.dataGridViewProducto.CurrentRow.Cells[4].Value.ToString() + " | " +
                             this.dataGridViewProducto.CurrentRow.Cells[5].Value.ToString();
-                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea eliminar?",
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el registro que desea eliminar?",
                                             "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
                         {
                             this.comando = new SqlCommand("delete from empleado.Producto where idProducto = " + this.idProducto);
                             this.nexo.ejecutarSQL(this.comando, true);
+                            this.idProducto = -1;
                         }
                     }
                     break;
@@ -374,11 +400,98 @@ namespace PaleteriaInventario
             this.seteaDataGridsStock();
         }
 
-
-
         private void toolStripVenta_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-
+            switch(e.ClickedItem.AccessibleName)
+            {
+                case "Agregar":
+                    this.seleccionaSucursal = new SeleccionaSucursal(this.nexo);
+                    if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
+                    {
+                        this.idSucursal = this.seleccionaSucursal.ID;
+                        this.seleccionaCliente = new SeleccionaCliente(this.nexo);
+                        if (this.seleccionaCliente.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            this.idCliente = this.seleccionaCliente.ID;
+                            this.venta = new Venta(this.idCliente, this.idSucursal, this.nexo);
+                            this.venta.ShowDialog();
+                            this.venta.Dispose();
+                        }
+                    }
+                    this.idSucursal = -1;
+                    this.idCliente = -1;
+                break;
+                case "Actualizar":
+                    if (this.idVenta != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewVenta.CurrentRow.Cells[0].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[1].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[2].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[3].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[4].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el registro que desea modificar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            this.seleccionaSucursal = new SeleccionaSucursal(this.nexo);
+                            if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                this.idSucursal = this.seleccionaSucursal.ID;
+                                this.seleccionaCliente = new SeleccionaCliente(this.nexo);
+                                if(this.seleccionaCliente.ShowDialog().Equals(DialogResult.OK))
+                                {
+                                    this.idCliente = this.seleccionaCliente.ID;
+                                    this.venta = new Venta(this.idCliente, this.idSucursal, this.nexo);
+                                }
+                                
+                            }
+                            this.idSucursal = -1;
+                            this.idCliente = -1;
+                        }
+                    }
+                break;
+                case "Inspeccion":
+                    if (this.idVenta != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewVenta.CurrentRow.Cells[0].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[1].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[2].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[3].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[4].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el registro que desea inspeccionar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            this.consultaDetalleVenta = new ConsultaDetalleVenta(this.nexo, idVenta);
+                            this.consultaDetalleVenta.ShowDialog();
+                            this.consultaDetalleVenta.Dispose();
+                        }
+                    }
+                break;
+                case "Eliminar":
+                    if (this.idVenta != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewVenta.CurrentRow.Cells[0].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[1].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[2].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[3].Value.ToString() + " | " +
+                                  this.dataGridViewVenta.CurrentRow.Cells[4].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el registro que desea eliminar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            this.comando = new SqlCommand("delete from empleado.Venta where idVenta = " + this.idVenta);
+                            this.nexo.ejecutarSQL(this.comando, true);
+                            this.idVenta = -1;
+                        }
+                    }
+                break;
+            }
+            this.nexo.actualizaGrid(this.dataGridViewVenta,
+                                    "select v.idVenta, c.nombreCliente as cliente, v.montoTotal, c.descuento, v.fechaVenta "+
+                                    "from empleado.Venta v " +
+                                    "inner join empleado.Cliente c "+
+                                    "on v.idCliente = c.idCliente", "Venta");
         }
 
         #endregion
@@ -540,6 +653,11 @@ namespace PaleteriaInventario
             this.idProducto = int.Parse(dataGridViewProducto.CurrentRow.Cells[0].Value.ToString());
         }
 
+        private void dataGridViewVenta_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.idVenta = int.Parse(this.dataGridViewVenta.CurrentRow.Cells[0].Value.ToString());
+        }
+
         private void dataGridViewStockSucursales_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string id;
@@ -567,5 +685,6 @@ namespace PaleteriaInventario
         #endregion
 
         #endregion
+
     }
 }

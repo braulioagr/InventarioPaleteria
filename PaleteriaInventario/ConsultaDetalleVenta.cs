@@ -30,13 +30,17 @@ namespace PaleteriaInventario
 
         private void ConsultaDetalleVenta_Load(object sender, EventArgs e)
         {
-            this.command = new SqlCommand("select * from empleado.Venta where idVenta = " + this.idVenta.ToString());
-            this.nexo.ejecutarSQL(this.command,true);
+            this.nexo.actualizaGrid(this.dataGridViewVenta, "select * from empleado.Venta where idVenta = " + this.idVenta.ToString(), "Venta");
             this.idCliente = int.Parse(this.dataGridViewVenta.Rows[0].Cells[1].Value.ToString());
-            this.command.CommandText = "select * from empleado.DetalleVenta where idVenta = " + this.idVenta.ToString();
-            this.nexo.ejecutarSQL(this.command,true);
-            this.command.CommandText = "select * from empleado.Cliente where idCliente = " + this.idCliente.ToString();
-            this.nexo.ejecutarSQL(this.command,true);
+            this.nexo.actualizaGrid(this.dataGridViewCliente, "select * from empleado.Cliente where idCliente = " + this.idCliente.ToString(), "Cliente");
+            this.nexo.actualizaGrid(this.dataGridViewDetalles,
+                "select d.idVenta, p.sabor, c.nombreCategoria as categoria, d.unidades, p.precio, d.subTotal from empleado.DetalleVenta d " +
+                "inner join empleado.Stock s on s.idStock = d.idStock " +
+                "inner join empleado.Producto p on p.idProducto = s.idProducto " +
+                "inner join empleado.Categoria c on c.idCategoria = p.idCategoria " +
+                "where idVenta = " + this.idVenta.ToString(), "DetalleVenta");
+
+
         }
         #endregion
     }

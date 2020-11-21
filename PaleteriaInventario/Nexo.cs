@@ -31,7 +31,7 @@ namespace PaleteriaInventario
             sqlConnection.Open();
         }
 
-        public int obtenUltimoId(string tabla)
+        public int obtenUltimoId(string tabla, string columna)
         {
             int id;
             SqlCommand command;
@@ -39,7 +39,25 @@ namespace PaleteriaInventario
             id = -1;
             this.conexion();
             //Asignamos la conexion al sqlComand
-            command = new SqlCommand("select top 1 idInventario from " + tabla + " order by idInventario desc;",this.sqlConnection);
+            command = new SqlCommand("select top 1 " + columna + " from " + tabla + " order by "+columna+" desc;",this.sqlConnection);
+            dataReader = command.ExecuteReader();
+            dataReader.Read();
+            id = int.Parse(dataReader[0].ToString());
+            this.desConexion();
+            return id;
+        }
+
+
+
+        public int obtenEntero(string sentencia)
+        {
+            int id;
+            SqlCommand command;
+            SqlDataReader dataReader;
+            id = -1;
+            this.conexion();
+            //Asignamos la conexion al sqlComand
+            command = new SqlCommand(sentencia, this.sqlConnection);
             dataReader = command.ExecuteReader();
             dataReader.Read();
             id = int.Parse(dataReader[0].ToString());

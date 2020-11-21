@@ -29,7 +29,7 @@ namespace PaleteriaInventario
             this.sqlcommand = new SqlCommand("insert into empleado.Inventario values(@idSucursal,getdate());");
             this.sqlcommand.Parameters.AddWithValue("@idSucursal", this.idSucursal);
             this.nexo.ejecutarSQL(this.sqlcommand,false);
-            this.idInventario = this.nexo.obtenUltimoId("empleado.Inventario");
+            this.idInventario = this.nexo.obtenUltimoId("empleado.Inventario", "idInventario");
             this.nexo.actualizaGrid(this.dataGridViewInventario,
                 "select  distinct(i.idInventario), s.direccion as Sucursal, i.fechaRecepcion from empleado.Inventario i " +
                 "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
@@ -90,18 +90,23 @@ namespace PaleteriaInventario
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            AltaRestock alta;
-            alta = new AltaRestock();
-            alta.actualizaDatagrid += this.cargaProductos;
-            if (alta.ShowDialog().Equals(DialogResult.OK))
+            AltaRestock seleccionaProducto;
+            seleccionaProducto = new AltaRestock();
+            seleccionaProducto.actualizaDatagrid += this.cargaProductos;
+            if (seleccionaProducto.ShowDialog().Equals(DialogResult.OK))
             {
                 this.sqlcommand = new SqlCommand("insert into empleado.InventarioProducto values(@idInventario,@idProducto,@Cantidad);");
                 this.sqlcommand.Parameters.AddWithValue("@idInventario", this.idInventario);
-                this.sqlcommand.Parameters.AddWithValue("@idProducto", alta.IdProducto);
-                this.sqlcommand.Parameters.AddWithValue("@Cantidad", alta.cantidad);
+                this.sqlcommand.Parameters.AddWithValue("@idProducto", seleccionaProducto.IdProducto);
+                this.sqlcommand.Parameters.AddWithValue("@Cantidad", seleccionaProducto.cantidad);
                 this.nexo.ejecutarSQL(this.sqlcommand, true);
                 this.actualizaDataGridInventario();
             }
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
