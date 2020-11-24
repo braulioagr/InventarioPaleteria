@@ -32,7 +32,7 @@ CREATE TABLE empleado.Cliente(
 CREATE TABLE empleado.Categoria(
 	
 	idCategoria BIGSERIAL NOT NULL,
-	nombreCategoria VARCHAR(30) NOT NULL,
+	nombreCategoria VARCHAR(30) NOT NULL UNIQUE,
 	tamaño VARCHAR(7) NOT NULL CHECK(tamaño = 'Pequeño' OR tamaño = 'Mediano' OR tamaño = 'Grande'),
 	
 	CONSTRAINT PK_Categoria PRIMARY KEY(idCategoria)
