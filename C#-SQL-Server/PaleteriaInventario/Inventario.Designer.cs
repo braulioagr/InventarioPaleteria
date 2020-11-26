@@ -94,11 +94,13 @@
             this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton16 = new System.Windows.Forms.ToolStripButton();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxInventario = new System.Windows.Forms.TextBox();
             this.dataGridViewInventario = new System.Windows.Forms.DataGridView();
-            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton16 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton19 = new System.Windows.Forms.ToolStripButton();
             this.tabControl.SuspendLayout();
             this.tabPageVenta.SuspendLayout();
             this.toolStripVenta.SuspendLayout();
@@ -162,6 +164,8 @@
             this.toolStripSeparator10,
             this.toolStripButton18,
             this.toolStripSeparator11,
+            this.toolStripButton19,
+            this.toolStripSeparator12,
             this.toolStripButton17});
             this.toolStripVenta.Location = new System.Drawing.Point(3, 3);
             this.toolStripVenta.Name = "toolStripVenta";
@@ -839,6 +843,22 @@
             this.toolStripButton8.Size = new System.Drawing.Size(34, 34);
             this.toolStripButton8.Text = "Inspeccion";
             // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton16
+            // 
+            this.toolStripButton16.AccessibleName = "Eliminar";
+            this.toolStripButton16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
+            this.toolStripButton16.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton16.Name = "toolStripButton16";
+            this.toolStripButton16.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton16.Text = "Eliminar";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -872,21 +892,20 @@
             this.dataGridViewInventario.TabIndex = 8;
             this.dataGridViewInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInventario_CellClick);
             // 
-            // toolStripSeparator13
+            // toolStripSeparator12
             // 
-            this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 37);
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 37);
             // 
-            // toolStripButton16
+            // toolStripButton19
             // 
-            this.toolStripButton16.AccessibleName = "Eliminar";
-            this.toolStripButton16.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton16.Image")));
-            this.toolStripButton16.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton16.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton16.Name = "toolStripButton16";
-            this.toolStripButton16.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton16.Text = "Eliminar";
+            this.toolStripButton19.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton19.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton19.Image")));
+            this.toolStripButton19.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton19.Name = "toolStripButton19";
+            this.toolStripButton19.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton19.Text = "toolStripButton19";
             // 
             // Inventario
             // 
@@ -1010,6 +1029,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton18;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
         private System.Windows.Forms.ToolStripButton toolStripButton16;
+        private System.Windows.Forms.ToolStripButton toolStripButton19;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
     }
 }
 

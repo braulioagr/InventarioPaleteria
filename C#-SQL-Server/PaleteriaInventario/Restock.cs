@@ -17,6 +17,8 @@ namespace PaleteriaInventario
         private int idInventario;
         private Nexo nexo;
         private SqlCommand sqlcommand;
+        private int[] viejosValores = {-1,-1,-1 };
+        string mensaje;
         public Restock(Nexo nexo, int idSucursal)
         {
             this.idSucursal = idSucursal;
@@ -45,8 +47,8 @@ namespace PaleteriaInventario
                 "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
                 "where i.idInventario = " + this.idInventario.ToString() +
                 "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
-            this.nexo.actualizaGrid(this.dataGridViewStocks,
-                 "select p.sabor, c.nombreCategoria as categoria, c.tamaño, i.cantidadRecibida as cantidad from empleado.InventarioProducto i " +
+            this.nexo.actualizaGrid(this.dataGridViewDetalles,
+                 "select * from empleado.InventarioProducto i " +
                  "inner join empleado.Producto p on i.idProducto = p.idProducto " +
                  "inner join empleado.Categoria c on p.idCategoria = c.idCategoria " +
                  "where i.idInventario = " + this.idInventario.ToString(), "InventarioProducto");
@@ -90,23 +92,59 @@ namespace PaleteriaInventario
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            AltaRestock seleccionaProducto;
-            seleccionaProducto = new AltaRestock();
-            seleccionaProducto.actualizaDatagrid += this.cargaProductos;
-            if (seleccionaProducto.ShowDialog().Equals(DialogResult.OK))
-            {
-                this.sqlcommand = new SqlCommand("insert into empleado.InventarioProducto values(@idInventario,@idProducto,@Cantidad);");
-                this.sqlcommand.Parameters.AddWithValue("@idInventario", this.idInventario);
-                this.sqlcommand.Parameters.AddWithValue("@idProducto", seleccionaProducto.IdProducto);
-                this.sqlcommand.Parameters.AddWithValue("@Cantidad", seleccionaProducto.cantidad);
-                this.nexo.ejecutarSQL(this.sqlcommand, true);
-                this.actualizaDataGridInventario();
-            }
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Agregar":
+                    AltaRestock seleccionaProducto;
+                    seleccionaProducto = new AltaRestock();
+                    seleccionaProducto.actualizaDatagrid += this.cargaProductos;
+                    if (seleccionaProducto.ShowDialog().Equals(DialogResult.OK))
+                    {
+                        this.sqlcommand = new SqlCommand("insert into empleado.InventarioProducto values(@idInventario,@idProducto,@Cantidad);");
+                        this.sqlcommand.Parameters.AddWithValue("@idInventario", this.idInventario);
+                        this.sqlcommand.Parameters.AddWithValue("@idProducto", seleccionaProducto.IdProducto);
+                        this.sqlcommand.Parameters.AddWithValue("@Cantidad", seleccionaProducto.cantidad);
+                        this.nexo.ejecutarSQL(this.sqlcommand, true);
+                        this.actualizaDataGridInventario();
+                    }
+                break;
+                case "Eliminar":
 
+                    mensaje = this.dataGridViewDetalles.CurrentRow.Cells[0].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[1].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[2].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[3].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[4].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[5].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[6].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[7].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[8].Value.ToString() + " | " +
+                                  this.dataGridViewDetalles.CurrentRow.Cells[9].Value.ToString();
+                    if (MessageBox.Show("Usted selecciono el registro \n[" +
+                        mensaje + "]¿Desea Eliminarlo?","Aviso",MessageBoxButtons.YesNo).Equals(DialogResult.Yes))
+                    {
+                        this.sqlcommand = new SqlCommand("delete from empleado.InventarioProducto"+
+                            " where idInventario = @idInventario and idProducto = @idProducto and cantidadRecibida = @Cantidad ;");
+                        this.sqlcommand.Parameters.AddWithValue("@idInventario", this.viejosValores[0]);
+                        this.sqlcommand.Parameters.AddWithValue("@idProducto", this.viejosValores[1]);
+                        this.sqlcommand.Parameters.AddWithValue("@Cantidad", this.viejosValores[2]);
+                        this.nexo.ejecutarSQL(this.sqlcommand, true);
+                        this.actualizaDataGridInventario();
+                    }
+                break;
+            }
+            this.actualizaDataGridInventario();
+        }
+
+        private void dataGridViewStocks_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.viejosValores[0] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[0].Value.ToString());
+            this.viejosValores[1] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[1].Value.ToString());
+            this.viejosValores[2] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[2].Value.ToString());
         }
     }
 }

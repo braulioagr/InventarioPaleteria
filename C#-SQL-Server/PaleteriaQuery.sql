@@ -296,3 +296,10 @@ select * from empleado.Stock
 select * from empleado.Sucursal
 select * from empleado.DetalleVenta
 select * from empleado.Venta
+
+
+select * from empleado.InventarioProducto
+
+select * from empleado.InventarioProducto i
+inner join empleado.Producto p on i.idProducto = p.idProducto
+inner join empleado.Categoria c on p.idCategoria = c.idCategoria
