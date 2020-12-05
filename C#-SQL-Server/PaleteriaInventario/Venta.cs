@@ -13,12 +13,13 @@ namespace PaleteriaInventario
 {
     partial class Venta : Form
     {
-        #region Variables de instancia;
+        #region Variables de instancia
         private int idVenta;
         private int idStock;
         private int idCliente;
         private int idSucursal;        
         private int existencia;
+        private float subTotal;
         private Nexo nexo;
         private SqlCommand comando;
         private AltaDetalle seleccionaProducto;
@@ -30,6 +31,7 @@ namespace PaleteriaInventario
             this.nexo = nexo;
             this.idCliente = idCliente;
             this.idSucursal = idSucursal;
+            this.subTotal = -1;
             InitializeComponent();
         }
 
@@ -62,7 +64,27 @@ namespace PaleteriaInventario
                         this.nexo.ejecutarSQL(this.comando, false);
 
                     }
-                    break;
+                break;
+                case "Actualizar":
+                    if (idStock != -1)
+                    {
+                        this.comando = new SqlCommand("update empleado.DetalleVenta " +
+                                                      "set idStock = @idStock, unidades = @unidades " +
+                                                      "where idVenta = @idVenta and idStock = @oldIdStock and unidades = @oldUnidades");
+                        this.comando.Parameters.AddWithValue("@idVenta", this.idVenta);
+                        this.comando.Parameters.AddWithValue("@oldIdStock", this.idStock);
+                        this.comando.Parameters.AddWithValue("@oldUnidades", this.existencia);
+                        this.comando.Parameters.AddWithValue("@oldSubTotal", this.subTotal);
+                        if (this.seleccionaProducto.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            this.idStock = this.seleccionaProducto.IdProducto;
+                            this.existencia = this.seleccionaProducto.cantidad;
+                            this.comando.Parameters.AddWithValue("@idStock", this.idStock);
+                            this.comando.Parameters.AddWithValue("@unidades", this.existencia);
+                            this.nexo.ejecutarSQL(this.comando, true);
+                        }
+                    }
+                break;
                 case "Eliminar":
                     if (idStock != -1)
                     {
@@ -115,6 +137,7 @@ namespace PaleteriaInventario
 
             this.idStock = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[1].Value.ToString());
             this.existencia = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[4].Value.ToString());
+            this.subTotal = float.Parse(this.dataGridViewDetalles.CurrentRow.Cells[5].Value.ToString());
         }
 
         private void button2_Click(object sender, EventArgs e)

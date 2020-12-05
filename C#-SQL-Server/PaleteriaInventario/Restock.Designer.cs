@@ -129,7 +129,7 @@
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Text = "Agregar";
             // 
             // toolStripSeparator1
             // 
@@ -138,13 +138,14 @@
             // 
             // toolStripButton2
             // 
+            this.toolStripButton2.AccessibleName = "Actualizar";
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Text = "Actualizar";
             // 
             // toolStripSeparator2
             // 
@@ -160,13 +161,19 @@
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Text = "Eliminar";
             // 
             // dataGridViewDetalles
             // 
+            this.dataGridViewDetalles.AllowUserToAddRows = false;
+            this.dataGridViewDetalles.AllowUserToDeleteRows = false;
+            this.dataGridViewDetalles.AllowUserToResizeRows = false;
+            this.dataGridViewDetalles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewDetalles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewDetalles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDetalles.Location = new System.Drawing.Point(7, 56);
             this.dataGridViewDetalles.Name = "dataGridViewDetalles";
+            this.dataGridViewDetalles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewDetalles.Size = new System.Drawing.Size(718, 158);
             this.dataGridViewDetalles.TabIndex = 0;
             this.dataGridViewDetalles.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStocks_CellClick);

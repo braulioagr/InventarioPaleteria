@@ -18,7 +18,8 @@ namespace PaleteriaInventario
         private Nexo nexo;
         private SqlCommand sqlcommand;
         private int[] viejosValores = {-1,-1,-1 };
-        string mensaje;
+        private string mensaje;
+        private AltaRestock seleccionaProducto;
         public Restock(Nexo nexo, int idSucursal)
         {
             this.idSucursal = idSucursal;
@@ -90,16 +91,11 @@ namespace PaleteriaInventario
             this.nexo.ejecutarSQL(this.sqlcommand, false);
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-        }
-
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             switch (e.ClickedItem.AccessibleName)
             {
                 case "Agregar":
-                    AltaRestock seleccionaProducto;
                     seleccionaProducto = new AltaRestock();
                     seleccionaProducto.actualizaDatagrid += this.cargaProductos;
                     if (seleccionaProducto.ShowDialog().Equals(DialogResult.OK))
@@ -112,18 +108,29 @@ namespace PaleteriaInventario
                         this.actualizaDataGridInventario();
                     }
                 break;
-                case "Eliminar":
+                case "Actualizar":
+                    seleccionaProducto = new AltaRestock();
+                    seleccionaProducto.actualizaDatagrid += this.cargaProductos;
+                    if (MessageBox.Show("Usted selecciono el registro \n[" +
+                        mensaje + "]¿Desea Modificarlo?", "Aviso", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))
+                    {
+                        if (seleccionaProducto.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            this.sqlcommand = new SqlCommand("update empleado.InventarioProducto "+
+                                                             "set idProducto = @idProducto, cantidadRecibida = @cantidadRecibida " +
+                                                             "where idInventario = @idInventario and idProducto = @oldIdProducto and cantidadRecibida = @oldCantidadRecibida ");
 
-                    mensaje = this.dataGridViewDetalles.CurrentRow.Cells[0].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[1].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[2].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[3].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[4].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[5].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[6].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[7].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[8].Value.ToString() + " | " +
-                                  this.dataGridViewDetalles.CurrentRow.Cells[9].Value.ToString();
+                            this.sqlcommand.Parameters.AddWithValue("@idInventario", viejosValores[0]);
+                            this.sqlcommand.Parameters.AddWithValue("@oldIdProducto", viejosValores[1]);
+                            this.sqlcommand.Parameters.AddWithValue("@oldCantidadRecibida", viejosValores[2]);
+                            this.sqlcommand.Parameters.AddWithValue("@idProducto", seleccionaProducto.IdProducto);
+                            this.sqlcommand.Parameters.AddWithValue("@CantidadRecibida", seleccionaProducto.cantidad);
+                            this.nexo.ejecutarSQL(this.sqlcommand,true);
+
+                        }
+                    }
+                break;
+                case "Eliminar":
                     if (MessageBox.Show("Usted selecciono el registro \n[" +
                         mensaje + "]¿Desea Eliminarlo?","Aviso",MessageBoxButtons.YesNo).Equals(DialogResult.Yes))
                     {
@@ -142,9 +149,21 @@ namespace PaleteriaInventario
 
         private void dataGridViewStocks_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            mensaje = this.dataGridViewDetalles.CurrentRow.Cells[0].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[1].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[2].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[3].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[4].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[5].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[6].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[7].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[8].Value.ToString() + " | " +
+                          this.dataGridViewDetalles.CurrentRow.Cells[9].Value.ToString();
             this.viejosValores[0] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[0].Value.ToString());
             this.viejosValores[1] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[1].Value.ToString());
             this.viejosValores[2] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[2].Value.ToString());
+
+
         }
     }
 }

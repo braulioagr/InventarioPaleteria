@@ -137,15 +137,17 @@ ON empleado.DetalleVenta AFTER INSERT AS
 	DECLARE @Subtotal AS REAL
 	DECLARE @Unidades AS INT
 	DECLARE @Precio AS REAL
+	DECLARE @idVenta as BIGINT
 
-	SELECT @Unidades = unidades FROM inserted
-	SELECT @idStock = idStock FROM inserted
-	
+	SELECT @Unidades = unidades FROM inserted;
+	SELECT @idStock = idStock FROM inserted;
+	SELECT @idVenta = idVenta FROM inserted;
+
 	SELECT @Precio = (SELECT Producto.precio FROM Producto INNER JOIN Stock ON Stock.idProducto = Producto.idProducto WHERE Stock.idStock = @idStock)
 	
 	SELECT @Subtotal = @Precio * @Unidades
 	
-	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock
+	UPDATE empleado.DetalleVenta SET subTotal = @Subtotal WHERE idStock = @idStock AND idVenta = @idVenta;
 END;
 
 CREATE TRIGGER empleado.SumaTotalVenta
@@ -297,9 +299,13 @@ select * from empleado.Sucursal
 select * from empleado.DetalleVenta
 select * from empleado.Venta
 
+update empleado.DetalleVenta
+set idStock = 1, unidades = 2
+where idVenta = 1 and idStock = 1 and unidades = 5 and subTotal = 92.5
 
-select * from empleado.InventarioProducto
+select * from empleado.DetalleVenta where idVenta = 1;
+select * from empleado.Venta where idVenta = 1;
+select * from empleado.Cliente where idCliente = 1;
 
-select * from empleado.InventarioProducto i
-inner join empleado.Producto p on i.idProducto = p.idProducto
-inner join empleado.Categoria c on p.idCategoria = c.idCategoria
+update empleado.InventarioProducto set idProducto = @idProducto, cantidadRecibida = @cantidadRecibida
+where idInventario = @idInventario and idProducto = @oldIdProducto and cantidadRecibida = @oldCantidadRecibida 
