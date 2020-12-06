@@ -433,18 +433,14 @@ namespace PaleteriaInventario
                         if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el registro que desea modificar?",
                                             "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
                         {
-                            this.seleccionaSucursal = new SeleccionaSucursal(this.nexo);
-                            if (this.seleccionaSucursal.ShowDialog().Equals(DialogResult.OK))
-                            {
-                                this.idSucursal = this.seleccionaSucursal.ID;
-                                this.seleccionaCliente = new SeleccionaCliente(this.nexo);
-                                if(this.seleccionaCliente.ShowDialog().Equals(DialogResult.OK))
-                                {
-                                    this.idCliente = this.seleccionaCliente.ID;
-                                    this.venta = new Venta(this.idCliente, this.idSucursal, this.nexo);
-                                }
-                                
-                            }
+                            this.idCliente = nexo.obtenEntero("select idCliente from empleado.Venta where idVenta = "+this.idVenta);
+                            this.idSucursal = nexo.obtenEntero("select top 1 s.idSucursal from empleado.Venta v " +
+                                                                "inner join empleado.DetalleVenta d on v.idVenta = d.idVenta " +
+                                                                "inner join empleado.Stock s on s.idStock = d.idStock " +
+                                                                "where v.idVenta = "+this.idVenta);
+                            this.venta = new Venta(idVenta,this.idCliente, this.idSucursal, this.nexo);
+                            this.venta.ShowDialog();
+                            this.venta.Dispose();
                             this.idSucursal = -1;
                             this.idCliente = -1;
                         }
@@ -468,6 +464,7 @@ namespace PaleteriaInventario
                         }
                     }
                 break;
+
                 case "Eliminar":
                     if (this.idVenta != -1)
                     {

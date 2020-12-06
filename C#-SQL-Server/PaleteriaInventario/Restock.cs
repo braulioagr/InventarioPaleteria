@@ -66,7 +66,6 @@ namespace PaleteriaInventario
                 case "Cancelar":
                     if(MessageBox.Show("¿Esta seguro de querer cancelar el procedimiento?", "Advertencia",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation).Equals(DialogResult.Yes))
                     {
-
                         this.abortaReabastecimiento();
                         this.DialogResult = DialogResult.Cancel;
                         this.Close();

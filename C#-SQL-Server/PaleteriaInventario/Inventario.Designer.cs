@@ -36,6 +36,8 @@
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton18 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton19 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton17 = new System.Windows.Forms.ToolStripButton();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxVenta = new System.Windows.Forms.TextBox();
@@ -99,8 +101,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxInventario = new System.Windows.Forms.TextBox();
             this.dataGridViewInventario = new System.Windows.Forms.DataGridView();
-            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton19 = new System.Windows.Forms.ToolStripButton();
             this.tabControl.SuspendLayout();
             this.tabPageVenta.SuspendLayout();
             this.toolStripVenta.SuspendLayout();
@@ -206,6 +206,22 @@
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
             this.toolStripSeparator11.Size = new System.Drawing.Size(6, 37);
+            // 
+            // toolStripButton19
+            // 
+            this.toolStripButton19.AccessibleName = "Actualizar";
+            this.toolStripButton19.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton19.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton19.Image")));
+            this.toolStripButton19.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton19.Name = "toolStripButton19";
+            this.toolStripButton19.Size = new System.Drawing.Size(34, 34);
+            this.toolStripButton19.Text = "Actualización";
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 37);
             // 
             // toolStripButton17
             // 
@@ -891,21 +907,6 @@
             this.dataGridViewInventario.Size = new System.Drawing.Size(756, 306);
             this.dataGridViewInventario.TabIndex = 8;
             this.dataGridViewInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInventario_CellClick);
-            // 
-            // toolStripSeparator12
-            // 
-            this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(6, 37);
-            // 
-            // toolStripButton19
-            // 
-            this.toolStripButton19.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton19.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton19.Image")));
-            this.toolStripButton19.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton19.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton19.Name = "toolStripButton19";
-            this.toolStripButton19.Size = new System.Drawing.Size(34, 34);
-            this.toolStripButton19.Text = "toolStripButton19";
             // 
             // Inventario
             // 

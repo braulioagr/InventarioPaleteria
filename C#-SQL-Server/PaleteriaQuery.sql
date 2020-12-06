@@ -307,5 +307,3 @@ select * from empleado.DetalleVenta where idVenta = 1;
 select * from empleado.Venta where idVenta = 1;
 select * from empleado.Cliente where idCliente = 1;
 
-update empleado.InventarioProducto set idProducto = @idProducto, cantidadRecibida = @cantidadRecibida
-where idInventario = @idInventario and idProducto = @oldIdProducto and cantidadRecibida = @oldCantidadRecibida 
