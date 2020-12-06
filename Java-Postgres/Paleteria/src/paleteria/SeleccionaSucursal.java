@@ -1,21 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package paleteria;
 
-/**
- *
- * @author ulise
- */
-public class SeleccionaSocursal extends javax.swing.JFrame {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-    /**
-     * Creates new form SeleccionaSocursal
-     */
-    public SeleccionaSocursal() {
+
+public class SeleccionaSucursal extends javax.swing.JFrame {
+
+    private Connection Conexion = null;
+    private DefaultTableModel modelo;
+    public static Statement st = null;
+    public static ResultSet rt;
+    private String id = "";
+
+    public SeleccionaSucursal() {
         initComponents();
+        Conexion = Nexo.conex();
+        ActualizaTablasucur();
+         
+    }
+
+    public String Id() {
+        return id;
+    }
+    
+    
+    
+    
+    private void ActualizaTablasucur(){
+        
+        modelo = new DefaultTableModel(); // para diseno de la tabla
+        modelo.addColumn("ID");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("Horario");
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Sucursal";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modelo.addRow(Aux);
+            }
+            this.DataSelecSocursal.setModel(modelo);
+        }
+        catch(Exception e){
+        
+        }
     }
 
     /**
@@ -32,8 +73,9 @@ public class SeleccionaSocursal extends javax.swing.JFrame {
         cancelarbtn = new javax.swing.JButton();
         aceptarbtn1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Selecciona socursal");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -57,8 +99,18 @@ public class SeleccionaSocursal extends javax.swing.JFrame {
         jScrollPane2.setViewportView(DataSelecSocursal);
 
         cancelarbtn.setText("Cancelar");
+        cancelarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarbtnActionPerformed(evt);
+            }
+        });
 
         aceptarbtn1.setText("Aceptar");
+        aceptarbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aceptarbtn1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,7 +121,7 @@ public class SeleccionaSocursal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancelarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancelarbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(aceptarbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -90,8 +142,39 @@ public class SeleccionaSocursal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DataSelecSocursalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataSelecSocursalMouseClicked
-        // TODO add your handling code here:
+        int fila = DataSelecSocursal.rowAtPoint(evt.getPoint());
+        
+        id = modelo.getValueAt(fila,0).toString();
+        //JOptionPane.showMessageDialog(this, id);
+
     }//GEN-LAST:event_DataSelecSocursalMouseClicked
+
+    private void aceptarbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarbtn1ActionPerformed
+        if(id != "")
+        {
+            
+            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere trabajar con la SUCURSAL SELECCIONADA con identificador " + id + "?");
+            if(resp == 0)
+            {
+                this.id = "";
+                this.dispose();
+                JOptionPane.showMessageDialog(this, "Seleccione el CLIENTE que esta atendiendo");
+                SeleccionaCliente SeleC = new SeleccionaCliente(id);
+                SeleC.setVisible(true);
+                
+                
+            }
+
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione una SUCURSAL");
+        }
+    }//GEN-LAST:event_aceptarbtn1ActionPerformed
+
+    private void cancelarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarbtnActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_cancelarbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,20 +193,21 @@ public class SeleccionaSocursal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SeleccionaSocursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SeleccionaSocursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SeleccionaSocursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SeleccionaSocursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeleccionaSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SeleccionaSocursal().setVisible(true);
+                new SeleccionaSucursal().setVisible(true);
             }
         });
     }
