@@ -14,6 +14,7 @@ namespace PaleteriaInventario
     partial class Venta : Form
     {
         #region Variables de instancia
+        private bool alta;
         private int idVenta;
         private int idStock;
         private int idCliente;
@@ -28,6 +29,7 @@ namespace PaleteriaInventario
         #region Constructores
         public Venta(int idCliente, int idSucursal, Nexo nexo)
         {
+            this.alta = true;
             this.nexo = nexo;
             this.idCliente = idCliente;
             this.idSucursal = idSucursal;
@@ -35,11 +37,30 @@ namespace PaleteriaInventario
             InitializeComponent();
         }
 
+        public Venta(int idVenta, int idCliente, int idSucursal, Nexo nexo)
+        {
+            this.alta = false;
+            this.idVenta = idVenta;
+            this.idCliente = idCliente;
+            this.idSucursal = idSucursal;
+            this.nexo = nexo;
+            this.subTotal = -1;
+            InitializeComponent();
+        }
+
         private void Venta_Load(object sender, EventArgs e)
         {
-            this.nexo.ejecutarSQL(new SqlCommand("insert into empleado.Venta(idCliente,montoTotal,fechaVenta) "+
-                                                    "values("+this.idCliente+",0.0,getdate());"), false);
-            this.idVenta = this.nexo.obtenUltimoId("empleado.Venta","idVenta");
+            if (alta)
+            {
+                this.nexo.ejecutarSQL(new SqlCommand("insert into empleado.Venta(idCliente,montoTotal,fechaVenta) " +
+                                                        "values(" + this.idCliente + ",0.0,getdate());"), false);
+                this.idVenta = this.nexo.obtenUltimoId("empleado.Venta", "idVenta");
+            }
+            else
+            {
+                this.button2.Visible = false;
+                this.button1.Text = "Cerrar";
+            }
             this.actualizaDataGrids();
         }
         #endregion
@@ -47,6 +68,8 @@ namespace PaleteriaInventario
         #region Eventos
         private void detalles_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            this.seleccionaProducto = new AltaDetalle();
+            seleccionaProducto.actualizaDatagrid += this.cargaProductos;
             switch (e.ClickedItem.AccessibleName)
             {
 
@@ -103,6 +126,7 @@ namespace PaleteriaInventario
             this.actualizaDataGrids();
             this.idStock = -1;
             this.existencia = -1;
+            this.seleccionaProducto.Dispose();
         }
         #endregion
 
@@ -142,9 +166,12 @@ namespace PaleteriaInventario
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.comando = new SqlCommand("delete from empleado.Venta where idVenta = "+this.idVenta);
-            this.nexo.ejecutarSQL(this.comando, false);
+            if (this.alta)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.comando = new SqlCommand("delete from empleado.Venta where idVenta = "+this.idVenta);
+                this.nexo.ejecutarSQL(this.comando, false);
+            }
         }
     }
 }
