@@ -20,10 +20,12 @@ public final class Inventario extends javax.swing.JFrame {
     private static Connection Conexion = null;
     public static Statement st = null;
     public static ResultSet rt;
-    private static DefaultTableModel modeloV, modeloC;
+    private static DefaultTableModel modeloV, modeloC, modeloP, modeloS, modeloSP, modeloSS, modeloSu;
     
     private String idVenta = "";
     private String idCliente = "";
+    private String idProducto = "";
+    private String idSucursal = "";
 
     public Inventario() {
         initComponents();
@@ -31,6 +33,11 @@ public final class Inventario extends javax.swing.JFrame {
         Conexion = Nexo.conex();
         ActualizagridVenta();
         ActualizagridCliente();
+        ActualizagridProducto();
+        ActualizagridStock();
+        ActualizagridProductoStock();
+        ActualizagridSucursalStock();
+        ActualizagridSucursal();
     }
     
     @SuppressWarnings("unchecked")
@@ -92,9 +99,150 @@ public final class Inventario extends javax.swing.JFrame {
         }
     }
     
+    public static void ActualizagridProducto(){
+        modeloP = new DefaultTableModel(); // para diseno de la tabla 
+        modeloP.addColumn("idProducto");
+        modeloP.addColumn("idCategoria");
+        modeloP.addColumn("Precio");
+        modeloP.addColumn("Sabor");
 
-   
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Producto";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];// las tres columnas
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloP.addRow(Aux);
+            }
+           DataProductos.setModel(modeloP);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
     
+    public static void ActualizagridStock(){
+        modeloS = new DefaultTableModel(); // para diseno de la tabla 
+        modeloS.addColumn("idStock");
+        modeloS.addColumn("Sucursal");
+        modeloS.addColumn("Sabor");
+        modeloS.addColumn("Precio");
+        modeloS.addColumn("Categoria");
+        modeloS.addColumn("Tamaño");
+        modeloS.addColumn("Existencias");
+
+        
+        try{
+            String Qery = "select idStock, direccion as Sucursal, Sabor, Precio, NombreCategoria as Categoria, Tamano, Existencias from empleado.Stock s inner join empleado.Sucursal su on su.idSucursal = s.idSucursal inner join empleado.Producto p on p.idProducto = s.idProducto inner join empleado.Categoria c on p.idCategoria = c.idCategoria ORDER BY direccion";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[7];// las tres columnas
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                Aux[4] = rt.getString(5);
+                Aux[5] = rt.getString(6);
+                Aux[6] = rt.getString(7);
+                modeloS.addRow(Aux);
+            }
+           DataStock.setModel(modeloS);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+     
+    public static void ActualizagridProductoStock(){
+        modeloSP = new DefaultTableModel(); // para diseno de la tabla 
+        modeloSP.addColumn("idProducto");
+        modeloSP.addColumn("Sabor");
+        modeloSP.addColumn("Categoria");
+        modeloSP.addColumn("Tamaño");
+
+
+        try{
+            String Qery = "select idProducto, sabor, nombreCategoria, tamano from empleado.Producto p inner join empleado.Categoria c on p.idCategoria = c.idCategoria";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];// las tres columnas
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloSP.addRow(Aux);
+            }
+           DataProductosstock.setModel(modeloSP);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    
+    public static void ActualizagridSucursalStock(){
+        
+        modeloSS = new DefaultTableModel(); // para diseno de la tabla
+        modeloSS.addColumn("ID");
+        modeloSS.addColumn("Dirección");
+        modeloSS.addColumn("Telefono");
+        modeloSS.addColumn("Horario");
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Sucursal";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloSS.addRow(Aux);
+            }
+            DataSucursalesstock.setModel(modeloSS);
+        }
+        catch(Exception e){
+        
+        }
+    }
+    
+    public static void ActualizagridSucursal(){
+        
+        modeloSu = new DefaultTableModel(); // para diseno de la tabla
+        modeloSu.addColumn("ID");
+        modeloSu.addColumn("Dirección");
+        modeloSu.addColumn("Telefono");
+        modeloSu.addColumn("Horario");
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Sucursal";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloSu.addRow(Aux);
+            }
+            DataSucursal.setModel(modeloSu);
+        }
+        catch(Exception e){
+        
+        }
+    }
+
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -129,11 +277,11 @@ public final class Inventario extends javax.swing.JFrame {
         DataProductos = new javax.swing.JTable();
         Stock = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        DataSucursalesstock = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
         DataStock = new javax.swing.JTable();
-        jScrollPane6 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
         DataProductosstock = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        DataSucursalesstock = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         stocksocursalestxt = new javax.swing.JTextField();
         stockproductostxt = new javax.swing.JTextField();
@@ -257,7 +405,7 @@ public final class Inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ventastxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -344,7 +492,7 @@ public final class Inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clientestxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -357,18 +505,33 @@ public final class Inventario extends javax.swing.JFrame {
         productosagregarbtn.setFocusable(false);
         productosagregarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         productosagregarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        productosagregarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productosagregarbtnActionPerformed(evt);
+            }
+        });
         productosToolBar.add(productosagregarbtn);
 
         productoseditarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Editar.png"))); // NOI18N
         productoseditarbtn.setFocusable(false);
         productoseditarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         productoseditarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        productoseditarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productoseditarbtnActionPerformed(evt);
+            }
+        });
         productosToolBar.add(productoseditarbtn);
 
         productoseliminarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Eliminar.png"))); // NOI18N
         productoseliminarbtn.setFocusable(false);
         productoseliminarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         productoseliminarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        productoseliminarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productoseliminarbtnActionPerformed(evt);
+            }
+        });
         productosToolBar.add(productoseliminarbtn);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -388,6 +551,11 @@ public final class Inventario extends javax.swing.JFrame {
 
             }
         ));
+        DataProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DataProductosMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(DataProductos);
 
         javax.swing.GroupLayout ProductosLayout = new javax.swing.GroupLayout(Productos);
@@ -411,29 +579,13 @@ public final class Inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(productostxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         Inventario.addTab("Producto", Productos);
 
         jScrollPane4.setBackground(new java.awt.Color(204, 204, 204));
-
-        DataSucursalesstock.setBackground(new java.awt.Color(204, 204, 204));
-        DataSucursalesstock.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane4.setViewportView(DataSucursalesstock);
-
-        jScrollPane5.setBackground(new java.awt.Color(204, 204, 204));
 
         DataStock.setBackground(new java.awt.Color(204, 204, 204));
         DataStock.setModel(new javax.swing.table.DefaultTableModel(
@@ -447,9 +599,9 @@ public final class Inventario extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane5.setViewportView(DataStock);
+        jScrollPane4.setViewportView(DataStock);
 
-        jScrollPane6.setBackground(new java.awt.Color(204, 204, 204));
+        jScrollPane5.setBackground(new java.awt.Color(204, 204, 204));
 
         DataProductosstock.setBackground(new java.awt.Color(204, 204, 204));
         DataProductosstock.setModel(new javax.swing.table.DefaultTableModel(
@@ -463,7 +615,23 @@ public final class Inventario extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane6.setViewportView(DataProductosstock);
+        jScrollPane5.setViewportView(DataProductosstock);
+
+        jScrollPane6.setBackground(new java.awt.Color(204, 204, 204));
+
+        DataSucursalesstock.setBackground(new java.awt.Color(204, 204, 204));
+        DataSucursalesstock.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane6.setViewportView(DataSucursalesstock);
 
         jLabel4.setText("Sucursales");
 
@@ -476,47 +644,47 @@ public final class Inventario extends javax.swing.JFrame {
         StockLayout.setHorizontalGroup(
             StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(StockLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(StockLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(stocksocursalestxt))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
                 .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(StockLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(StockLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(stockproductostxt, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(StockLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(StockLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(stockproductostxt))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                        .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
+                            .addGroup(StockLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(19, 19, 19)
+                                .addComponent(stocksocursalestxt, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane4)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
         );
         StockLayout.setVerticalGroup(
             StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StockLayout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
-                .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(stocksocursalestxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(stockproductostxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(stockproductostxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
-                    .addGroup(StockLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(StockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stocksocursalestxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -529,18 +697,33 @@ public final class Inventario extends javax.swing.JFrame {
         sucursalagregarbtn.setFocusable(false);
         sucursalagregarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sucursalagregarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        sucursalagregarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sucursalagregarbtnActionPerformed(evt);
+            }
+        });
         sucursalToolBar.add(sucursalagregarbtn);
 
         sucursaleditarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Editar.png"))); // NOI18N
         sucursaleditarbtn.setFocusable(false);
         sucursaleditarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sucursaleditarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        sucursaleditarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sucursaleditarbtnActionPerformed(evt);
+            }
+        });
         sucursalToolBar.add(sucursaleditarbtn);
 
         sucursaleliminarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Eliminar.png"))); // NOI18N
         sucursaleliminarbtn.setFocusable(false);
         sucursaleliminarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         sucursaleliminarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        sucursaleliminarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sucursaleliminarbtnActionPerformed(evt);
+            }
+        });
         sucursalToolBar.add(sucursaleliminarbtn);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -560,6 +743,11 @@ public final class Inventario extends javax.swing.JFrame {
 
             }
         ));
+        DataSucursal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DataSucursalMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(DataSucursal);
 
         javax.swing.GroupLayout SucursalLayout = new javax.swing.GroupLayout(Sucursal);
@@ -583,7 +771,7 @@ public final class Inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sucursaltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -650,7 +838,7 @@ public final class Inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(categoriatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -717,7 +905,7 @@ public final class Inventario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inventariotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -839,7 +1027,109 @@ public final class Inventario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un Cliente");
         }
     }//GEN-LAST:event_clienteseliminarbtnActionPerformed
-    // </editor-fold>  
+    // </editor-fold> 
+    
+    //  <editor-fold defaultstate="collapsed" desc="Producto">
+    private void productosagregarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productosagregarbtnActionPerformed
+        Producto PD = new Producto("",true);
+        PD.setVisible(true);
+        
+    }//GEN-LAST:event_productosagregarbtnActionPerformed
+    
+    private void productoseditarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoseditarbtnActionPerformed
+        if(idProducto != "")
+        {
+            Producto PD = new Producto(idProducto,false);
+            PD.setVisible(true);
+            idProducto = "";
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione un PRODUCTO");
+
+        }
+        
+    }//GEN-LAST:event_productoseditarbtnActionPerformed
+
+    private void DataProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataProductosMouseClicked
+         int fila = DataProductos.rowAtPoint(evt.getPoint());
+        
+         idProducto = modeloP.getValueAt(fila,0).toString();
+    }//GEN-LAST:event_DataProductosMouseClicked
+
+    private void productoseliminarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoseliminarbtnActionPerformed
+        
+        if(idProducto != "")
+        {
+            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar este PRODUCTO con identificador " + idProducto + "?");
+            if(resp == 0)
+            {
+                Nexo.ejecutaSQL("DELETE FROM empleado.Producto WHERE idProducto = "+ idProducto,false);
+                ActualizagridProducto();
+                ActualizagridProductoStock();
+                ActualizagridStock();
+                idProducto = "";
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione un PRODUCTO");
+
+        }
+    }//GEN-LAST:event_productoseliminarbtnActionPerformed
+    // </editor-fold>
+
+    //  <editor-fold defaultstate="collapsed" desc="Sucursal">
+    private void sucursalagregarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sucursalagregarbtnActionPerformed
+        Sucursal SU = new Sucursal("",false);
+        SU.setVisible(true);
+    }//GEN-LAST:event_sucursalagregarbtnActionPerformed
+
+    private void sucursaleditarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sucursaleditarbtnActionPerformed
+        if(idSucursal != "")
+        {
+            Sucursal SU = new Sucursal(idSucursal,true);
+            SU.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione una SUCURSAL");
+
+        }
+    }//GEN-LAST:event_sucursaleditarbtnActionPerformed
+
+    private void DataSucursalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataSucursalMouseClicked
+        int fila = DataSucursal.rowAtPoint(evt.getPoint());
+        
+         idSucursal = modeloSu.getValueAt(fila,0).toString();
+    }//GEN-LAST:event_DataSucursalMouseClicked
+
+    private void sucursaleliminarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sucursaleliminarbtnActionPerformed
+        if(idSucursal != "")
+        {
+            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar esta SUCURSAL con identificador " + idSucursal + "?");
+            if(resp == 0)
+            {
+                Nexo.ejecutaSQL("DELETE FROM empleado.Sucursal WHERE idSucursal = "+ idSucursal,false);
+                ActualizagridSucursal();
+                ActualizagridSucursalStock();
+                ActualizagridStock();
+                idSucursal = "";
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione un SUCURSAL");
+
+        }
+    }//GEN-LAST:event_sucursaleliminarbtnActionPerformed
+    
+    
+    
+
+    // </editor-fold>
+    
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -879,11 +1169,11 @@ public final class Inventario extends javax.swing.JFrame {
     private javax.swing.JTable DataCategoria;
     public static javax.swing.JTable DataClientes;
     public static javax.swing.JTable DataInventario;
-    private javax.swing.JTable DataProductos;
-    private javax.swing.JTable DataProductosstock;
-    private javax.swing.JTable DataStock;
-    private javax.swing.JTable DataSucursal;
-    private javax.swing.JTable DataSucursalesstock;
+    public static javax.swing.JTable DataProductos;
+    public static javax.swing.JTable DataProductosstock;
+    public static javax.swing.JTable DataStock;
+    public static javax.swing.JTable DataSucursal;
+    public static javax.swing.JTable DataSucursalesstock;
     public static javax.swing.JTable DataVenta;
     public static javax.swing.JTabbedPane Inventario;
     private javax.swing.JPanel InventarioP;
