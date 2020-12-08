@@ -251,6 +251,32 @@ namespace PaleteriaInventario
                     }
                     this.seleccionaSucursal.Dispose();
                 break;
+                case "Actualizar":
+                    if (this.idInventario != -1)
+                    {
+                        //Concatenamos todos los valores dentro del datagrid para mostrar el disclaimer en el Messagebox
+                        mensaje = this.dataGridViewInventario.CurrentRow.Cells[0].Value.ToString() + " , " +
+                            this.dataGridViewInventario.CurrentRow.Cells[1].Value.ToString() + " , " +
+                            this.dataGridViewInventario.CurrentRow.Cells[2].Value.ToString() + " , " +
+                            this.dataGridViewInventario.CurrentRow.Cells[3].Value.ToString();
+                        if (MessageBox.Show("El registro seleccionado es: \n" + mensaje + "\n ¿Es este el que desea Modificar?",
+                                            "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question).Equals(DialogResult.Yes))
+                        {
+                            this.idSucursal = this.nexo.obtenEntero("select idSucursal from empleado.Inventario where idInventario = " + this.idInventario);
+                            this.restock = new Restock(this.nexo, this.idInventario, this.idSucursal);
+                            if (this.restock.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                this.nexo.actualizaGrid(this.dataGridViewInventario,
+                                "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
+                                "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
+                                "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
+                                "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
+                            }
+                            this.idSucursal = -1;
+                            this.idInventario = -1;
+                        }
+                    }
+                break;
                 case "Inspeccion":
                     if(this.idInventario != -1)
                     {
@@ -272,7 +298,11 @@ namespace PaleteriaInventario
                         {
                             comando = new SqlCommand("delete from empleado.Inventario where idInventario = " + this.idInventario.ToString());
                             this.nexo.ejecutarSQL(comando, true);
-                            this.nexo.actualizaGrid(this.dataGridViewInventario, "select * from empleado.Inventario", "Categoria");
+                            this.nexo.actualizaGrid(this.dataGridViewInventario,
+                                "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
+                                "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
+                                "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
+                                "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
                             this.idInventario = -1;
                         }
                     }

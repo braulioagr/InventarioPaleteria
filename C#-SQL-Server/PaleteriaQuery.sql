@@ -303,7 +303,6 @@ update empleado.DetalleVenta
 set idStock = 1, unidades = 2
 where idVenta = 1 and idStock = 1 and unidades = 5 and subTotal = 92.5
 
-select * from empleado.DetalleVenta where idVenta = 1;
-select * from empleado.Venta where idVenta = 1;
-select * from empleado.Cliente where idCliente = 1;
+
+
 

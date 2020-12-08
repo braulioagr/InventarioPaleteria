@@ -20,24 +20,39 @@ namespace PaleteriaInventario
         private int[] viejosValores = {-1,-1,-1 };
         private string mensaje;
         private AltaRestock seleccionaProducto;
+        private bool alta;
         public Restock(Nexo nexo, int idSucursal)
         {
             this.idSucursal = idSucursal;
             this.nexo = nexo;
+            this.alta = true;
+            InitializeComponent();
+        }
+
+        public Restock(Nexo nexo, int idInventario, int idSucursal)
+        {
+            this.idSucursal = idSucursal;
+            this.nexo = nexo;
+            this.idInventario = idInventario;
+            this.alta = false;
             InitializeComponent();
         }
 
         private void Restock_Load(object sender, EventArgs e)
         {
-            this.sqlcommand = new SqlCommand("insert into empleado.Inventario values(@idSucursal,getdate());");
-            this.sqlcommand.Parameters.AddWithValue("@idSucursal", this.idSucursal);
-            this.nexo.ejecutarSQL(this.sqlcommand,false);
-            this.idInventario = this.nexo.obtenUltimoId("empleado.Inventario", "idInventario");
-            this.nexo.actualizaGrid(this.dataGridViewInventario,
-                "select  distinct(i.idInventario), s.direccion as Sucursal, i.fechaRecepcion from empleado.Inventario i " +
-                "inner join empleado.Sucursal s on s.idSucursal = i.idSucursal " +
-                "where i.idInventario = " +this.idInventario.ToString()+
-                "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
+            if (alta)
+            {
+                this.sqlcommand = new SqlCommand("insert into empleado.Inventario values(@idSucursal,getdate());");
+                this.sqlcommand.Parameters.AddWithValue("@idSucursal", this.idSucursal);
+                this.nexo.ejecutarSQL(this.sqlcommand, false);
+                this.idInventario = this.nexo.obtenUltimoId("empleado.Inventario", "idInventario");
+            }
+            else
+            {
+                this.button2.Visible = false;
+                this.button1.Text = "Cerrar";
+            }
+            this.actualizaDataGridInventario();
         }
 
         private void actualizaDataGridInventario()
@@ -66,9 +81,12 @@ namespace PaleteriaInventario
                 case "Cancelar":
                     if(MessageBox.Show("¿Esta seguro de querer cancelar el procedimiento?", "Advertencia",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation).Equals(DialogResult.Yes))
                     {
-                        this.abortaReabastecimiento();
-                        this.DialogResult = DialogResult.Cancel;
-                        this.Close();
+                        if (alta)
+                        {
+                            this.abortaReabastecimiento();
+                            this.DialogResult = DialogResult.Cancel;
+                            this.Close();
+                        }
                     }
                 break;
             }
