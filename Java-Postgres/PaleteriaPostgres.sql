@@ -13,7 +13,7 @@ CREATE SCHEMA empleado
 		
 CREATE TABLE empleado.Sucursal(
 	
-	idSucursal BIGSERIAL NOT NULL,
+	idSucursal bigserial NOT NULL,
 	direccion VARCHAR(50) NOT NULL,
 	telefono VARCHAR(13) NOT NULL,
 	horario  VARCHAR(11) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE empleado.Categoria(
 	
 	idCategoria BIGSERIAL NOT NULL,
 	nombreCategoria VARCHAR(30) NOT NULL,
-	tamaño VARCHAR(7) NOT NULL,
+	tamano VARCHAR(7) NOT NULL,
 	
 	CONSTRAINT PK_Categoria PRIMARY KEY(idCategoria)
 );
@@ -161,8 +161,8 @@ DECLARE
 		idStocku = NEW.idStock;
 		Unidades = NEW.unidades;
 		
-		Precio = (SELECT Producto.precio FROM Producto INNER JOIN Stock 
-				  ON Stock.idProducto = Producto.idProducto WHERE Stock.idStock = idStocku);
+		Precio = (SELECT empleado.Producto.precio FROM empleado.Producto INNER JOIN Stock 
+				  ON empleado.Stock.idProducto = empleado.Producto.idProducto WHERE empleado.Stock.idStock = idStocku);
 		
 		Subtotal = Precio * Unidades;
 		
@@ -244,8 +244,7 @@ DECLARE
 		totalDeVenta = NEW.montoTotal;
 		
 		IF ((SELECT descuento FROM empleado.Cliente WHERE idCliente = idClienteU) != 0) THEN
-			totalcDescuento =  @totalDeVenta 
-			- (@totalDeVenta * ((SELECT descuento FROM empleado.Cliente WHERE idCliente = idClienteu)/100));
+			totalcDescuento =  totalDeVenta - (totalDeVenta * ((SELECT descuento FROM empleado.Cliente WHERE idCliente = idClienteu)/100));
 			UPDATE empleado.Venta SET montoTotal = totalcDescuento WHERE idVenta = idVentau;
 		END IF;
 	RETURN NULL;
@@ -274,7 +273,7 @@ DECLARE
 				INSERT INTO empleado.Stock (idProducto, idSucursal, existencias) 
 				VALUES(idProductou, cnt, 0);
 			ELSE
-				SELECT numerosocursales = numerosocursales + 1;
+				numerosocursales = numerosocursales + 1;
 			END IF;
 			cnt = cnt + 1;
 		END LOOP;
@@ -306,7 +305,7 @@ DECLARE
    			IF(EXISTS(SELECT empleado.Producto.idProducto FROM empleado.Producto WHERE empleado.Producto.idProducto = cnt)) THEN
 				INSERT INTO empleado.Stock (idProducto, idSucursal, existencias) VALUES(cnt, idSucursalu, 0);
 			ELSE
-				SELECT numeroproductos = numeroproductos + 1;
+				numeroproductos = numeroproductos + 1;
 			END IF;
 			cnt = cnt + 1;
 		END LOOP;
@@ -321,26 +320,44 @@ AFTER INSERT
 	EXECUTE PROCEDURE empleado.relacion();
 	
 	
-	
-insert into empleado.Categoria values (1,'Crema','Pequeño');
-insert into empleado.Categoria values (2,'Agua','Pequeño');
 
-insert into empleado.Cliente values (1,'Ricardo Moreno','4443099965','Mayoreo',50);
-insert into empleado.Cliente values ('Roberto Franco','4445555990','Menudeo',10);
-insert into empleado.Cliente values ('Andrey Alonso','4444292590','Mayoreo',30);
-insert into empleado.Cliente values ('Mauricio Aleman','4441357636','Menudeo',5);
-insert into empleado.Cliente values ('Cliente no registrado','4445555990','Menudeo',0);
+--------------------Inserciones de Prueba-------------------------------
+--Categorias--
+insert into empleado.Categoria(nombrecategoria, tamano) values ('Crema','Pequeño');
+insert into empleado.Categoria(nombrecategoria, tamano) values ('Agua','Pequeño');
+--Clientes--
+insert into empleado.Cliente(nombrecliente,telefono,tipocliente,descuento) values ('Ricardo Moreno','4443099965','Mayoreo',50);
+insert into empleado.Cliente(nombrecliente,telefono,tipocliente,descuento) values ('Roberto Franco','4445555990','Menudeo',10);
+insert into empleado.Cliente(nombrecliente,telefono,tipocliente,descuento) values ('Andrey Alonso','4444292590','Mayoreo',30);
+insert into empleado.Cliente(nombrecliente,telefono,tipocliente,descuento) values ('Mauricio Aleman','4441357636','Menudeo',5);
+insert into empleado.Cliente(nombrecliente,telefono,tipocliente,descuento) values ('Cliente no registrado','4445555990','Menudeo',0);
+--Sucursales--
+insert into empleado.Sucursal(direccion,telefono,horario) values('Picis 118, Capricornio','8189547','12:00-17:00');
+insert into empleado.Sucursal(direccion,telefono,horario)  values('Italia 52, Providencia','8189852','10:00-19:00');
+insert into empleado.Sucursal(direccion,telefono,horario)  values('Italia 51, Providencia','8189852','10:00-19:00');
+insert into empleado.Sucursal(direccion,telefono,horario)  values('san','444','00:00-00:00');
 
-insert into empleado.Sucursal values(1,'Picis 118, Capricornio','8189547','12:00-17:00');
-insert into empleado.Sucursal values(2,'Italia 52, Providencia','8189852','10:00-19:00');
-insert into empleado.Sucursal values(3,'Italia 57, Providencia','8189852','10:00-19:00');
-
-
-insert into empleado.Producto values (1,1,18.5,'Fresa');
-insert into empleado.Producto values (2,2,20.5,'Limon');
-insert into empleado.Producto values (3,1,15.0,'Chocolate');
-
-
+--Productos--
+insert into empleado.Producto(idcategoria,precio,sabor) values (1,18.5,'Fresa');
+insert into empleado.Producto(idcategoria,precio,sabor) values (2,20.5,'Limon');
+insert into empleado.Producto(idcategoria,precio,sabor) values (1,15.0,'Chocolate');
+--Inventarios--
+insert into empleado.Inventario(idsucursal,fecharecepcion) values(1,current_date);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(1,1,30);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(1,2,30);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(1,3,30);
+insert into empleado.Inventario(idsucursal,fecharecepcion) values(2,current_date);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(2,1,30);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(2,2,30);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(2,3,30);
+--Ventas--
+insert into empleado.Venta(idCliente,montoTotal,fechaVenta) values(1,0.0,current_date);
+insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(1,1,2,1);
+insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(1,3,2,1);
+insert into empleado.Venta(idCliente,montoTotal,fechaVenta) values(2,0.0,current_date);
+insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(2,2,2,1);
+insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(2,4,2,1);
+--------------------Inserciones de Prueba Triggers de Stock-------------------------------
 
 select * from empleado.Categoria
 select * from empleado.Cliente
@@ -351,3 +368,5 @@ select * from empleado.Stock
 select * from empleado.Sucursal
 select * from empleado.DetalleVenta
 select * from empleado.Venta
+
+delete from empleado.venta  where idventa = 3
