@@ -179,6 +179,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="ventastxt">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ventastxtKeyReleased"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <Properties>
@@ -316,6 +319,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="clientestxt1">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="clientestxt1KeyReleased"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <Properties>
@@ -453,6 +459,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="productostxt">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="productostxtKeyReleased"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
               <Properties>
@@ -656,8 +665,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="stocksocursalestxt">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="stocksocursalestxtKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="stockproductostxt">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="stockproductostxtKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -772,6 +787,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="sucursaltxt">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="sucursaltxtKeyReleased"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane7">
               <Properties>
@@ -868,6 +886,9 @@
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoriaagregarbtnActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="categoriaeditarbtn">
                   <Properties>
@@ -878,6 +899,9 @@
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoriaeditarbtnActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="categoriaeliminarbtn">
                   <Properties>
@@ -888,6 +912,9 @@
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoriaeliminarbtnActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -900,6 +927,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="categoriatxt">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="categoriatxtKeyReleased"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane8">
               <Properties>
@@ -925,6 +955,12 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DataCategoriaMouseClicked"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -990,6 +1026,9 @@
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventarioagregarbtnActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="inventariobuscarbtn">
                   <Properties>
@@ -1000,6 +1039,9 @@
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventariobuscarbtnActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="inventarioeliminarbtn">
                   <Properties>
@@ -1010,6 +1052,9 @@
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventarioeliminarbtnActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1022,6 +1067,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="inventariotxt">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inventariotxtKeyReleased"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane9">
               <Properties>
@@ -1047,6 +1095,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DataInventarioMouseClicked"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>

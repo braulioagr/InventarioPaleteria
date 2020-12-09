@@ -44,7 +44,7 @@ public class Venta extends javax.swing.JFrame {
     
     @SuppressWarnings("unchecked")
     
-    public void ActualizagridVenta(){
+    public static void ActualizagridVenta(){
         modelo = new DefaultTableModel(); // para diseno de la tabla 
         modelo.addColumn("idVenta");
         modelo.addColumn("Cliente");
@@ -53,7 +53,7 @@ public class Venta extends javax.swing.JFrame {
         modelo.addColumn("Fecha");
         
         try{
-            String Qery = "select v.idVenta, c.nombreCliente as cliente, v.montoTotal, c.descuento, v.fechaVenta from empleado.Venta v inner join empleado.Cliente c on v.idCliente = c.idCliente where idVenta =" + this.idVenta;
+            Qery = "select v.idVenta, c.nombreCliente as cliente, v.montoTotal, c.descuento, v.fechaVenta from empleado.Venta v inner join empleado.Cliente c on v.idCliente = c.idCliente where idVenta =" + idVenta;
                             
             st = Conexion.createStatement();
             rt = st.executeQuery(Qery);
@@ -66,7 +66,7 @@ public class Venta extends javax.swing.JFrame {
                 Aux[4] = rt.getString(5);
                 modelo.addRow(Aux);
             }
-            this.DataVenta.setModel(modelo);
+            Venta.DataVenta.setModel(modelo);
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
@@ -294,7 +294,7 @@ public class Venta extends javax.swing.JFrame {
        }
        else
        {
-            JOptionPane.showMessageDialog(null, "Seleccione un producto para eliminar de la venta");
+            JOptionPane.showMessageDialog(this, "Seleccione un producto para eliminar de la venta");
        }
 
     }//GEN-LAST:event_EliminarbtnActionPerformed
@@ -354,7 +354,7 @@ public class Venta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Agregarbtn;
     public static javax.swing.JTable DataProductos;
-    private javax.swing.JTable DataVenta;
+    public static javax.swing.JTable DataVenta;
     private javax.swing.JButton Eliminarbtn;
     private javax.swing.JPanel ProductosPanel;
     private javax.swing.JPanel VentaPanel;

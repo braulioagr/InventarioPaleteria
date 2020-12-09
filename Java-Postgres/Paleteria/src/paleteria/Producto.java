@@ -197,7 +197,7 @@ public class Producto extends javax.swing.JFrame {
                 Inventario.ActualizagridProductoStock();
                 Inventario.ActualizagridStock();
                 this.dispose();
-                JOptionPane.showMessageDialog(null, "Actualización Correcta");
+                JOptionPane.showMessageDialog(this, "Actualización Correcta");
             }
             else
             {
@@ -206,12 +206,12 @@ public class Producto extends javax.swing.JFrame {
                 Inventario.ActualizagridProductoStock();
                 Inventario.ActualizagridStock();
                 this.dispose();
-                JOptionPane.showMessageDialog(null, "Registro agregado");
+                JOptionPane.showMessageDialog(this, "Registro agregado");
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Escriba todos los datos requeridos");
+            JOptionPane.showMessageDialog(this, "Escriba todos los datos requeridos");
 
         }
         

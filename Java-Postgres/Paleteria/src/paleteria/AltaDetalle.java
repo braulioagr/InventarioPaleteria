@@ -196,6 +196,7 @@ public class AltaDetalle extends javax.swing.JFrame {
             Nexo.ejecutaSQL("insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal) values("+ idVenta +", "+ idStock +", "+ unidades + ",1);", false);
             this.dispose();
             Venta.ActualizagridDetalles();
+            Venta.ActualizagridVenta();
             JOptionPane.showMessageDialog(this, "Producto agregado correctamente");
         }
         else

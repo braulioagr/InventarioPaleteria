@@ -211,10 +211,9 @@ DECLARE
 	BEGIN 
 	
 		idInventariou = NEW.idInventario;
-		idStocku = idSucursal FROM empleado.Inventario WHERE idInventario = idInventariou;
+		idSucursalu = SELECT idSucursal FROM empleado.Inventario WHERE idInventario = idInventariou;
 		idProductou = NEW.idProducto;
-		idSucursalu = idStock FROM empleado.Stock
-		WHERE idProducto = idProductou AND idSucursal = idSucursalu;
+		idStocku = SELECT idStock FROM empleado.Stock WHERE idProducto = idProductou AND idSucursal = idSucursalu;
 		
 		nuevostock = (NEW.cantidadRecibida)
 		+ (SELECT existencias FROM empleado.Stock WHERE idStock = idStocku);
@@ -347,9 +346,9 @@ insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida
 insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(1,2,30);
 insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(1,3,30);
 insert into empleado.Inventario(idsucursal,fecharecepcion) values(2,current_date);
-insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(2,1,30);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(3,1,30);
 insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(2,2,30);
-insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(2,3,30);
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(,3,30);
 --Ventas--
 insert into empleado.Venta(idCliente,montoTotal,fechaVenta) values(1,0.0,current_date);
 insert into empleado.DetalleVenta(idVenta,idStock,unidades,subTotal)values(1,1,2,1);
@@ -369,4 +368,8 @@ select * from empleado.Sucursal
 select * from empleado.DetalleVenta
 select * from empleado.Venta
 
+
+insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(20,2,33);
+
+select p.sabor, c.nombreCategoria as categoria, c.tamano, i.cantidadRecibida as cantidad from empleado.InventarioProducto i inner join empleado.Producto p on i.idProducto = p.idProducto inner join empleado.Categoria c on p.idCategoria = c.idCategoria where i.idInventario = 16
 delete from empleado.venta  where idventa = 3

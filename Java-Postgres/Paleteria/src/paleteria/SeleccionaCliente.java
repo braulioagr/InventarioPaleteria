@@ -147,7 +147,7 @@ public class SeleccionaCliente extends javax.swing.JFrame {
         if(id != "")
         {
             
-            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere trabajar con el CLIENTE con identificador " + id + "?");
+            int resp = JOptionPane.showConfirmDialog(this, "¿Quiere trabajar con el CLIENTE con identificador " + id + "?");
             if(resp == 0)
             {
                 Venta Venta = new Venta(idSocur,id);

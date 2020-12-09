@@ -26,7 +26,7 @@ namespace PaleteriaInventario
         public void conexion()
         {
             //Creamos el enlace con el objeto mediante la cadena de conexion
-            sqlConnection = new SqlConnection("Data Source=DESKTOP-CM20RJA;Initial Catalog=Paleteria;Integrated Security=True");
+            sqlConnection = new SqlConnection(@"Data Source=LAPTOP-2013V78I\SQLEXPRESS;Initial Catalog=Paleteria;Integrated Security=True");
             //Abrimos el nexo entre el programa y la base datos
             sqlConnection.Open();
         }

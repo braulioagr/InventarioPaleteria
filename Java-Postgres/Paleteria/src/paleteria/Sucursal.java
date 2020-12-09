@@ -238,7 +238,7 @@ public class Sucursal extends javax.swing.JFrame {
                 ActualizagridSucursalStock();
                 ActualizagridStock();
                 this.dispose();
-                JOptionPane.showMessageDialog(null, "Actualización Correcta");
+                JOptionPane.showMessageDialog(this, "Actualización Correcta");
             }
             else
             {
@@ -248,12 +248,12 @@ public class Sucursal extends javax.swing.JFrame {
                 ActualizagridSucursalStock();
                 ActualizagridStock();
                 this.dispose();
-                JOptionPane.showMessageDialog(null, "Registro agregado");
+                JOptionPane.showMessageDialog(this, "Registro agregado");
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Escriba todos los datos requeridos");
+            JOptionPane.showMessageDialog(this, "Escriba todos los datos requeridos");
 
         }
         

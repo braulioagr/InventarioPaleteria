@@ -72,7 +72,7 @@ public class Nexo {
 
             
             } catch (SQLException e) {
-            //JOptionPane.showMessageDialog(null, "Error no ejecutado: " + e.getMessage());
+                //JOptionPane.showMessageDialog(null, "Error no ejecutado: " + e.getMessage());
             }
     }
     

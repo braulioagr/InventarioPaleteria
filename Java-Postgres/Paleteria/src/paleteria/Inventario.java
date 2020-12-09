@@ -20,12 +20,15 @@ public final class Inventario extends javax.swing.JFrame {
     private static Connection Conexion = null;
     public static Statement st = null;
     public static ResultSet rt;
-    private static DefaultTableModel modeloV, modeloC, modeloP, modeloS, modeloSP, modeloSS, modeloSu;
+    private static DefaultTableModel modeloV, modeloC, modeloP, modeloS, modeloSP, modeloSS, modeloSu, modeloCa, modeloI;
     
     private String idVenta = "";
     private String idCliente = "";
     private String idProducto = "";
     private String idSucursal = "";
+    private String idCategoria = "";
+    private String idInventario = "";
+    
 
     public Inventario() {
         initComponents();
@@ -38,6 +41,8 @@ public final class Inventario extends javax.swing.JFrame {
         ActualizagridProductoStock();
         ActualizagridSucursalStock();
         ActualizagridSucursal();
+        ActualizagridCategoria();
+        ActualizagridInventario();
     }
     
     @SuppressWarnings("unchecked")
@@ -241,7 +246,61 @@ public final class Inventario extends javax.swing.JFrame {
         
         }
     }
+    
+    public static void ActualizagridCategoria(){
+        
+        modeloCa = new DefaultTableModel(); // para diseno de la tabla
+        modeloCa.addColumn("ID");
+        modeloCa.addColumn("Nombre");
+        modeloCa.addColumn("Tamaño");
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Categoria";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
 
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                modeloCa.addRow(Aux);
+            }
+            DataCategoria.setModel(modeloCa);
+        }
+        catch(Exception e){
+        
+        }
+    }
+    
+    public static void ActualizagridInventario(){
+        
+        modeloI = new DefaultTableModel(); // para diseno de la tabla
+        modeloI.addColumn("idInventario");
+        modeloI.addColumn("Dirección Socursal");
+        modeloI.addColumn("Total de productos recibidos");
+        modeloI.addColumn("Fecha de recepción");
+        
+        try{
+            String Qery = "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i inner join empleado.InventarioProducto p on i.idInventario = p.idInventario inner join empleado.Sucursal s on s.idSucursal = i.idSucursal group by i.idInventario, s.direccion,i.fechaRecepcion";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloI.addRow(Aux);
+            }
+            DataInventario.setModel(modeloI);
+        }
+        catch(Exception e){
+        
+        }
+    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -363,6 +422,12 @@ public final class Inventario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Busqueda");
 
+        ventastxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ventastxtKeyReleased(evt);
+            }
+        });
+
         jScrollPane1.setBackground(new java.awt.Color(204, 204, 204));
 
         DataVenta.setBackground(new java.awt.Color(204, 204, 204));
@@ -450,6 +515,12 @@ public final class Inventario extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Busqueda");
 
+        clientestxt1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                clientestxt1KeyReleased(evt);
+            }
+        });
+
         jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
 
         DataClientes.setBackground(new java.awt.Color(204, 204, 204));
@@ -536,6 +607,12 @@ public final class Inventario extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Busqueda");
+
+        productostxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                productostxtKeyReleased(evt);
+            }
+        });
 
         jScrollPane3.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -635,6 +712,18 @@ public final class Inventario extends javax.swing.JFrame {
 
         jLabel4.setText("Sucursales");
 
+        stocksocursalestxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                stocksocursalestxtKeyReleased(evt);
+            }
+        });
+
+        stockproductostxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                stockproductostxtKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("Productos");
 
         jLabel6.setText("Stock");
@@ -729,6 +818,12 @@ public final class Inventario extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Busqueda");
 
+        sucursaltxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sucursaltxtKeyReleased(evt);
+            }
+        });
+
         jScrollPane7.setBackground(new java.awt.Color(204, 204, 204));
 
         DataSucursal.setBackground(new java.awt.Color(204, 204, 204));
@@ -784,22 +879,43 @@ public final class Inventario extends javax.swing.JFrame {
         categoriaagregarbtn.setFocusable(false);
         categoriaagregarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         categoriaagregarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        categoriaagregarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriaagregarbtnActionPerformed(evt);
+            }
+        });
         categoriaToolBar.add(categoriaagregarbtn);
 
         categoriaeditarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Editar.png"))); // NOI18N
         categoriaeditarbtn.setFocusable(false);
         categoriaeditarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         categoriaeditarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        categoriaeditarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriaeditarbtnActionPerformed(evt);
+            }
+        });
         categoriaToolBar.add(categoriaeditarbtn);
 
         categoriaeliminarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Eliminar.png"))); // NOI18N
         categoriaeliminarbtn.setFocusable(false);
         categoriaeliminarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         categoriaeliminarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        categoriaeliminarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriaeliminarbtnActionPerformed(evt);
+            }
+        });
         categoriaToolBar.add(categoriaeliminarbtn);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Busqueda");
+
+        categoriatxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                categoriatxtKeyReleased(evt);
+            }
+        });
 
         jScrollPane8.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -815,6 +931,11 @@ public final class Inventario extends javax.swing.JFrame {
 
             }
         ));
+        DataCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DataCategoriaMouseClicked(evt);
+            }
+        });
         jScrollPane8.setViewportView(DataCategoria);
 
         javax.swing.GroupLayout CategoriaLayout = new javax.swing.GroupLayout(Categoria);
@@ -851,22 +972,43 @@ public final class Inventario extends javax.swing.JFrame {
         inventarioagregarbtn.setFocusable(false);
         inventarioagregarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         inventarioagregarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        inventarioagregarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventarioagregarbtnActionPerformed(evt);
+            }
+        });
         inventarioToolBar.add(inventarioagregarbtn);
 
         inventariobuscarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/busca.png"))); // NOI18N
         inventariobuscarbtn.setFocusable(false);
         inventariobuscarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         inventariobuscarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        inventariobuscarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventariobuscarbtnActionPerformed(evt);
+            }
+        });
         inventarioToolBar.add(inventariobuscarbtn);
 
         inventarioeliminarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Eliminar.png"))); // NOI18N
         inventarioeliminarbtn.setFocusable(false);
         inventarioeliminarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         inventarioeliminarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        inventarioeliminarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inventarioeliminarbtnActionPerformed(evt);
+            }
+        });
         inventarioToolBar.add(inventarioeliminarbtn);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText("Busqueda");
+
+        inventariotxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inventariotxtKeyReleased(evt);
+            }
+        });
 
         jScrollPane9.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -882,6 +1024,11 @@ public final class Inventario extends javax.swing.JFrame {
 
             }
         ));
+        DataInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DataInventarioMouseClicked(evt);
+            }
+        });
         jScrollPane9.setViewportView(DataInventario);
 
         javax.swing.GroupLayout InventarioPLayout = new javax.swing.GroupLayout(InventarioP);
@@ -940,8 +1087,8 @@ public final class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_DataVentaMouseClicked
 
     private void ventasagregarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasagregarbtnActionPerformed
-        JOptionPane.showMessageDialog(null,"Seleccione la sucursal de venta");
-        SeleccionaSucursal selecsu = new SeleccionaSucursal();
+        JOptionPane.showMessageDialog(this,"Seleccione la sucursal de venta");
+        SeleccionaSucursal selecsu = new SeleccionaSucursal(true);
         selecsu.setVisible(true);
         
     }//GEN-LAST:event_ventasagregarbtnActionPerformed
@@ -949,7 +1096,7 @@ public final class Inventario extends javax.swing.JFrame {
     private void ventasbuscarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventasbuscarbtnActionPerformed
         if(idVenta != "")
         {
-            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere revisar la VENTA con identificador " + idVenta + "?");
+            int resp = JOptionPane.showConfirmDialog(this, "¿Quiere revisar la VENTA con identificador " + idVenta + "?");
             if(resp == 0)
             {
                 ConsultaDetalleVenta DTV = new ConsultaDetalleVenta(idVenta);
@@ -959,14 +1106,14 @@ public final class Inventario extends javax.swing.JFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro de VENTA");
+            JOptionPane.showMessageDialog(this, "Seleccione un registro de VENTA");
         }
     }//GEN-LAST:event_ventasbuscarbtnActionPerformed
 
     private void ventaseliminarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaseliminarbtnActionPerformed
         if(idVenta != "")
         {
-            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar este registro de VENTA con identificador " + idVenta + "?");
+            int resp = JOptionPane.showConfirmDialog(this, "¿Quiere eliminar este registro de VENTA con identificador " + idVenta + "?");
             if(resp == 0)
             {
                 Nexo.ejecutaSQL("DELETE FROM empleado.DetalleVenta WHERE idVenta = "+ idVenta,false);
@@ -977,7 +1124,7 @@ public final class Inventario extends javax.swing.JFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro de VENTA");
+            JOptionPane.showMessageDialog(this, "Seleccione un registro de VENTA");
         }
     }//GEN-LAST:event_ventaseliminarbtnActionPerformed
     // </editor-fold>   
@@ -1123,10 +1270,319 @@ public final class Inventario extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_sucursaleliminarbtnActionPerformed
+    // </editor-fold>
     
-    
-    
+    // <editor-fold defaultstate="collapsed" desc="Categoria">
+    private void categoriaagregarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaagregarbtnActionPerformed
+        Categoria CA = new Categoria("",false);
+        CA.setVisible(true);
+    }//GEN-LAST:event_categoriaagregarbtnActionPerformed
 
+    private void categoriaeditarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaeditarbtnActionPerformed
+        if(idCategoria != "")
+        {
+            Categoria CA = new Categoria(idCategoria,true);
+            CA.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione una CATEGORIA");
+
+        }
+    }//GEN-LAST:event_categoriaeditarbtnActionPerformed
+
+    private void DataCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataCategoriaMouseClicked
+        int fila = DataCategoria.rowAtPoint(evt.getPoint());
+        
+         idCategoria = modeloCa.getValueAt(fila,0).toString();
+    }//GEN-LAST:event_DataCategoriaMouseClicked
+
+    private void categoriaeliminarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaeliminarbtnActionPerformed
+       if(idCategoria != "")
+        {
+            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar esta CATEGORIA con identificador " + idCategoria + "?");
+            if(resp == 0)
+            {
+                Nexo.ejecutaSQL("DELETE FROM empleado.Categoria WHERE idCategoria = "+ idCategoria,false);
+                ActualizagridCategoria();
+                idCategoria = "";
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione un Categoria");
+
+        }
+    }//GEN-LAST:event_categoriaeliminarbtnActionPerformed
+    //</editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Inventario">
+    private void inventarioagregarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioagregarbtnActionPerformed
+        JOptionPane.showMessageDialog(null,"Seleccione la sucursal donde llegara la carga");
+        SeleccionaSucursal selecsu = new SeleccionaSucursal(false);
+        selecsu.setVisible(true);
+    }//GEN-LAST:event_inventarioagregarbtnActionPerformed
+
+    private void DataInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataInventarioMouseClicked
+        int fila = DataInventario.rowAtPoint(evt.getPoint());
+        
+        idInventario = modeloI.getValueAt(fila,0).toString();
+    }//GEN-LAST:event_DataInventarioMouseClicked
+
+    private void inventariobuscarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventariobuscarbtnActionPerformed
+        if(idInventario != "")
+        {
+           ConsultaDetalleInventario CDI = new ConsultaDetalleInventario(idInventario);
+           CDI.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione un Inventario");
+
+        }
+        
+        
+    }//GEN-LAST:event_inventariobuscarbtnActionPerformed
+
+    private void inventarioeliminarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioeliminarbtnActionPerformed
+        if(idInventario != "")
+        {
+            int resp = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar este INVENTARIO con identificador " + idInventario + "?");
+            if(resp == 0)
+            {
+                Nexo.ejecutaSQL("DELETE FROM empleado.InventarioProducto WHERE idInventario = "+idInventario,false);
+                Nexo.ejecutaSQL("DELETE FROM empleado.Inventario WHERE idInventario = "+idInventario,false);
+                ActualizagridInventario();
+                idInventario = "";
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Seleccione un INVENTARIO");
+
+        }
+    }//GEN-LAST:event_inventarioeliminarbtnActionPerformed
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Búsquedas">
+
+    private void ventastxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ventastxtKeyReleased
+        modeloV = new DefaultTableModel(); // para diseno de la tabla 
+        modeloV.addColumn("idVenta");
+        modeloV.addColumn("Cliente");
+        modeloV.addColumn("Total");
+        modeloV.addColumn("Descuento");
+        modeloV.addColumn("Fecha");
+        
+        try{
+            String Qery = "select v.idVenta, c.nombreCliente as cliente, v.montoTotal, c.descuento, v.fechaVenta  from empleado.Venta v inner join empleado.Cliente c on v.idCliente = c.idCliente WHERE c.nombreCliente LIKE '%"+ventastxt.getText()+"%'";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[5];// las tres columnas
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                Aux[4] = rt.getString(5);
+                modeloV.addRow(Aux);
+            }
+           DataVenta.setModel(modeloV);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_ventastxtKeyReleased
+
+    private void clientestxt1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clientestxt1KeyReleased
+        modeloC = new DefaultTableModel(); // para diseno de la tabla 
+        modeloC.addColumn("idCliente");
+        modeloC.addColumn("Nombre");
+        modeloC.addColumn("Telefono");
+        modeloC.addColumn("Tipo cliente");
+        modeloC.addColumn("Descuento");
+
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Cliente WHERE NombreCliente  LIKE '%"+ clientestxt1.getText() +"%'";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[5];// las tres columnas
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                Aux[4] = rt.getString(5);
+                modeloC.addRow(Aux);
+            }
+           DataClientes.setModel(modeloC);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_clientestxt1KeyReleased
+
+    private void productostxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_productostxtKeyReleased
+        modeloP = new DefaultTableModel(); // para diseno de la tabla 
+        modeloP.addColumn("idProducto");
+        modeloP.addColumn("idCategoria");
+        modeloP.addColumn("Precio");
+        modeloP.addColumn("Sabor");
+
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Producto WHERE sabor LIKE '%"+ productostxt.getText() +"%'";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];// las tres columnas
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloP.addRow(Aux);
+            }
+           DataProductos.setModel(modeloP);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_productostxtKeyReleased
+
+    private void stockproductostxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockproductostxtKeyReleased
+        modeloSP = new DefaultTableModel(); // para diseno de la tabla 
+        modeloSP.addColumn("idProducto");
+        modeloSP.addColumn("Sabor");
+        modeloSP.addColumn("Categoria");
+        modeloSP.addColumn("Tamaño");
+
+
+        try{
+            String Qery = "select idProducto, sabor, nombreCategoria, tamano from empleado.Producto p inner join empleado.Categoria c on p.idCategoria = c.idCategoria WHERE sabor LIKE '%"+ stockproductostxt.getText() +"%'";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];// las tres columnas
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloSP.addRow(Aux);
+            }
+           DataProductosstock.setModel(modeloSP);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_stockproductostxtKeyReleased
+
+    private void stocksocursalestxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stocksocursalestxtKeyReleased
+        modeloSS = new DefaultTableModel(); // para diseno de la tabla
+        modeloSS.addColumn("ID");
+        modeloSS.addColumn("Dirección");
+        modeloSS.addColumn("Telefono");
+        modeloSS.addColumn("Horario");
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Sucursal WHERE Direccion LIKE '%"+ stocksocursalestxt.getText() +"%'";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloSS.addRow(Aux);
+            }
+            DataSucursalesstock.setModel(modeloSS);
+        }
+        catch(Exception e){
+        
+        }
+    }//GEN-LAST:event_stocksocursalestxtKeyReleased
+
+    private void sucursaltxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sucursaltxtKeyReleased
+        modeloSu = new DefaultTableModel(); // para diseno de la tabla
+        modeloSu.addColumn("ID");
+        modeloSu.addColumn("Dirección");
+        modeloSu.addColumn("Telefono");
+        modeloSu.addColumn("Horario");
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Sucursal WHERE Direccion LIKE '%"+ sucursaltxt.getText() +"%'";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloSu.addRow(Aux);
+            }
+            DataSucursal.setModel(modeloSu);
+        }
+        catch(Exception e){
+        
+        }
+    }//GEN-LAST:event_sucursaltxtKeyReleased
+
+    private void categoriatxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_categoriatxtKeyReleased
+        modeloCa = new DefaultTableModel(); // para diseno de la tabla
+        modeloCa.addColumn("ID");
+        modeloCa.addColumn("Nombre");
+        modeloCa.addColumn("Tamaño");
+        
+        try{
+            String Qery = "SELECT * FROM empleado.Categoria WHERE NombreCategoria LIKE '%"+ categoriatxt.getText() +"%'";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                modeloCa.addRow(Aux);
+            }
+            DataCategoria.setModel(modeloCa);
+        }
+        catch(Exception e){
+        
+        }
+    }//GEN-LAST:event_categoriatxtKeyReleased
+
+    private void inventariotxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inventariotxtKeyReleased
+        modeloI = new DefaultTableModel(); // para diseno de la tabla
+        modeloI.addColumn("idInventario");
+        modeloI.addColumn("Dirección Socursal");
+        modeloI.addColumn("Total de productos recibidos");
+        modeloI.addColumn("Fecha de recepción");
+        
+        try{
+            String Qery = "select  distinct(i.idInventario), s.direccion, SUM(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i inner join empleado.InventarioProducto p on i.idInventario = p.idInventario inner join empleado.Sucursal s on s.idSucursal = i.idSucursal WHERE s.direccion LIKE '%"+ inventariotxt.getText() +"%' group by i.idInventario, s.direccion,i.fechaRecepcion ";
+            st = Conexion.createStatement();
+            rt = st.executeQuery(Qery);
+            String Aux[] = new String[4];
+
+            while(rt.next()){
+                Aux[0] = rt.getString(1);
+                Aux[1] = rt.getString(2);
+                Aux[2] = rt.getString(3);
+                Aux[3] = rt.getString(4);
+                modeloI.addRow(Aux);
+            }
+            DataInventario.setModel(modeloI);
+        }
+        catch(Exception e){
+        
+        }
+    }//GEN-LAST:event_inventariotxtKeyReleased
+    
     // </editor-fold>
     
     
@@ -1166,7 +1622,7 @@ public final class Inventario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Categoria;
     private javax.swing.JPanel Clientes;
-    private javax.swing.JTable DataCategoria;
+    public static javax.swing.JTable DataCategoria;
     public static javax.swing.JTable DataClientes;
     public static javax.swing.JTable DataInventario;
     public static javax.swing.JTable DataProductos;

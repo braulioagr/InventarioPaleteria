@@ -175,7 +175,7 @@ public class ModificaCliente extends javax.swing.JFrame {
         Nexo.ejecutaSQL("UPDATE empleado.Cliente SET NombreCliente = '" + this.nombretext.getText() + "', Telefono = '" + this.telefonotext.getText() + "', tipocliente = '"+ this.tipocbox.getSelectedItem().toString() + "', descuento = '"+ this.descuentotext.getValue().toString() + "' WHERE idCliente = "+ idCliente, false);
         Inventario.ActualizagridCliente();
         this.dispose();
-        JOptionPane.showMessageDialog(null, "Actualización Correcta");
+        JOptionPane.showMessageDialog(this, "Actualización Correcta");
 
     }//GEN-LAST:event_aceptarbtnActionPerformed
 
