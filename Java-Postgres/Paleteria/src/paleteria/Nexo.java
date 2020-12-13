@@ -47,8 +47,8 @@ public class Nexo {
         String URL, Nombre, Password;
         
         URL = "jdbc:postgresql://localhost:5432/Paleteria";
-        Nombre = "postgres";
-        Password = "postgres";
+        Nombre = Inventario.usuario;
+        Password = Inventario.contra;
         
         try{
             Conex = DriverManager.getConnection(URL,Nombre,Password);
@@ -68,11 +68,16 @@ public class Nexo {
         try {
                 Conexion = Nexo.conex();
                 st = Conexion.createStatement();
-                rt = st.executeQuery(Qery);
+                st.executeQuery(Qery);
 
             
             } catch (SQLException e) {
-                //JOptionPane.showMessageDialog(null, "Error no ejecutado: " + e.getMessage());
+                
+                if(!"La consulta no retornó ningún resultado".equals(e.getMessage()))
+                {
+                    JOptionPane.showMessageDialog(null, "Error, sql no ejecutado: " + e.getMessage());
+
+                }
             }
     }
     

@@ -369,7 +369,33 @@ select * from empleado.DetalleVenta
 select * from empleado.Venta
 
 
-insert into empleado.InventarioProducto(idinventario,idproducto,cantidadrecibida) values(20,2,33);
+----------------------Usuarios-----------------------------------------------------------
 
-select p.sabor, c.nombreCategoria as categoria, c.tamano, i.cantidadRecibida as cantidad from empleado.InventarioProducto i inner join empleado.Producto p on i.idProducto = p.idProducto inner join empleado.Categoria c on p.idCategoria = c.idCategoria where i.idInventario = 16
-delete from empleado.venta  where idventa = 3
+CREATE USER administrador PASSWORD 'pasteleria1';
+ALTER ROLE administrador WITH SUPERUSER;
+GRANT ALL PRIVILEGES ON DATABASE "Paleteria" TO administrador;
+
+
+CREATE USER vendedor PASSWORD 'vendedor1';
+GRANT USAGE ON SCHEMA empleado TO vendedor ;
+GRANT SELECT ON ALL TABLES IN SCHEMA empleado TO vendedor;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA empleado TO vendedor;
+GRANT DELETE, INSERT, UPDATE ON empleado.venta TO vendedor;
+GRANT DELETE, INSERT, UPDATE ON empleado.detalleventa TO vendedor;
+GRANT DELETE, INSERT, UPDATE ON empleado.cliente TO vendedor;
+GRANT DELETE, INSERT, UPDATE ON empleado.stock TO vendedor;
+
+
+CREATE USER empleado1 PASSWORD 'empleado1';
+GRANT USAGE ON SCHEMA empleado TO empleado1 ;
+GRANT ALL PRIVILEGES ON DATABASE "Paleteria" TO empleado1;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA empleado TO empleado1;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA empleado TO empleado1;
+REVOKE DELETE, INSERT, UPDATE ON empleado.venta FROM empleado1;
+REVOKE DELETE, INSERT, UPDATE ON empleado.cliente FROM empleado1;
+
+
+
+
+
+

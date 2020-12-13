@@ -16,7 +16,7 @@ public class Paleteria {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-         new Inventario().setVisible(true);
+         new Login().setVisible(true);
     }
     
 }

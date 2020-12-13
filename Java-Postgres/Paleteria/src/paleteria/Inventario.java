@@ -21,7 +21,7 @@ public final class Inventario extends javax.swing.JFrame {
     public static Statement st = null;
     public static ResultSet rt;
     private static DefaultTableModel modeloV, modeloC, modeloP, modeloS, modeloSP, modeloSS, modeloSu, modeloCa, modeloI;
-    
+    public static String usuario, contra;
     private String idVenta = "";
     private String idCliente = "";
     private String idProducto = "";
@@ -30,10 +30,47 @@ public final class Inventario extends javax.swing.JFrame {
     private String idInventario = "";
     
 
-    public Inventario() {
+    public Inventario(String usu, String cont) {
         initComponents();
         
+        usuario = usu;
+        contra = cont;
         Conexion = Nexo.conex();
+        
+        if("vendedor".equals(usu))
+        {
+            
+            //Inventario.setEnabledAt(3, false);
+            ventaseliminarbtn.setEnabled(false);
+            productosagregarbtn.setEnabled(false);
+            productoseditarbtn.setEnabled(false);
+            productoseliminarbtn.setEnabled(false);
+            sucursalagregarbtn.setEnabled(false);
+            sucursaleditarbtn.setEnabled(false);
+            sucursaleliminarbtn.setEnabled(false);
+            categoriaagregarbtn.setEnabled(false);
+            categoriaeditarbtn.setEnabled(false);
+            categoriaeliminarbtn.setEnabled(false);
+            inventarioagregarbtn.setEnabled(false);
+            inventariobuscarbtn.setEnabled(false);
+            inventarioeliminarbtn.setEnabled(false);
+        }
+        
+        if("empleado1".equals(usu))
+        {
+            Inventario.setEnabledAt(0, false);
+            Inventario.setEnabledAt(1, false);
+            productosagregarbtn.setEnabled(false);
+            productoseditarbtn.setEnabled(false);
+            productoseliminarbtn.setEnabled(false);
+            sucursalagregarbtn.setEnabled(false);
+            sucursaleditarbtn.setEnabled(false);
+            sucursaleliminarbtn.setEnabled(false);
+            categoriaagregarbtn.setEnabled(false);
+            categoriaeditarbtn.setEnabled(false);
+            categoriaeliminarbtn.setEnabled(false);
+        }
+        
         ActualizagridVenta();
         ActualizagridCliente();
         ActualizagridProducto();
@@ -548,11 +585,11 @@ public final class Inventario extends javax.swing.JFrame {
             ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(clientesToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(ClientesLayout.createSequentialGroup()
-                .addContainerGap(722, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(clientestxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 927, Short.MAX_VALUE)
         );
         ClientesLayout.setVerticalGroup(
             ClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,10 +597,10 @@ public final class Inventario extends javax.swing.JFrame {
                 .addComponent(clientesToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(clientestxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1211,6 +1248,7 @@ public final class Inventario extends javax.swing.JFrame {
             int resp = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar este PRODUCTO con identificador " + idProducto + "?");
             if(resp == 0)
             {
+                Nexo.ejecutaSQL("DELETE FROM empleado.InventarioProducto WHERE idProducto = "+idProducto,false);
                 Nexo.ejecutaSQL("DELETE FROM empleado.Producto WHERE idProducto = "+ idProducto,false);
                 ActualizagridProducto();
                 ActualizagridProductoStock();
@@ -1257,6 +1295,7 @@ public final class Inventario extends javax.swing.JFrame {
             int resp = JOptionPane.showConfirmDialog(null, "¿Quiere eliminar esta SUCURSAL con identificador " + idSucursal + "?");
             if(resp == 0)
             {
+                Nexo.ejecutaSQL("DELETE FROM empleado.Inventario WHERE idSucursal = "+ idSucursal,false);
                 Nexo.ejecutaSQL("DELETE FROM empleado.Sucursal WHERE idSucursal = "+ idSucursal,false);
                 ActualizagridSucursal();
                 ActualizagridSucursalStock();
@@ -1614,7 +1653,7 @@ public final class Inventario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inventario().setVisible(true);
+                new Inventario(usuario, contra).setVisible(true);
             }
         });
     }
