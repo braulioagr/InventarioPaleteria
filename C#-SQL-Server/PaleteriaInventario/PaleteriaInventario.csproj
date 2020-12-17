@@ -95,6 +95,9 @@
       <DependentUpon>ModificaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Nexo.cs" />
+    <Compile Include="PaleteriaDataSet1.cs">
+      <DependentUpon>PaleteriaDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PaleteriaDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

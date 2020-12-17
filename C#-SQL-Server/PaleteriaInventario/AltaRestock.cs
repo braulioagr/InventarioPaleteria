@@ -40,7 +40,7 @@ namespace PaleteriaInventario
             }
             else
             {
-                MessageBox.Show("Por favor primero seleccione un profucto","Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor primero seleccione un producto","Error",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
         public int IdProducto

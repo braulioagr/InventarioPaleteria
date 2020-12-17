@@ -172,6 +172,7 @@ public final class Inventario extends javax.swing.JFrame {
         modeloS = new DefaultTableModel(); // para diseno de la tabla 
         modeloS.addColumn("idStock");
         modeloS.addColumn("Sucursal");
+        modeloS.addColumn("idProducto");
         modeloS.addColumn("Sabor");
         modeloS.addColumn("Precio");
         modeloS.addColumn("Categoria");
@@ -180,10 +181,10 @@ public final class Inventario extends javax.swing.JFrame {
 
         
         try{
-            String Qery = "select idStock, direccion as Sucursal, Sabor, Precio, NombreCategoria as Categoria, Tamano, Existencias from empleado.Stock s inner join empleado.Sucursal su on su.idSucursal = s.idSucursal inner join empleado.Producto p on p.idProducto = s.idProducto inner join empleado.Categoria c on p.idCategoria = c.idCategoria ORDER BY direccion";
+            String Qery = "select idStock, direccion as Sucursal, p.idProducto, Sabor, Precio, NombreCategoria as Categoria, Tamano, Existencias from empleado.Stock s inner join empleado.Sucursal su on su.idSucursal = s.idSucursal inner join empleado.Producto p on p.idProducto = s.idProducto inner join empleado.Categoria c on p.idCategoria = c.idCategoria ORDER BY direccion";
             st = Conexion.createStatement();
             rt = st.executeQuery(Qery);
-            String Aux[] = new String[7];// las tres columnas
+            String Aux[] = new String[8];// las tres columnas
             while(rt.next()){
                 Aux[0] = rt.getString(1);
                 Aux[1] = rt.getString(2);
@@ -192,6 +193,7 @@ public final class Inventario extends javax.swing.JFrame {
                 Aux[4] = rt.getString(5);
                 Aux[5] = rt.getString(6);
                 Aux[6] = rt.getString(7);
+                Aux[7] = rt.getString(8);
                 modeloS.addRow(Aux);
             }
            DataStock.setModel(modeloS);

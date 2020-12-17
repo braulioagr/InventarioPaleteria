@@ -121,6 +121,7 @@
             this.dataGridViewProducto.Size = new System.Drawing.Size(263, 195);
             this.dataGridViewProducto.TabIndex = 1;
             this.dataGridViewProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducto_CellClick);
+            this.dataGridViewProducto.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducto_CellContentClick);
             // 
             // AltaDetalle
             // 

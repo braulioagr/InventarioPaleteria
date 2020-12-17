@@ -69,3 +69,26 @@ C:\Users\ulise\3D Objects\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\
 C:\Users\ulise\3D Objects\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.csproj.GenerateResource.cache
 C:\Users\ulise\3D Objects\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.exe
 C:\Users\ulise\3D Objects\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.pdb
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\bin\Debug\PaleteriaInventario.exe.config
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\bin\Debug\PaleteriaInventario.exe
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\bin\Debug\PaleteriaInventario.pdb
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.csprojAssemblyReference.cache
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.AltaCliente.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.AltaDetalle.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.AltaRestock.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.Categoria.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.ConsultaDetalleInventario.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.ConsultaDetalleVenta.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.Inventario.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.ModificaCliente.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.Producto.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.Properties.Resources.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.Restock.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.SeleccionaCliente.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.SeleccionaSucursal.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.SeleccionCategoria.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.Sucursal.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.Venta.resources
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.csproj.GenerateResource.cache
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.exe
+C:\Users\ulise\Desktop\InventarioPaleteria\C#-SQL-Server\PaleteriaInventario\obj\Debug\PaleteriaInventario.pdb

@@ -91,9 +91,9 @@ namespace PaleteriaInventario
                                                                      " tamaño from empleado.Producto p inner join " +
                                                                      "empleado.Categoria c on p.idCategoria = c.idCategoria", "Producto");
             this.nexo.actualizaGrid(this.dataGridViewStockSucursales, "select idSucursal, direccion from empleado.Sucursal", "Sucursal");
-            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, direccion as sucursal, sabor, precio, nombreCategoria as categoria, tamaño, existencias"+
+            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, direccion as sucursal, p.idProducto, sabor, precio, nombreCategoria as categoria, tamaño, existencias"+
                                                             " from empleado.Stock s"+
-                                                            " inner join empleado.Sucursal su on su.idSucursal = s.idProducto"+
+                                                            " inner join empleado.Sucursal su on su.idSucursal = s.idSucursal"+
                                                             " inner join empleado.Producto p on p.idProducto = s.idProducto"+
                                                             " inner join empleado.Categoria c on p.idCategoria = c.idCategoria",
                                                             "Stock");
@@ -306,8 +306,11 @@ namespace PaleteriaInventario
                             this.idInventario = -1;
                         }
                     }
-            break;
+                break;
+
             }
+
+            this.seteaDataGridsStock();
         }
 
         private void toolStripSucursal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -519,6 +522,7 @@ namespace PaleteriaInventario
                                     "from empleado.Venta v " +
                                     "inner join empleado.Cliente c "+
                                     "on v.idCliente = c.idCliente", "Venta");
+            this.seteaDataGridsStock();
         }
 
         #endregion
@@ -689,7 +693,7 @@ namespace PaleteriaInventario
         {
             string id;
             id = ((DataGridView)sender).CurrentRow.Cells[0].Value.ToString();
-            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, sabor, precio, existencias, nombreCategoria as categoria, tamaño" +
+            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock,p.idProducto, sabor, precio, existencias, nombreCategoria as categoria, tamaño" +
                                            " from empleado.Stock s" +
                                            " inner join empleado.Sucursal su on su.idSucursal = s.idSucursal" +
                                            " inner join empleado.Producto p on p.idProducto = s.idProducto" +
@@ -701,7 +705,7 @@ namespace PaleteriaInventario
         {
             string id;
             id = ((DataGridView)sender).CurrentRow.Cells[0].Value.ToString();
-            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, sabor, precio, existencias, nombreCategoria as categoria, tamaño, su.direccion" +
+            this.nexo.actualizaGrid(this.dataGridViewStock, "select idStock, p.idProducto, sabor, precio, existencias, nombreCategoria as categoria, tamaño, su.direccion" +
                                            " from empleado.Stock s" +
                                            " inner join empleado.Sucursal su on su.idSucursal = s.idSucursal" +
                                            " inner join empleado.Producto p on p.idProducto = s.idProducto" +
@@ -713,5 +717,9 @@ namespace PaleteriaInventario
 
         #endregion
 
+        private void toolStripButton20_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

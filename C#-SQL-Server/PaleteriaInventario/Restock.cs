@@ -46,17 +46,21 @@ namespace PaleteriaInventario
                 this.sqlcommand.Parameters.AddWithValue("@idSucursal", this.idSucursal);
                 this.nexo.ejecutarSQL(this.sqlcommand, false);
                 this.idInventario = this.nexo.obtenUltimoId("empleado.Inventario", "idInventario");
+                this.nexo.actualizaGrid(this.dataGridViewInventario,
+                "select idInventario, fechaRecepcion from empleado.Inventario where idInventario = " + this.idInventario.ToString(), "Inventario");
             }
             else
             {
                 this.button2.Visible = false;
                 this.button1.Text = "Cerrar";
+                this.actualizaDataGridInventario();
+
             }
-            this.actualizaDataGridInventario();
         }
 
         private void actualizaDataGridInventario()
         {
+
             this.nexo.actualizaGrid(this.dataGridViewInventario,
                 "select  distinct(i.idInventario), s.direccion, sum(p.cantidadRecibida) as total, i.fechaRecepcion from empleado.Inventario i " +
                 "inner join empleado.InventarioProducto p on i.idInventario = p.idInventario " +
@@ -64,7 +68,7 @@ namespace PaleteriaInventario
                 "where i.idInventario = " + this.idInventario.ToString() +
                 "group by i.idInventario, s.direccion,i.fechaRecepcion", "Inventario");
             this.nexo.actualizaGrid(this.dataGridViewDetalles,
-                 "select * from empleado.InventarioProducto i " +
+                 "select i.idInventario, p.idProducto, i.cantidadRecibida, p.sabor, p.precio, c.tamaño, c.nombreCategoria from empleado.InventarioProducto i " +
                  "inner join empleado.Producto p on i.idProducto = p.idProducto " +
                  "inner join empleado.Categoria c on p.idCategoria = c.idCategoria " +
                  "where i.idInventario = " + this.idInventario.ToString(), "InventarioProducto");
@@ -172,10 +176,7 @@ namespace PaleteriaInventario
                           this.dataGridViewDetalles.CurrentRow.Cells[3].Value.ToString() + " | " +
                           this.dataGridViewDetalles.CurrentRow.Cells[4].Value.ToString() + " | " +
                           this.dataGridViewDetalles.CurrentRow.Cells[5].Value.ToString() + " | " +
-                          this.dataGridViewDetalles.CurrentRow.Cells[6].Value.ToString() + " | " +
-                          this.dataGridViewDetalles.CurrentRow.Cells[7].Value.ToString() + " | " +
-                          this.dataGridViewDetalles.CurrentRow.Cells[8].Value.ToString() + " | " +
-                          this.dataGridViewDetalles.CurrentRow.Cells[9].Value.ToString();
+                          this.dataGridViewDetalles.CurrentRow.Cells[6].Value.ToString();
             this.viejosValores[0] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[0].Value.ToString());
             this.viejosValores[1] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[1].Value.ToString());
             this.viejosValores[2] = int.Parse(this.dataGridViewDetalles.CurrentRow.Cells[2].Value.ToString());

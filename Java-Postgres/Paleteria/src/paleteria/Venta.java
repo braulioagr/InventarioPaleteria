@@ -14,8 +14,8 @@ import static paleteria.SeleccionaCliente.st;
 
 public class Venta extends javax.swing.JFrame {
 
-   private static String idSocur, idClie, idVenta, Qery;
-   private static DefaultTableModel modelo;
+   private static String idSucur, idClie, idVenta, Qery;
+   private static DefaultTableModel modelo, modeloP;
    private static Connection Conexion = null;
    public static Statement st = null;
    public static ResultSet rt;
@@ -25,7 +25,7 @@ public class Venta extends javax.swing.JFrame {
     public Venta(String idS, String idC) {
         initComponents();
         
-        idSocur = idS;
+        idSucur = idS;
         idClie = idC;
         Conexion = Nexo.conex();
         Venta_carga();
@@ -73,14 +73,14 @@ public class Venta extends javax.swing.JFrame {
         }
     }
     public static void ActualizagridDetalles(){
-        modelo = new DefaultTableModel(); // para diseno de la tabla 
-        modelo.addColumn("idVenta");
-        modelo.addColumn("idStock");
-        modelo.addColumn("Sabor");
-        modelo.addColumn("Categoria");
-        modelo.addColumn("Unidades");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Subtotal");
+        modeloP = new DefaultTableModel(); // para diseno de la tabla 
+        modeloP.addColumn("idVenta");
+        modeloP.addColumn("idStock");
+        modeloP.addColumn("Sabor");
+        modeloP.addColumn("Categoria");
+        modeloP.addColumn("Unidades");
+        modeloP.addColumn("Precio");
+        modeloP.addColumn("Subtotal");
         try{
             Qery = "select d.idVenta, s.idStock, p.sabor, c.nombreCategoria as categoria, d.unidades, p.precio, d.subTotal from empleado.DetalleVenta d inner join empleado.Stock s on s.idStock = d.idStock inner join empleado.Producto p on p.idProducto = s.idProducto inner join empleado.Categoria c on c.idCategoria = p.idCategoria where idVenta = " + Venta.idVenta;                           
             st = Conexion.createStatement();
@@ -94,9 +94,9 @@ public class Venta extends javax.swing.JFrame {
                 Aux[4] = rt.getString(5);
                 Aux[5] = rt.getString(6);
                 Aux[6] = rt.getString(7);
-                modelo.addRow(Aux);
+                modeloP.addRow(Aux);
             }
-            Venta.DataProductos.setModel(modelo);
+            Venta.DataProductos.setModel(modeloP);
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
@@ -113,6 +113,7 @@ public class Venta extends javax.swing.JFrame {
         DataProductos = new javax.swing.JTable();
         Ventatollbar = new javax.swing.JToolBar();
         Agregarbtn = new javax.swing.JButton();
+        editarbtn = new javax.swing.JButton();
         Eliminarbtn = new javax.swing.JButton();
         aceptarbtn = new javax.swing.JButton();
         cancelarbtn = new javax.swing.JButton();
@@ -191,6 +192,17 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         Ventatollbar.add(Agregarbtn);
+
+        editarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Editar.png"))); // NOI18N
+        editarbtn.setFocusable(false);
+        editarbtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        editarbtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        editarbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarbtnActionPerformed(evt);
+            }
+        });
+        Ventatollbar.add(editarbtn);
 
         Eliminarbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Eliminar.png"))); // NOI18N
         Eliminarbtn.setFocusable(false);
@@ -277,9 +289,9 @@ public class Venta extends javax.swing.JFrame {
     private void DataProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DataProductosMouseClicked
        int fila = DataProductos.rowAtPoint(evt.getPoint());
         
-        idv = modelo.getValueAt(fila,0).toString();
-        ids = modelo.getValueAt(fila,1).toString();
-        u = modelo.getValueAt(fila,4).toString();
+        idv = modeloP.getValueAt(fila,0).toString();
+        ids = modeloP.getValueAt(fila,1).toString();
+        u = modeloP.getValueAt(fila,4).toString();
     }//GEN-LAST:event_DataProductosMouseClicked
 
     private void EliminarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarbtnActionPerformed
@@ -307,7 +319,7 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarbtnActionPerformed
 
     private void AgregarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarbtnActionPerformed
-        AltaDetalle AlD = new AltaDetalle(idVenta);
+        AltaDetalle AlD = new AltaDetalle(idVenta, idSucur, false , "0");
         AlD.setVisible(true);
     }//GEN-LAST:event_AgregarbtnActionPerformed
 
@@ -317,6 +329,18 @@ public class Venta extends javax.swing.JFrame {
         Inventario.ActualizagridVenta();
 
     }//GEN-LAST:event_aceptarbtnActionPerformed
+
+    private void editarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarbtnActionPerformed
+        if(idv != "")
+       {
+            AltaDetalle AlD = new AltaDetalle(idVenta, idSucur, true, ids);
+            AlD.setVisible(true);
+        }
+       else
+       {
+            JOptionPane.showMessageDialog(this, "Seleccione un producto para eliminar de la venta");
+       }
+    }//GEN-LAST:event_editarbtnActionPerformed
 
     
     public static void main(String args[]) {
@@ -346,7 +370,7 @@ public class Venta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Venta(idSocur, idClie).setVisible(true);
+                new Venta(idSucur, idClie).setVisible(true);
             }
         });
     }
@@ -361,6 +385,7 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JToolBar Ventatollbar;
     private javax.swing.JButton aceptarbtn;
     private javax.swing.JButton cancelarbtn;
+    private javax.swing.JButton editarbtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

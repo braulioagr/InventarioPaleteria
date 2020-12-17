@@ -29,7 +29,7 @@ namespace PaleteriaInventario
         private void dataGridViewProducto_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.idStock = int.Parse(this.dataGridViewProducto.CurrentRow.Cells[0].Value.ToString());
-            this.numericUpDown1.Maximum = decimal.Parse(this.dataGridViewProducto.CurrentRow.Cells[0].Value.ToString());
+            this.numericUpDown1.Maximum = decimal.Parse(this.dataGridViewProducto.CurrentRow.Cells[4].Value.ToString());
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace PaleteriaInventario
             }
             else
             {
-                MessageBox.Show("Por favor primero seleccione un profucto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor primero seleccione un producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         public int IdProducto
@@ -52,6 +52,11 @@ namespace PaleteriaInventario
         public int cantidad
         {
             get { return (int)this.numericUpDown1.Value; }
+        }
+
+        private void dataGridViewProducto_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

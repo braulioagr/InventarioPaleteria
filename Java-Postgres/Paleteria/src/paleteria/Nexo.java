@@ -47,8 +47,8 @@ public class Nexo {
         String URL, Nombre, Password;
         
         URL = "jdbc:postgresql://localhost:5432/Paleteria";
-        Nombre = Inventario.usuario;
-        Password = Inventario.contra;
+        Nombre = "postgres";//Inventario.usuario;
+        Password = "postgres";//Inventario.contra;
         
         try{
             Conex = DriverManager.getConnection(URL,Nombre,Password);
