@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ulise/Desktop/Paleteria/src/paleteria/Inventario.java</file>
-            <file>file:/C:/Users/ulise/Desktop/Paleteria/src/paleteria/Venta.java</file>
-            <file>file:/C:/Users/ulise/Desktop/Paleteria/src/paleteria/AltaDetalle.java</file>
-            <file>file:/C:/Users/ulise/Desktop/Paleteria/src/paleteria/Nexo.java</file>
+            <file>file:/C:/Users/Braulio%20García%20R/Documents/GitHub/InventarioPaleteria/Java-Postgres/Paleteria/src/paleteria/Login.java</file>
+            <file>file:/C:/Users/Braulio%20García%20R/Documents/GitHub/InventarioPaleteria/Java-Postgres/Paleteria/src/paleteria/SeleccionaCliente.java</file>
+            <file>file:/C:/Users/Braulio%20García%20R/Documents/GitHub/InventarioPaleteria/Java-Postgres/Paleteria/src/paleteria/Paleteria.java</file>
+            <file>file:/C:/Users/Braulio%20García%20R/Documents/GitHub/InventarioPaleteria/Java-Postgres/Paleteria/src/paleteria/Restock.java</file>
+            <file>file:/C:/Users/Braulio%20García%20R/Documents/GitHub/InventarioPaleteria/Java-Postgres/Paleteria/src/paleteria/Producto.java</file>
+            <file>file:/C:/Users/Braulio%20García%20R/Documents/GitHub/InventarioPaleteria/Java-Postgres/Paleteria/src/paleteria/AltaCliente.java</file>
         </group>
     </open-files>
 </project-private>
